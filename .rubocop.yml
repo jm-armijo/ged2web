@@ -1,5 +1,10 @@
-AllCops:       
+AllCops:
   NewCops: enable
+
+# Configuration parameters: IndentationWidth.
+# SupportedStyles: outdent, indent
+Layout/AccessModifierIndentation:
+  EnforcedStyle: outdent
 
 # Cop supports --auto-correct.
 # Configuration parameters: Width, IgnoredPatterns.

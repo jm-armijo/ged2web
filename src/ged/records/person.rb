@@ -1,0 +1,1 @@
+class Person < Record; end

@@ -12,7 +12,7 @@ class Parser
             @ged.add(line)
         end
 
-        @ged.resolve_dependencies
+        @ged.resolve_references
 
         return @ged
     end
