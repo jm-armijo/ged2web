@@ -34,6 +34,14 @@ class Record
         end
     end
 
+    def find(type)
+        return @entries.find { |entry| entry.type == type }
+    end
+
+    def find_all(type)
+        return @entries.find_all { |entry| entry.type == type }
+    end
+
 private
 
     def create_new_child_record(line)

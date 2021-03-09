@@ -36,3 +36,10 @@ Style/NegatedIf:
 
 Style/RedundantReturn:
   Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, AllowInnerSlashes.
+# SupportedStyles: slashes, percent_r, mixed
+Style/RegexpLiteral:
+  EnforcedStyle: mixed
+  AllowInnerSlashes: true
