@@ -34,12 +34,24 @@ class Record
         end
     end
 
+    def references
+        return find_all('SOUR')
+    end
+
     def find(type)
         return @entries.find { |entry| entry.type == type }
     end
 
     def find_all(type)
         return @entries.find_all { |entry| entry.type == type }
+    end
+
+    def to_s
+        return @value || ''
+    end
+
+    def to_str
+        return to_s
     end
 
 private

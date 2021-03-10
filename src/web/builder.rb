@@ -1,9 +1,9 @@
-require 'erb'
-require 'fileutils'
+require_relative 'file_manager'
+require_relative 'section'
 
 class Builder
     def initialize
-        @base_dir = Dir.pwd
+        @file_manager = FileManager.instance
     end
 
     def build(ged)
@@ -14,31 +14,12 @@ class Builder
         end
     end
 
-private
-
     def build_person_page(person)
-        template = open_template('person.html')
+        template = @file_manager.open_template('person.html')
         page = template.result(binding)
 
         directory = 'ind'
         file_name = "#{person.id.tr('@', '')}.html"
-        save_page(page, directory, file_name)
-    end
-
-    def open_template(file_name)
-        Dir.chdir('./src/web/templates')
-        template = ERB.new(File.read(file_name))
-        Dir.chdir(@base_dir)
-
-        return template
-    end
-
-    def save_page(content, directory, file_name)
-        directory = "./out/#{directory}/"
-        FileUtils.mkdir_p(directory) if !File.directory?(directory)
-
-        Dir.chdir(directory)
-        File.write(file_name, content)
-        Dir.chdir(@base_dir)
+        @file_manager.save_page(page, directory, file_name)
     end
 end

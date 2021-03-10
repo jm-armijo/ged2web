@@ -10,11 +10,11 @@ class Person < Record
     end
 
     def sosa
-        @sosa ||= find('_SOSA')&.value || ''
+        @sosa ||= find('_SOSA')
     end
 
     def gender
-        @gender ||= find('SEX')&.value || ''
+        @gender ||= find('SEX')
         return @gender
     end
 
@@ -22,12 +22,12 @@ private
 
     def find_first_name
         name = find('NAME')
-        return name.find('GIVN')&.value || split_name(name.value).first
+        return name.find('GIVN') || split_name(name.value).first
     end
 
     def find_last_name
         name = find('NAME')
-        return name.find('SURN')&.value || split_name(name.value).last
+        return name.find('SURN') || split_name(name.value).last
     end
 
     def split_name(name)

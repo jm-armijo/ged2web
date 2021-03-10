@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Hello World! Site Title</title>
-	</head>
-	<body>
-		<h1><%= person.first_name %> <%= person.last_name %></h1>
-        <div><%= person.sosa %></div>
-        <div><%= person.gender%></div>
-	</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hello World! Site Title</title>
+    </head>
+    <body>
+        <div class='row'>
+            <div class='label'>Name:</div>
+            <div class='first-name'><%= person.first_name %></div>
+            <div class='last-name'><%= person.last_name %></div>
+            <%= Section.build_ref_ids(person.references) %>
+        </div>
+        <div class='row'>
+            <div class='label'>Sosa:</div>
+            <div><%= person.sosa %></div>
+        </div>
+        <div class='row'>
+            <div class='label'>Gender:</div>
+            <div><%= person.gender %></div>
+            <%= Section.build_ref_ids(person.gender.references) %>
+        </div>
+    </body>
 </html>
