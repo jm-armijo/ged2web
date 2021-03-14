@@ -34,7 +34,7 @@ class Entity
     end
 
     def to_s
-        return @record.value || ''
+        return value || ''
     end
 
     def to_str

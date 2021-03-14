@@ -22,7 +22,7 @@ class EntityFactory
     def self.create_instance(level, id, type, value)
         return nil if type == 'TRLR'
 
-        if @entities_map.include? (type)
+        if @entities_map.include?(type)
             class_to_instantiate = @entities_map[type]
         else
             class_to_instantiate = Entity
