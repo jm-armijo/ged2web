@@ -24,5 +24,10 @@
             </div>
             <%= self.build_list('notes', person.notes) %>
         </div>
+        <div class='events'>
+            <% person.events.each do |event| %>
+                <%= self.build_section('event', event) %>
+            <% end %>
+        </div>
     </body>
 </html>

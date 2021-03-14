@@ -21,6 +21,11 @@ class Person < Entity
         return @gender
     end
 
+    def events
+        @events ||= get_events
+        return @events
+    end
+
 private
 
     def get_first_name
@@ -43,5 +48,40 @@ private
         end
 
         return '', ''
+    end
+
+    def get_events
+        events = []
+        events.concat(find_all('BIRT'))
+
+        life_events = []
+        life_events.concat(find_all('ADOP'))
+        life_events.concat(find_all('BAPM'))
+        life_events.concat(find_all('BAPL'))
+        life_events.concat(find_all('BARM'))
+        life_events.concat(find_all('BASM'))
+        life_events.concat(find_all('BLES'))
+        life_events.concat(find_all('CHR'))
+        life_events.concat(find_all('CONF'))
+        life_events.concat(find_all('CHRA'))
+        life_events.concat(find_all('EMIG'))
+        life_events.concat(find_all('FCOM'))
+        life_events.concat(find_all('GRAD'))
+        life_events.concat(find_all('IMMI'))
+        life_events.concat(find_all('NATU'))
+        life_events.concat(find_all('ORDN'))
+        life_events.concat(find_all('RETI'))
+        life_events.concat(find_all('WILL'))
+        life_events.concat(find_all('EVEN'))
+        life_events.concat(find_all('CENS'))
+        events.concat(life_events)
+
+        events.concat(find_all('DEAT'))
+
+        death_events = []
+        death_events.concat(find_all('BURI'))
+        death_events.concat(find_all('CREM'))
+        death_events.concat(find_all('PROB'))
+        events.concat(death_events)
     end
 end

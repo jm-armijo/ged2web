@@ -6,6 +6,7 @@ require_relative 'entities/note'
 require_relative 'entities/multimedia'
 require_relative 'entities/source'
 require_relative 'entities/submission'
+require_relative 'entities/event'
 
 class EntityFactory
     @entities_map = {}
@@ -43,3 +44,28 @@ EntityFactory.register('NOTE', Note)
 EntityFactory.register('OBJE', Multimedia)
 EntityFactory.register('SOUR', Source)
 EntityFactory.register('SUBM', Submission)
+
+EntityFactory.register('BIRT', Event)
+EntityFactory.register('ADOP', Event)
+EntityFactory.register('BAPM', Event)
+EntityFactory.register('BAPL', Event)
+EntityFactory.register('BARM', Event)
+EntityFactory.register('BASM', Event)
+EntityFactory.register('BLES', Event)
+EntityFactory.register('CHR',  Event)
+EntityFactory.register('CONF', Event)
+EntityFactory.register('CHRA', Event)
+EntityFactory.register('EMIG', Event)
+EntityFactory.register('FCOM', Event)
+EntityFactory.register('GRAD', Event)
+EntityFactory.register('IMMI', Event)
+EntityFactory.register('NATU', Event)
+EntityFactory.register('ORDN', Event)
+EntityFactory.register('RETI', Event)
+EntityFactory.register('WILL', Event)
+EntityFactory.register('EVEN', Event)
+EntityFactory.register('CENS', Event)
+EntityFactory.register('DEAT', Event)
+EntityFactory.register('BURI', Event)
+EntityFactory.register('CREM', Event)
+EntityFactory.register('PROB', Event)
