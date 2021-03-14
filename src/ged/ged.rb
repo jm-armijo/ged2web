@@ -11,15 +11,9 @@ class Ged
     def add(line)
         level = line.first
         if level.zero?
-            entity = create_root_entity(line)
-            return if entity.nil?
-
-            @current_entity = entity
-            id = @current_entity.record.id
-            @entities[id] = @current_entity
+            create_root_entity(line)
         else
-            entity = create_new_child_entity(line)
-            @current_entity.record.add(entity)
+            create_child_entity(line)
         end
     end
 
@@ -29,21 +23,40 @@ class Ged
         end
     end
 
+private
+
     def create_root_entity(line)
+        arguments = root_arguments(line)
+        entity = EntityFactory.make(*arguments)
+
+        return if entity.nil?
+
+        @current_entity = entity
+        id = @current_entity.id
+        @entities[id] = @current_entity
+    end
+
+    def create_child_entity(line)
+        arguments = child_arguments(line)
+        entity = EntityFactory.make(*arguments)
+        @current_entity.record.add(entity)
+    end
+
+    def root_arguments(line)
         level    = line.first
         id       = line.third.nil? ? nil         : line.second
         type     = line.third.nil? ? line.second : line.third
         value    = line.third.nil? ? nil         : line.fourth
 
-        return EntityFactory.make(level, id, type, value)
+        return [level, id, type, value]
     end
 
-    def create_new_child_entity(line)
+    def child_arguments(line)
         level    = line.first
         type     = line.second
         value    = line.third&.match(/^@.*@$/) ? nil        : line.third
         id       = line.third&.match(/^@.*@$/) ? line.third : nil
 
-        return EntityFactory.make(level, id, type, value)
+        return [level, id, type, value]
     end
 end

@@ -12,11 +12,9 @@ class EntityFactory
     @entities_map = {}
 
     def self.make(level, id, type, value)
-        begin
-            return create_instance(level, id, type, value)
-        rescue StandardError => e
-            raise "Do not know how to make a #{type} record: #{e}"
-        end
+        return create_instance(level, id, type, value)
+    rescue StandardError => e
+        raise "Do not know how to make a #{type} record: #{e}"
     end
 
     def self.create_instance(level, id, type, value)

@@ -11,11 +11,18 @@ Layout/AccessModifierIndentation:
 Layout/IndentationWidth:
   Width: 4
 
+Metrics/MethodLength:
+  CountAsOne: ['array']
+
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: separated, grouped
 Style/AccessorGrouping:
   EnforcedStyle: separated
+
+Style/ConditionalAssignment:
+  EnforcedStyle: assign_inside_condition
+  IncludeTernaryExpressions: false
 
 # Offense count: 2
 Style/Documentation:
@@ -43,3 +50,6 @@ Style/RedundantReturn:
 Style/RegexpLiteral:
   EnforcedStyle: mixed
   AllowInnerSlashes: true
+
+Style/WordArray:
+  EnforcedStyle: brackets

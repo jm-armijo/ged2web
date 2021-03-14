@@ -1,13 +1,45 @@
 require_relative '../entity'
 
 class Person < Entity
+    def initialize(record)
+        super(record)
+
+        @life_event_types = [
+            'ADOP',
+            'BAPM',
+            'BAPL',
+            'BARM',
+            'BASM',
+            'BLES',
+            'CHR',
+            'CONF',
+            'CHRA',
+            'EMIG',
+            'FCOM',
+            'GRAD',
+            'IMMI',
+            'NATU',
+            'ORDN',
+            'RETI',
+            'WILL',
+            'EVEN',
+            'CENS'
+        ]
+
+        @post_mortem_event_types = [
+            'BURI',
+            'CREM',
+            'PROB'
+        ]
+    end
+
     def first_name
-        @first_name ||= get_first_name
+        @first_name ||= extract_first_name
         return @first_name
     end
 
     def last_name
-        @last_name ||= get_last_name
+        @last_name ||= extract_last_name
         return @last_name
     end
 
@@ -22,18 +54,18 @@ class Person < Entity
     end
 
     def events
-        @events ||= get_events
+        @events ||= extract_events
         return @events
     end
 
 private
 
-    def get_first_name
+    def extract_first_name
         name = find('NAME')
         return name.find('GIVN') || split_name(name.value).first
     end
 
-    def get_last_name
+    def extract_last_name
         name = find('NAME')
         return name.find('SURN') || split_name(name.value).last
     end
@@ -50,38 +82,35 @@ private
         return '', ''
     end
 
-    def get_events
+    def extract_events
         events = []
+
+        # Birth is always the first event (should have only one, supporting many)
         events.concat(find_all('BIRT'))
 
-        life_events = []
-        life_events.concat(find_all('ADOP'))
-        life_events.concat(find_all('BAPM'))
-        life_events.concat(find_all('BAPL'))
-        life_events.concat(find_all('BARM'))
-        life_events.concat(find_all('BASM'))
-        life_events.concat(find_all('BLES'))
-        life_events.concat(find_all('CHR'))
-        life_events.concat(find_all('CONF'))
-        life_events.concat(find_all('CHRA'))
-        life_events.concat(find_all('EMIG'))
-        life_events.concat(find_all('FCOM'))
-        life_events.concat(find_all('GRAD'))
-        life_events.concat(find_all('IMMI'))
-        life_events.concat(find_all('NATU'))
-        life_events.concat(find_all('ORDN'))
-        life_events.concat(find_all('RETI'))
-        life_events.concat(find_all('WILL'))
-        life_events.concat(find_all('EVEN'))
-        life_events.concat(find_all('CENS'))
+        # Get all events while the person was/is alive
         events.concat(life_events)
 
+        # Death is the event after all the live events
         events.concat(find_all('DEAT'))
 
-        death_events = []
-        death_events.concat(find_all('BURI'))
-        death_events.concat(find_all('CREM'))
-        death_events.concat(find_all('PROB'))
-        events.concat(death_events)
+        # Some events occur after the person died
+        events.concat(post_mortem_event)
+    end
+
+    def life_events
+        return find_events(@life_event_types)
+    end
+
+    def post_mortem_event
+        return find_events(@post_mortem_event_types)
+    end
+
+    def find_events(event_types)
+        events = []
+        event_types.each do |type|
+            events.concat(find_all(type))
+        end
+        return events
     end
 end
