@@ -1,1 +1,0 @@
-class Head < Record; end

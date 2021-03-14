@@ -1,1 +1,0 @@
-class Source < Record; end

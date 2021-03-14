@@ -7,7 +7,7 @@ class Builder
     end
 
     def build(ged)
-        persons = ged.records.filter { |_k, v| v.type == 'INDI' }
+        persons = ged.entities.filter { |_k, v| v.type == 'INDI' }
 
         persons.each_value do |person|
             build_person_page(person)

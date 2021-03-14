@@ -1,1 +1,0 @@
-class Multimedia < Record; end

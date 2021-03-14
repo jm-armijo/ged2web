@@ -1,6 +1,7 @@
 class Record
     attr_reader :id
     attr_reader :type
+    attr_reader :level
     attr_reader :value
 
     def initialize(level, id, type, value)
@@ -13,29 +14,25 @@ class Record
         @current = nil
     end
 
-    def add(line)
-        level = line.first
+    def add(entity)
+        level = entity.record.level
 
         if @level == level - 1
-            @current = create_new_child_record(line)
+            @current = entity
             @entries.push(@current)
         else
-            @current.add(line)
+            @current.record.add(entity)
         end
     end
 
-    def resolve_references(records)
+    def resolve_pointers(all_entries)
         @entries.each_with_index do |entry, index|
-            # Replace current "record" object with its decoractor class
-            @entries[index] = records[entry.id] if !entry.id.nil?
+            # Replace current "entity" object with its decoractor class
+            @entries[index] = all_entries[entry.id] if !entry.id.nil?
 
             # Resolve references for children records
-            entry.resolve_references(records)
+            entry.record.resolve_pointers(all_entries)
         end
-    end
-
-    def references
-        return find_all('SOUR')
     end
 
     def find(type)
@@ -44,24 +41,5 @@ class Record
 
     def find_all(type)
         return @entries.find_all { |entry| entry.type == type }
-    end
-
-    def to_s
-        return @value || ''
-    end
-
-    def to_str
-        return to_s
-    end
-
-private
-
-    def create_new_child_record(line)
-        level    = line.first
-        type     = line.second
-        value    = line.third&.match(/^@.*@$/) ? nil        : line.third
-        id       = line.third&.match(/^@.*@$/) ? line.third : nil
-
-        return Record.new(level, id, type, value)
     end
 end

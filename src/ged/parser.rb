@@ -12,7 +12,7 @@ class Parser
             @ged.add(line)
         end
 
-        @ged.resolve_references
+        @ged.resolve_pointers
 
         return @ged
     end
