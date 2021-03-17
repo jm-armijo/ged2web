@@ -9,6 +9,10 @@ class Entity
         return @record.id
     end
 
+    def short_id
+        return id.sub(/^@\w0*(\d+)@/, '\1')
+    end
+
     def type
         return @record.type
     end

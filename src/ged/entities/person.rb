@@ -58,6 +58,11 @@ class Person < Entity
         return @events
     end
 
+    def sources
+        @sources ||= @record.deep_find_all('SOUR')
+        return @sources
+    end
+
 private
 
     def extract_first_name

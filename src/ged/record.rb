@@ -42,4 +42,14 @@ class Record
     def find_all(type)
         return @entries.find_all { |entry| entry.type == type }
     end
+
+    def deep_find_all(type)
+        entries = find_all(type)
+
+        @entries.each do |entry|
+            entries.concat(entry.record.find_all(type))
+        end
+
+        return entries.uniq.sort { |a, b| a.short_id <=> b.short_id }
+    end
 end
