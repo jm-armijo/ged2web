@@ -11,22 +11,22 @@ require_relative 'entities/event'
 class EntityFactory
     @entities_map = {}
 
-    def self.make(level, id, type, value)
-        return create_instance(level, id, type, value)
+    def self.make(line)
+        return create_instance(line)
     rescue StandardError => e
-        raise "Do not know how to make a #{type} record: #{e}"
+        raise "Do not know how to make a #{line.tag} record: #{e}"
     end
 
-    def self.create_instance(level, id, type, value)
-        return nil if type == 'TRLR'
+    def self.create_instance(line)
+        return nil if line.tag == 'TRLR'
 
-        if @entities_map.include?(type)
-            class_to_instantiate = @entities_map[type]
+        if @entities_map.include?(line.tag)
+            class_to_instantiate = @entities_map[line.tag]
         else
             class_to_instantiate = Entity
         end
 
-        record = Record.new(level, id, type, value)
+        record = Record.new(line.level, line.id, line.tag, line.value)
         return class_to_instantiate.new(record)
     end
 

@@ -9,8 +9,7 @@ class Ged
     end
 
     def add(line)
-        level = line.first
-        if level.zero?
+        if line.level.zero?
             create_root_entity(line)
         else
             create_child_entity(line)
@@ -26,8 +25,7 @@ class Ged
 private
 
     def create_root_entity(line)
-        arguments = root_arguments(line)
-        entity = EntityFactory.make(*arguments)
+        entity = EntityFactory.make(line)
 
         return if entity.nil?
 
@@ -37,26 +35,7 @@ private
     end
 
     def create_child_entity(line)
-        arguments = child_arguments(line)
-        entity = EntityFactory.make(*arguments)
+        entity = EntityFactory.make(line)
         @current_entity.record.add(entity)
-    end
-
-    def root_arguments(line)
-        level    = line.first
-        id       = line.third.nil? ? nil         : line.second
-        type     = line.third.nil? ? line.second : line.third
-        value    = line.third.nil? ? nil         : line.fourth
-
-        return [level, id, type, value]
-    end
-
-    def child_arguments(line)
-        level    = line.first
-        type     = line.second
-        value    = line.third&.match(/^@.*@$/) ? nil        : line.third
-        id       = line.third&.match(/^@.*@$/) ? line.third : nil
-
-        return [level, id, type, value]
     end
 end
