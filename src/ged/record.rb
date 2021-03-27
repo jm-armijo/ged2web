@@ -1,4 +1,6 @@
 class Record
+    attr_writer :reference
+
     def initialize(line)
         @line = line
         @records = []
@@ -16,7 +18,7 @@ class Record
     def resolve_pointers(all_records)
         @records.each_with_index do |record, index|
             # Replace current "record" object with its decoractor class
-            @records[index] = all_records[record.id] if !record.id.nil?
+            @records[index].reference = all_records[record.id] if !record.id.nil?
 
             # Resolve references for children records
             record.resolve_pointers(all_records)

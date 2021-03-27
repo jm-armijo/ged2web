@@ -4,9 +4,7 @@
                     <div class="id"><%= source.short_id %></div>
                     <div class="title"><%= source.title %></div>
                     <div class="text"><%= source.text %></div>
-                    <% source.multimedia.each do |multimedia| %>
-                        <div class="media"><%= multimedia.id %></div>
-                    <% end %>
+                    <div class="media"><a href="../sources/<%= source.short_id %>/">[View]</a></div>
                 </div>
                 <% end %>
             </div>

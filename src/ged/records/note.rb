@@ -10,13 +10,13 @@ private
 
     def join_parts
         parts = []
-        parts.push(value) if !value.nil?
+        parts.push(@reference.value) if !@reference.value.nil?
 
         parts.concat(next_lines)
         return parts
     end
 
     def next_lines
-        return find_all('CONT').map(&:value)
+        return @reference.find_all('CONT').map(&:value)
     end
 end

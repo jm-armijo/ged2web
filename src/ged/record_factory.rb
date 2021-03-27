@@ -1,6 +1,7 @@
 require_relative 'record'
 require_relative 'records/head'
 require_relative 'records/family'
+require_relative 'records/family_event'
 require_relative 'records/person'
 require_relative 'records/note'
 require_relative 'records/multimedia'
@@ -63,4 +64,18 @@ RecordFactory.register('CENS', Event)
 RecordFactory.register('DEAT', Event)
 RecordFactory.register('BURI', Event)
 RecordFactory.register('CREM', Event)
+
+RecordFactory.register('FAMS', FamilyEvent)
+RecordFactory.register('FAMC', FamilyEvent)
 RecordFactory.register('PROB', Event)
+RecordFactory.register('ANUL', Event)
+RecordFactory.register('CENS', Event)
+RecordFactory.register('DIV',  Event)
+RecordFactory.register('DIVF', Event)
+RecordFactory.register('ENGA', Event)
+RecordFactory.register('MARB', Event)
+RecordFactory.register('MARC', Event)
+RecordFactory.register('MARR', Event)
+RecordFactory.register('MARL', Event)
+RecordFactory.register('MARS', Event)
+RecordFactory.register('RESI', Event)

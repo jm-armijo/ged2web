@@ -14,7 +14,7 @@ class RecordDecorator < Record
     end
 
     def short_id
-        return id.sub(/^@\w0*(\d+)@/, '\1')
+        return id.sub(/^@\w0*(\d+)@/, '\1').to_i
     end
 
     def references
@@ -31,5 +31,16 @@ class RecordDecorator < Record
 
     def to_str
         return to_s
+    end
+
+private
+
+    def find_events(event_tags)
+        events = EventList.new
+
+        event_tags.each do |tag|
+            events.insert(find_all(tag))
+        end
+        return events
     end
 end

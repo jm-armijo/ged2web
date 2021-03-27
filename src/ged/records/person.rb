@@ -1,4 +1,5 @@
 require_relative '../record_decorator'
+require_relative '../event_list'
 
 class Person < RecordDecorator
     def initialize(line)
@@ -87,35 +88,40 @@ private
         return '', ''
     end
 
+    def families
+        @families ||= find_all('FAMS')
+        return @families
+    end
+
     def extract_events
-        events = []
+        events = EventList.new
 
         # Birth is always the first event (should have only one, supporting many)
-        events.concat(find_all('BIRT'))
+        events.concat(find_events(['BIRT']))
 
-        # Get all events while the person was/is alive
         events.concat(life_events)
 
-        # Death is the event after all the live events
-        events.concat(find_all('DEAT'))
+        # Death is the event after all the life events
+        events.concat(find_events(['DEAT']))
 
-        # Some events occur after the person died
-        events.concat(post_mortem_event)
+        events.concat(post_mortem_events)
     end
 
+    # Get all events while the person was/is alive,
+    # including family events (such as marriage)
     def life_events
-        return find_events(@life_event_types)
-    end
+        events = find_events(@life_event_types)
 
-    def post_mortem_event
-        return find_events(@post_mortem_event_types)
-    end
-
-    def find_events(event_types)
-        events = []
-        event_types.each do |type|
-            events.concat(find_all(type))
+        families.each do |family|
+            events.concat(family.events)
         end
-        return events
+
+        return events.sort
+    end
+
+    # Some events occur after the person died
+    def post_mortem_events
+        events = find_events(@post_mortem_event_types)
+        return events.sort
     end
 end
