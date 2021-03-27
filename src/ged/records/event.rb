@@ -1,4 +1,4 @@
-class Event < Entity
+class Event < RecordDecorator
     def date
         @date ||= find('DATE')
         return @date

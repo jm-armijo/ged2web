@@ -1,16 +1,16 @@
-require_relative '../entity'
+require_relative '../record_decorator'
 
-class Note < Entity
-    def value
-        @parts ||= parts
+class Note < RecordDecorator
+    def parts
+        @parts ||= join_parts
         return @parts
     end
 
 private
 
-    def parts
+    def join_parts
         parts = []
-        parts.push(@record.value) if !@record.value.nil?
+        parts.push(value) if !value.nil?
 
         parts.concat(next_lines)
         return parts

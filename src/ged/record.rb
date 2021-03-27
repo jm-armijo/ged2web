@@ -1,55 +1,43 @@
 class Record
-    attr_reader :id
-    attr_reader :type
-    attr_reader :level
-    attr_reader :value
-
-    def initialize(level, id, type, value)
-        @level = level
-        @id    = id
-        @type  = type
-        @value = value
-
-        @entries = []
-        @current = nil
+    def initialize(line)
+        @line = line
+        @records = []
     end
 
-    def add(entity)
-        level = entity.record.level
-
-        if @level == level - 1
-            @current = entity
-            @entries.push(@current)
+    def add(new_line)
+        if @line.level == new_line.level - 1
+            record = RecordFactory.make(new_line)
+            @records.push(record)
         else
-            @current.record.add(entity)
+            @records.last.add(new_line)
         end
     end
 
-    def resolve_pointers(all_entries)
-        @entries.each_with_index do |entry, index|
-            # Replace current "entity" object with its decoractor class
-            @entries[index] = all_entries[entry.id] if !entry.id.nil?
+    def resolve_pointers(all_records)
+        @records.each_with_index do |record, index|
+            # Replace current "record" object with its decoractor class
+            @records[index] = all_records[record.id] if !record.id.nil?
 
             # Resolve references for children records
-            entry.record.resolve_pointers(all_entries)
+            record.resolve_pointers(all_records)
         end
     end
 
-    def find(type)
-        return @entries.find { |entry| entry.type == type }
+    def find(tag)
+        return @records.find { |record| record.tag == tag }
     end
 
-    def find_all(type)
-        return @entries.find_all { |entry| entry.type == type }
+    def find_all(tag)
+        return @records.find_all { |record| record.tag == tag }
     end
 
-    def deep_find_all(type)
-        entries = find_all(type)
+    def deep_find_all(tag)
+        records_found = find_all(tag)
 
-        @entries.each do |entry|
-            entries.concat(entry.record.find_all(type))
+        @records.each do |record|
+            records_found.concat(record.find_all(tag))
         end
 
-        return entries.uniq.sort { |a, b| a.short_id <=> b.short_id }
+        return records_found.uniq.sort { |a, b| a.short_id <=> b.short_id }
     end
 end

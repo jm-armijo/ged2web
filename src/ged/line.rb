@@ -16,7 +16,7 @@ class Line
 
     def id
         if level.zero?
-            id = @third.nil? ? nil : @second
+            id = @third.nil? ? 0 : @second
         else
             id = @third&.match(/^@.*@$/) ? @third : nil
         end

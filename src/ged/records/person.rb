@@ -1,8 +1,8 @@
-require_relative '../entity'
+require_relative '../record_decorator'
 
-class Person < Entity
-    def initialize(record)
-        super(record)
+class Person < RecordDecorator
+    def initialize(line)
+        super
 
         @life_event_types = [
             'ADOP',
@@ -59,7 +59,7 @@ class Person < Entity
     end
 
     def sources
-        @sources ||= @record.deep_find_all('SOUR')
+        @sources ||= deep_find_all('SOUR')
         return @sources
     end
 

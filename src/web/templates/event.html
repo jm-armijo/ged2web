@@ -1,7 +1,7 @@
             <div class='event'>
-                <div><%= entity.type %></div>
-                <div><%= entity.date %></div>
-                <div><%= entity.place %></div>
-                <%= self.build_list('references', entity.references) %>
-                <%= self.build_list('notes', entity.notes) %>
+                <div><%= record.tag %></div>
+                <div><%= record.date %></div>
+                <div><%= record.place %></div>
+                <%= self.build_list('references', record.references) %>
+                <%= self.build_list('notes', record.notes) %>
             </div>

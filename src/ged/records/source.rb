@@ -1,6 +1,6 @@
-require_relative '../entity'
+require_relative '../record_decorator'
 
-class Source < Entity
+class Source < RecordDecorator
     def title
         @title ||= find('TITL')
         return @title

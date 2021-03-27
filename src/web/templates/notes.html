@@ -1,7 +1,7 @@
             <div class='notes'>
-                <% entities.each do |note| %>
+                <% records.each do |note| %>
                 <div class='note'>
-                    <% note.value.each do |part| %>
+                    <% note.parts.each do |part| %>
                     <p class="part"><%= part %></p>
                     <% end %>
                 </div>

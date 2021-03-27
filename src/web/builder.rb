@@ -6,7 +6,7 @@ class Builder
     end
 
     def build(ged)
-        persons = ged.entities.filter { |_k, v| v.type == 'INDI' }
+        persons = ged.records.filter { |_k, v| v.tag == 'INDI' }
 
         persons.each_value do |person|
             build_person_page(person)
@@ -22,15 +22,15 @@ class Builder
         @file_manager.save_page(page, directory, file_name)
     end
 
-    def build_list(section, entities)
-        return '' if entities.length.zero?
+    def build_list(section, records)
+        return '' if records.length.zero?
 
         template = @file_manager.open_template("#{section}.html")
         return template.result(binding)
     end
 
-    def build_section(section, entity)
-        return '' if entity.nil?
+    def build_section(section, record)
+        return '' if record.nil?
 
         template = @file_manager.open_template("#{section}.html")
         return template.result(binding)

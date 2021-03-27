@@ -1,41 +1,25 @@
-require_relative 'entity_factory'
+require_relative 'record_factory'
 
 class Ged
-    attr_reader :entities
+    attr_reader :records
 
     def initialize
-        @entities = {}
-        @current_entity = nil
+        @records = {}
+        @current_record = nil
     end
 
     def add(line)
         if line.level.zero?
-            create_root_entity(line)
+            @current_record = RecordFactory.make(line)
+            @records[line.id] = @current_record
         else
-            create_child_entity(line)
+            @current_record.add(line)
         end
     end
 
     def resolve_pointers
-        @entities.each_value do |entity|
-            entity.record.resolve_pointers(@entities)
+        @records.each_value do |record|
+            record.resolve_pointers(@records)
         end
-    end
-
-private
-
-    def create_root_entity(line)
-        entity = EntityFactory.make(line)
-
-        return if entity.nil?
-
-        @current_entity = entity
-        id = @current_entity.id
-        @entities[id] = @current_entity
-    end
-
-    def create_child_entity(line)
-        entity = EntityFactory.make(line)
-        @current_entity.record.add(entity)
     end
 end
