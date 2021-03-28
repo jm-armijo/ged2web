@@ -54,13 +54,26 @@ class Person < RecordDecorator
         return @gender
     end
 
+    def parents
+        @parents ||= find_all('FAMC')&.first || nil
+        return @parents
+    end
+
+    def father
+        return parents&.husband || nil
+    end
+
+    def mother
+        return parents&.wife || nil
+    end
+
     def events
         @events ||= extract_events
         return @events
     end
 
     def sources
-        @sources ||= deep_find_all('SOUR')
+        @sources ||= find_sources
         return @sources
     end
 

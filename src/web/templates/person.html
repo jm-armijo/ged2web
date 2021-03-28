@@ -23,6 +23,22 @@
                 <%= self.build_list('references', person.gender.references) %>
             </div>
             <%= self.build_list('notes', person.notes) %>
+            <% if !person.parents.nil? %>
+            <div class='row'>
+                <% if !person.father.nil? %>
+                <div class='label'>Father:</div>
+                <div class='first-name'><%= person.father.first_name %></div>
+                <div class='last-name'><%= person.father.last_name %></div>
+                <% end %>
+                <% if !person.mother.nil? %>
+                <div class='label'>Mother:</div>
+                <div class='first-name'><%= person.mother.first_name %></div>
+                <div class='last-name'><%= person.mother.last_name %></div>
+                <% end %>
+                <%= self.build_list('references', person.parents.references) %>
+            </div>
+            <% end %>
+            <%= self.build_list('notes', person.notes) %>
         </div>
         <div class='events'>
             <% person.events.each do |event| %>
