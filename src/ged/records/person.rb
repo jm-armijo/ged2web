@@ -77,6 +77,10 @@ class Person < RecordDecorator
         return @sources
     end
 
+    def avatar
+        return multimedia&.first || nil
+    end
+
 private
 
     def extract_first_name

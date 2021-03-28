@@ -19,7 +19,9 @@ class RecordFactory
     end
 
     def self.create_instance(line)
-        if @records_map.include?(line.tag)
+        if pointer?(line)
+            class_to_instantiate = Pointer
+        elsif @records_map.include?(line.tag)
             class_to_instantiate = @records_map[line.tag]
         else
             class_to_instantiate = RecordDecorator
@@ -30,6 +32,10 @@ class RecordFactory
 
     def self.register(record_type, class_to_instantiate)
         @records_map[record_type] = class_to_instantiate
+    end
+
+    def self.pointer?(line)
+        return line.level > 0 && ['OBJE', 'FAMS', 'FAMC', 'HUSB', 'WIFE'].include?(line.tag)
     end
 end
 
@@ -65,8 +71,6 @@ RecordFactory.register('DEAT', Event)
 RecordFactory.register('BURI', Event)
 RecordFactory.register('CREM', Event)
 
-RecordFactory.register('FAMS', Pointer)
-RecordFactory.register('FAMC', Pointer)
 RecordFactory.register('PROB', Event)
 RecordFactory.register('ANUL', Event)
 RecordFactory.register('CENS', Event)
@@ -79,6 +83,3 @@ RecordFactory.register('MARR', Event)
 RecordFactory.register('MARL', Event)
 RecordFactory.register('MARS', Event)
 RecordFactory.register('RESI', Event)
-
-RecordFactory.register('HUSB', Pointer)
-RecordFactory.register('WIFE', Pointer)

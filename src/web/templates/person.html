@@ -7,6 +7,9 @@
     </head>
     <body>
         <div class-'info'>
+            <% if !person.avatar.nil? %>
+            <div><img src="../<%= person.avatar.url %>" /></div>
+            <% end %>
             <div class='row'>
                 <div class='label'>Name:</div>
                 <div class='first-name'><%= person.first_name %></div>

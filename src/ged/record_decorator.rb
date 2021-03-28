@@ -25,6 +25,10 @@ class RecordDecorator < Record
         return find_all('NOTE')
     end
 
+    def multimedia
+        return find_all('OBJE')
+    end
+
     def to_s
         return value || ''
     end
