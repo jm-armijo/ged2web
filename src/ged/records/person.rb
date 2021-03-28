@@ -81,12 +81,14 @@ private
 
     def extract_first_name
         name = find('NAME')
-        return name.find('GIVN') || split_name(name.value).first
+        first_name = name.find('GIVN')&.value || split_name(name.value).first || ''
+        return first_name.tr(',', '')
     end
 
     def extract_last_name
         name = find('NAME')
-        return name.find('SURN') || split_name(name.value).last
+        last_name = name.find('SURN')&.value || split_name(name.value).last || ''
+        return last_name.tr(',', '')
     end
 
     def split_name(name)
