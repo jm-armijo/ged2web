@@ -35,12 +35,12 @@ class Person < RecordDecorator
     end
 
     def first_name
-        @first_name ||= extract_first_name
+        @first_name ||= find('NAME').first_name
         return @first_name
     end
 
     def last_name
-        @last_name ||= extract_last_name
+        @last_name ||= find('NAME').last_name
         return @last_name
     end
 
@@ -82,30 +82,6 @@ class Person < RecordDecorator
     end
 
 private
-
-    def extract_first_name
-        name = find('NAME')
-        first_name = name.find('GIVN')&.value || split_name(name.value).first || ''
-        return first_name.tr(',', '')
-    end
-
-    def extract_last_name
-        name = find('NAME')
-        last_name = name.find('SURN')&.value || split_name(name.value).last || ''
-        return last_name.tr(',', '')
-    end
-
-    def split_name(name)
-        if (match = name&.match(/^(.*?)\/(.*?)\/?\s*$/i))
-            return match.captures.map(&:strip!)
-        end
-
-        if (match = name&.match(/^(.*?)\/\s*$/i))
-            return '', match.captures.strip!
-        end
-
-        return '', ''
-    end
 
     def families
         @families ||= find_all('FAMS')

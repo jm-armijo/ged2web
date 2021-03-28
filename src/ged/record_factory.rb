@@ -7,6 +7,7 @@ require_relative 'records/note'
 require_relative 'records/multimedia'
 require_relative 'records/source'
 require_relative 'records/submission'
+require_relative 'records/name'
 require_relative 'records/event'
 
 class RecordFactory
@@ -35,7 +36,7 @@ class RecordFactory
     end
 
     def self.pointer?(line)
-        return line.level > 0 && ['OBJE', 'FAMS', 'FAMC', 'HUSB', 'WIFE'].include?(line.tag)
+        return line.level.positive? && ['OBJE', 'FAMS', 'FAMC', 'HUSB', 'WIFE'].include?(line.tag)
     end
 end
 
@@ -46,6 +47,8 @@ RecordFactory.register('NOTE', Note)
 RecordFactory.register('OBJE', Multimedia)
 RecordFactory.register('SOUR', Source)
 RecordFactory.register('SUBM', Submission)
+
+RecordFactory.register('NAME', Name)
 
 RecordFactory.register('BIRT', Event)
 RecordFactory.register('ADOP', Event)
