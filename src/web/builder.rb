@@ -3,23 +3,15 @@ require_relative 'file_manager'
 class Builder
     def initialize
         @file_manager = FileManager.instance
+
+        @page_dir = {
+            person: 'ind',
+            source: 'src'
+        }
     end
 
     def build(ged)
-        persons = ged.records.filter { |_k, v| v.tag == 'INDI' }
-
-        persons.each_value do |person|
-            build_person_page(person)
-        end
-    end
-
-    def build_person_page(person)
-        template = @file_manager.open_template('person.html')
-        page = template.result(binding)
-
-        directory = 'ind'
-        file_name = "#{person.short_id}.html"
-        @file_manager.save_page(page, directory, file_name)
+        build_pages(ged, 'INDI')
     end
 
     def build_list(section, records)
@@ -34,5 +26,25 @@ class Builder
 
         template = @file_manager.open_template("#{section}.html")
         return template.result(binding)
+    end
+
+private
+
+    def build_pages(ged, tag)
+        instances = ged.records.filter { |_k, v| v.tag == tag }
+
+        instances.each_value do |instance|
+            build_page(instance)
+        end
+    end
+
+    def build_page(instance)
+        template_name = instance.class.name.downcase
+        template = @file_manager.open_template("#{template_name}.html")
+        page = template.result(binding)
+
+        directory = @page_dir[template_name.to_sym]
+        file_name = "#{instance.short_id}.html"
+        @file_manager.save_page(page, directory, file_name)
     end
 end

@@ -7,47 +7,47 @@
     </head>
     <body>
         <div class-'info'>
-            <% if !person.avatar.nil? %>
-            <div><img src="../<%= person.avatar.url %>" /></div>
+            <% if !instance.avatar.nil? %>
+            <div><img src="../<%= instance.avatar.url %>" /></div>
             <% end %>
             <div class='row'>
                 <div class='label'>Name:</div>
-                <div class='first-name'><%= person.first_name %></div>
-                <div class='last-name'><%= person.last_name %></div>
-                <%= self.build_list('references', person.references) %>
+                <div class='first-name'><%= instance.first_name %></div>
+                <div class='last-name'><%= instance.last_name %></div>
+                <%= self.build_list('references', instance.references) %>
             </div>
             <div class='row'>
                 <div class='label'>Sosa:</div>
-                <div><%= person.sosa %></div>
+                <div><%= instance.sosa %></div>
             </div>
             <div class='row'>
                 <div class='label'>Gender:</div>
-                <div><%= person.gender %></div>
-                <%= self.build_list('references', person.gender.references) %>
+                <div><%= instance.gender %></div>
+                <%= self.build_list('references', instance.gender.references) %>
             </div>
-            <%= self.build_list('notes', person.notes) %>
-            <% if !person.parents.nil? %>
+            <%= self.build_list('notes', instance.notes) %>
+            <% if !instance.parents.nil? %>
             <div class='row'>
-                <% if !person.father.nil? %>
+                <% if !instance.father.nil? %>
                 <div class='label'>Father:</div>
-                <div class='first-name'><%= person.father.first_name %></div>
-                <div class='last-name'><%= person.father.last_name %></div>
+                <div class='first-name'><%= instance.father.first_name %></div>
+                <div class='last-name'><%= instance.father.last_name %></div>
                 <% end %>
-                <% if !person.mother.nil? %>
+                <% if !instance.mother.nil? %>
                 <div class='label'>Mother:</div>
-                <div class='first-name'><%= person.mother.first_name %></div>
-                <div class='last-name'><%= person.mother.last_name %></div>
+                <div class='first-name'><%= instance.mother.first_name %></div>
+                <div class='last-name'><%= instance.mother.last_name %></div>
                 <% end %>
-                <%= self.build_list('references', person.parents.references) %>
+                <%= self.build_list('references', instance.parents.references) %>
             </div>
             <% end %>
-            <%= self.build_list('notes', person.notes) %>
+            <%= self.build_list('notes', instance.notes) %>
         </div>
         <div class='events'>
-            <% person.events.each do |event| %>
+            <% instance.events.each do |event| %>
                 <%= self.build_section('event', event) %>
             <% end %>
         </div>
-        <%= self.build_list('sources', person.sources) %>
+        <%= self.build_list('sources', instance.sources) %>
     </body>
 </html>
