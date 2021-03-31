@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Hello World! Site Title</title>
-    </head>
+    <%= self.build_common_section('header') %>
     <body>
+        <%= self.build_common_section('banner') %>
         <div class-'info'>
             <% if !instance.avatar.nil? %>
             <div><img src="../<%= instance.avatar.url %>" /></div>

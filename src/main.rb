@@ -6,7 +6,7 @@ class Main
         parser = Parser.new
         ged = parser.parse
 
-        builder = Builder.new
-        builder.build(ged)
+        builder = Builder.new(ged)
+        builder.build
     end
 end

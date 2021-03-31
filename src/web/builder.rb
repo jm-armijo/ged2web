@@ -1,7 +1,8 @@
 require_relative 'file_manager'
 
 class Builder
-    def initialize
+    def initialize(ged)
+        @ged = ged
         @file_manager = FileManager.instance
 
         @page_dir = {
@@ -10,8 +11,13 @@ class Builder
         }
     end
 
-    def build(ged)
-        build_pages(ged, 'INDI')
+    def build
+        build_pages('INDI')
+    end
+
+    def build_common_section(section)
+        template = @file_manager.open_template("#{section}.html")
+        return template.result(binding)
     end
 
     def build_list(section, records)
@@ -30,8 +36,8 @@ class Builder
 
 private
 
-    def build_pages(ged, tag)
-        instances = ged.records.filter { |_k, v| v.tag == tag }
+    def build_pages(tag)
+        instances = @ged.records.filter { |_k, v| v.tag == tag }
 
         instances.each_value do |instance|
             build_page(instance)
