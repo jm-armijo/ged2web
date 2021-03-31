@@ -18,7 +18,7 @@ class Builder
         page = template.result(binding)
 
         directory = 'ind'
-        file_name = "#{person.id.tr('@', '')}.html"
+        file_name = "#{person.short_id}.html"
         @file_manager.save_page(page, directory, file_name)
     end
 
