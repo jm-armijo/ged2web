@@ -6,6 +6,9 @@ AllCops:
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
 
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+
 # Cop supports --auto-correct.
 # Configuration parameters: Width, IgnoredPatterns.
 Layout/IndentationWidth:
@@ -36,6 +39,9 @@ Style/FrozenStringLiteralComment:
 
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:
+  Enabled: false
+
+Style/MissingRespondToMissing:
   Enabled: false
 
 Style/NegatedIf:

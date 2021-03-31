@@ -1,88 +1,95 @@
 require_relative 'record'
-require_relative 'records/head'
+require_relative 'record_decorator'
+require_relative 'records/event'
 require_relative 'records/family'
+require_relative 'records/head'
+require_relative 'records/multimedia'
+require_relative 'records/name'
+require_relative 'records/note'
 require_relative 'records/person'
 require_relative 'records/pointer'
-require_relative 'records/note'
-require_relative 'records/multimedia'
 require_relative 'records/source'
 require_relative 'records/submission'
-require_relative 'records/name'
-require_relative 'records/event'
+
 
 class RecordFactory
-    @records_map = {}
-
     def self.make(line)
         return create_instance(line)
     rescue StandardError => e
-        raise "Do not know how to make a #{line.tag} record: #{e}"
+        raise "Do not know how to make a #{line.tag} record #{line.level}: #{e}"
     end
 
     def self.create_instance(line)
-        if pointer?(line)
-            class_to_instantiate = Pointer
-        elsif @records_map.include?(line.tag)
-            class_to_instantiate = @records_map[line.tag]
-        else
-            class_to_instantiate = RecordDecorator
-        end
-
+        class_to_instantiate = get_class_to_instantiate(line)
         return class_to_instantiate.new(line)
     end
 
-    def self.register(record_type, class_to_instantiate)
-        @records_map[record_type] = class_to_instantiate
+    def self.get_class_to_instantiate(line)
+        tag = line.tag.to_sym
+
+        if line.level.zero?
+            class_to_instantiate = @base_records_map[tag]
+        else
+            class_to_instantiate = @internal_records_map[tag]
+        end
+
+        return class_to_instantiate
     end
 
-    def self.pointer?(line)
-        return line.level.positive? && ['OBJE', 'FAMS', 'FAMC', 'HUSB', 'WIFE'].include?(line.tag)
-    end
+    @base_records_map = {
+        HEAD: Head,
+        FAM:  Family,
+        INDI: Person,
+        NOTE: Note,
+        OBJE: Multimedia,
+        SOUR: Source,
+        SUBM: Submission,
+        TRLR: RecordDecorator
+    }
+
+    @internal_records_map = {
+        ADOP: Event,
+        ANUL: Event,
+        BAPL: Event,
+        BAPM: Event,
+        BARM: Event,
+        BASM: Event,
+        BIRT: Event,
+        BLES: Event,
+        BURI: Event,
+        CENS: Event,
+        CHRA: Event,
+        CHR:  Event,
+        CREM: Event,
+        DEAT: Event,
+        DIV:  Event,
+        DIVF: Event,
+        EMIG: Event,
+        ENGA: Event,
+        EVEN: Event,
+        FCOM: Event,
+        GRAD: Event,
+        IMMI: Event,
+        MARB: Event,
+        MARC: Event,
+        MARL: Event,
+        MARR: Event,
+        MARS: Event,
+        NATU: Event,
+        ONF:  Event,
+        ORDN: Event,
+        PROB: Event,
+        RESI: Event,
+        RETI: Event,
+        WILL: Event,
+        FAMC: Pointer,
+        FAMS: Pointer,
+        HUSB: Pointer,
+        NOTE: Pointer,
+        OBJE: Pointer,
+        SOUR: Pointer,
+        WIFE: Pointer,
+        NAME: Name
+    }
+    @internal_records_map.default = RecordDecorator
 end
-
-RecordFactory.register('HEAD', Head)
-RecordFactory.register('FAM',  Family)
-RecordFactory.register('INDI', Person)
-RecordFactory.register('NOTE', Note)
-RecordFactory.register('OBJE', Multimedia)
-RecordFactory.register('SOUR', Source)
-RecordFactory.register('SUBM', Submission)
-
-RecordFactory.register('NAME', Name)
-
-RecordFactory.register('BIRT', Event)
-RecordFactory.register('ADOP', Event)
-RecordFactory.register('BAPM', Event)
-RecordFactory.register('BAPL', Event)
-RecordFactory.register('BARM', Event)
-RecordFactory.register('BASM', Event)
-RecordFactory.register('BLES', Event)
-RecordFactory.register('CHR',  Event)
-RecordFactory.register('CONF', Event)
-RecordFactory.register('CHRA', Event)
-RecordFactory.register('EMIG', Event)
-RecordFactory.register('FCOM', Event)
-RecordFactory.register('GRAD', Event)
-RecordFactory.register('IMMI', Event)
-RecordFactory.register('NATU', Event)
-RecordFactory.register('ORDN', Event)
-RecordFactory.register('RETI', Event)
-RecordFactory.register('WILL', Event)
-RecordFactory.register('EVEN', Event)
-RecordFactory.register('CENS', Event)
-RecordFactory.register('DEAT', Event)
-RecordFactory.register('BURI', Event)
-RecordFactory.register('CREM', Event)
-
-RecordFactory.register('PROB', Event)
-RecordFactory.register('ANUL', Event)
-RecordFactory.register('CENS', Event)
-RecordFactory.register('DIV',  Event)
-RecordFactory.register('DIVF', Event)
-RecordFactory.register('ENGA', Event)
-RecordFactory.register('MARB', Event)
-RecordFactory.register('MARC', Event)
-RecordFactory.register('MARR', Event)
-RecordFactory.register('MARL', Event)
-RecordFactory.register('MARS', Event)
-RecordFactory.register('RESI', Event)
