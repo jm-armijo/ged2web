@@ -2,12 +2,13 @@ require_relative 'ged'
 require_relative 'line'
 
 class Parser
-    def initialize
+    def initialize(gedcom_path)
         @ged = Ged.new
+        @path = gedcom_path
     end
 
     def parse
-        File.foreach('/home/jarmijo/code/personal/family/tree/ArbolGenealogico.ged') do |raw_line|
+        File.foreach(@path) do |raw_line|
             line = Line.new(raw_line)
             @ged.add(line)
         end

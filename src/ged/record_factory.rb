@@ -12,7 +12,6 @@ require_relative 'records/source'
 require_relative 'records/submission'
 require_relative 'records/text'
 
-
 class RecordFactory
     def self.make(line)
         return create_instance(line)
