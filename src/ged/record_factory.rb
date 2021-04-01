@@ -10,6 +10,7 @@ require_relative 'records/person'
 require_relative 'records/pointer'
 require_relative 'records/source'
 require_relative 'records/submission'
+require_relative 'records/text'
 
 
 class RecordFactory
@@ -89,7 +90,8 @@ class RecordFactory
         OBJE: Pointer,
         SOUR: Pointer,
         WIFE: Pointer,
-        NAME: Name
+        NAME: Name,
+        TEXT: Text
     }
     @internal_records_map.default = RecordDecorator
 end

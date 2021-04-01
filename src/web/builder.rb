@@ -13,6 +13,7 @@ class Builder
 
     def build
         build_pages('INDI')
+        build_pages('SOUR')
     end
 
     def build_common_section(section)
