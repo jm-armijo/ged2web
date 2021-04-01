@@ -10,7 +10,7 @@ class RecordDecorator < Record
     end
 
     def value
-        return @line.value
+        return @value || @line.value
     end
 
     def short_id

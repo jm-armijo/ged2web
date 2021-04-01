@@ -1,9 +1,13 @@
 require_relative 'record_factory'
 
 class Ged
+    attr_reader :path
     attr_reader :records
 
-    def initialize
+    def initialize(gedcom_path)
+        @path = File.expand_path(gedcom_path)
+        @dir = File.dirname(@path)
+
         @records = {}
         @current_record = nil
     end
@@ -20,6 +24,12 @@ class Ged
     def resolve_pointers
         @records.each_value do |record|
             record.resolve_pointers(@records)
+        end
+    end
+
+    def update_paths
+        @records.each_value do |record|
+            record.update_paths(@dir)
         end
     end
 end

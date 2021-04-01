@@ -1,9 +1,11 @@
 class Record
     attr_accessor :reference
+    attr_writer   :value
 
     def initialize(line)
         @line = line
         @records = []
+        @value = nil
     end
 
     def add(new_line)
@@ -44,6 +46,13 @@ class Record
         end
 
         return records_found.uniq(&:short_id).sort { |a, b| a.short_id <=> b.short_id }
+    end
+
+    def update_paths(base_dir)
+        files = find_all('FILE')
+        files.each do |file|
+            file.value = File.join(base_dir, file.value)
+        end
     end
 
 private
