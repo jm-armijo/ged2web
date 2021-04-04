@@ -1,0 +1,132 @@
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+.content {
+  margin: 0px;
+  padding: 20px;
+}
+
+/* BANNER */
+
+.banner {
+  padding: 0px 0px 30px 0px;
+}
+
+.banner .title {
+  font-size: 30px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.banner .menu {
+  text-align: center;
+}
+
+.banner .link {
+  display: inline;
+}
+
+
+/* NAME */
+
+.name {
+  padding: 10px 0px;
+  font-size: 20px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.name .first-name {
+  display: inline;
+}
+
+.name .last-name {
+  display: inline;
+}
+
+
+/* INFO */
+
+.info {
+  width: 381px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.avatar {
+  height: 235px;
+}
+
+.info .row {
+  display: table-row;
+}
+
+.info .row .label {
+  display: table-cell;
+}
+
+.info .row .value {
+  display: table-cell;
+  padding: 0px 0px 0px 5px;
+}
+
+/* EVENTS */
+
+.events {
+  width: 619px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.event .type {
+  display: inline;
+}
+
+.event .date {
+  display: inline;
+}
+
+.event .place {
+  display: inline;
+}
+
+.references {
+  display: inline;
+  vertical-align: super;
+  font-size: 15px;
+}
+
+a:link, a:visited, a:active, a:hover {
+  text-decoration: none;
+  font-weight: normal;
+  color: blue;
+}
+
+a.reference {
+  display: inline;
+  vertical-align: super;
+  font-size: 13px;
+}
+
+/* SOURCES */
+
+.sources {
+  padding: 20px 0px 0px 0px;
+}
+
+.sources .title {
+  font-size: 15px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.sources .source {
+  font-size: 15px;
+  text-align: left;
+}
+
+.sources .link {
+  display: inline
+}
