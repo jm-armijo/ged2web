@@ -35,6 +35,16 @@ class Builder
         return template.result(binding)
     end
 
+    def encode_url(value)
+        encoded_value = value.gsub(' ', '%20')
+        return encoded_value
+    end
+
+    def encode_html(value)
+        encoded_value = value.gsub(' ', '&nbsp;')
+        return encoded_value
+    end
+
 private
 
     def build_pages(tag)

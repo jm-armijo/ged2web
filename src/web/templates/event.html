@@ -2,7 +2,12 @@
 <div class='event'>
                 <div class="type"><%= record.tag %></div>
                 <div class="date"><%= "#{record.date.prefix} - " if !record.date.prefix.nil? %><%= record.date.natural %></div>
-                <div class="place"><%= record.place %></div>
+                <% if !record.place.nil? && !record.place.value.nil? %>
+                <div class="place">
+                    <% url = "https://www.google.com/maps/search/?api=1&query=#{self.encode_url(record.place.value)}" %>
+                    <a href="<%= url %>" target="blank"><%= self.encode_html(record.place.value) %></a>
+                </div>
+                <% end %>
                 <%= self.build_list('references', record.references) %>
                 <%= self.build_list('notes', record.notes) %>
             </div>
