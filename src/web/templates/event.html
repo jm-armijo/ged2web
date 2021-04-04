@@ -1,7 +1,9 @@
+<% if (!record.date.nil? && !record.date.empty?) || (!record.place.nil? && !record.place.value.nil?)%>
             <div class='event'>
-                <div><%= record.tag %></div>
-                <div><%= "#{record.date.prefix} - " if !record.date.prefix.nil? %><%= record.date.natural %></div>
-                <div><%= record.place %></div>
+                <div class="type"><%= record.tag %></div>
+                <div class="date"><%= "#{record.date.prefix} - " if !record.date.prefix.nil? %><%= record.date.natural %></div>
+                <div class="place"><%= record.place %></div>
                 <%= self.build_list('references', record.references) %>
                 <%= self.build_list('notes', record.notes) %>
             </div>
+<% end %>

@@ -20,14 +20,14 @@ class GedDate
         date <=> other.date
     end
 
-    def value
-        return "#{@prefix} - #{@date}"
-    end
-
     def natural
         @date.strftime('%-d %B %Y')
     rescue StandardError
         return @date
+    end
+
+    def empty?
+        return @date.nil?
     end
 
     def to_s
