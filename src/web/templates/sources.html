@@ -1,14 +1,10 @@
             <div class='sources'>
+                <div class="title">Sources:</div>
                 <% records.each do |source| %>
+                <a id="<%= source.short_id  %>">
                 <div class='source'>
-                    <div class="id"><%= source.short_id %></div>
-                    <div class="title"><%= source.title %></div>
-                    <div class="text">
-                    <% source.text.value.each do |line| %>
-                        <p><%= line %></p>
-                    <% end %>
-                    </div>
-                    <div class="media"><a href="../src/<%= source.short_id %>.html">[View]</a></div>
+                    [<%= source.short_id %>]: <%= source.title %>. <%= source.text.value.join(', ') %>
+                    <div class="link"><a href="../src/<%= source.short_id %>.html">[View]</a></div>
                 </div>
                 <% end %>
             </div>

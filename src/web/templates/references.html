@@ -1,1 +1,1 @@
-            <div class='references'><%= records.map{ |ref| ref.short_id }.join(', ') %></div>
+<div class='references'><%= records.map{ |ref| return "<a class='reference' href='##{ref.short_id}'>[#{ref.short_id}]</a>"}.join(', ') %></div>
