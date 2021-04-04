@@ -65,11 +65,13 @@ body {
 
 .info .row .label {
   display: table-cell;
+  text-transform: capitalize;
 }
 
 .info .row .value {
   display: table-cell;
   padding: 0px 0px 0px 5px;
+  text-transform: capitalize;
 }
 
 /* EVENTS */
@@ -82,6 +84,7 @@ body {
 
 .event .type {
   display: inline;
+  text-transform: capitalize;
 }
 
 .event .date {
@@ -120,6 +123,7 @@ a.reference {
   font-size: 15px;
   text-align: left;
   font-weight: bold;
+  text-transform: capitalize;
 }
 
 .sources .source {

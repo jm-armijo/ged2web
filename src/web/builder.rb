@@ -1,4 +1,5 @@
 require_relative 'file_manager'
+require_relative 'translator'
 
 class Builder
     def initialize(ged)
@@ -9,6 +10,8 @@ class Builder
             person: 'ind',
             source: 'src'
         }
+
+        @translator = Translator.new('en')
     end
 
     def build
@@ -43,6 +46,10 @@ class Builder
     def encode_html(value)
         encoded_value = value.gsub(' ', '&nbsp;')
         return encoded_value
+    end
+
+    def translate(tag)
+        return @translator.translate(tag)
     end
 
 private

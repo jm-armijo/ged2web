@@ -15,7 +15,7 @@ Layout/IndentationWidth:
   Width: 4
 
 Metrics/MethodLength:
-  CountAsOne: ['array']
+  CountAsOne: ['array', 'hash']
 
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

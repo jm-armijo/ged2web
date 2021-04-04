@@ -1,7 +1,8 @@
 <% if (!record.date.nil? && !record.date.empty?) || (!record.place.nil? && !record.place.value.nil?)%>
 <div class='event'>
-                <div class="type"><%= record.tag %></div>
-                <div class="date"><%= "#{record.date.prefix} - " if !record.date.prefix.nil? %><%= record.date.natural %></div>
+                <div class="type"><%= self.translate(record.tag) %>:</div>
+                <% prefix = record.date.prefix.nil? ? '' : '(' + self.translate(record.date.prefix) + ')'  %>
+                <div class="date"><%= record.date.natural %><%= prefix %></div>
                 <% if !record.place.nil? && !record.place.value.nil? %>
                 <div class="place">
                     <% url = "https://www.google.com/maps/search/?api=1&query=#{self.encode_url(record.place.value)}" %>

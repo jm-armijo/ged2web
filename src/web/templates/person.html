@@ -19,22 +19,22 @@
                         <div class="value"><%= instance.sosa %></div>
                     </div>
                     <div class='row'>
-                        <div class='label'>Gender:</div>
-                        <div class="value"><%= instance.gender %></div>
+                        <div class='label'><%= self.translate(instance.gender.tag) %>:</div>
+                        <div class="value"><%= self.translate(instance.gender.value) %></div>
                         <%= self.build_list('references', instance.gender.references) %>
                     </div>
                     <%= self.build_list('notes', instance.notes) %>
                     <% if !instance.parents.nil? %>
                     <div class='row'>
                         <% if !instance.father.nil? %>
-                        <div class='label'>Father:</div>
+                        <div class='label'><%= self.translate('Father') %>:</div>
                         <div class='value'><%= instance.father.first_name %></div>
                         <div class='value'><%= instance.father.last_name %></div>
                         <% end %>
                     </div>
                     <div class='row'>
                         <% if !instance.mother.nil? %>
-                        <div class='label'>Mother:</div>
+                        <div class='label'><%= self.translate('Mother') %>:</div>
                         <div class='value'><%= instance.mother.first_name %></div>
                         <div class='value'><%= instance.mother.last_name %></div>
                         <% end %>
