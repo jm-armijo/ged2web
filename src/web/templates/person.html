@@ -3,48 +3,53 @@
     <%= self.build_common_section('header') %>
     <body>
         <%= self.build_common_section('banner') %>
-        <div class-'info'>
-            <% if !instance.avatar.nil? %>
-            <div><img src="../<%= instance.avatar.url %>" /></div>
-            <% end %>
-            <div class='row'>
-                <div class='label'>Name:</div>
+        <div class="content">
+            <div class='name'>
                 <div class='first-name'><%= instance.first_name %></div>
                 <div class='last-name'><%= instance.last_name %></div>
                 <%= self.build_list('references', instance.references) %>
             </div>
-            <div class='row'>
-                <div class='label'>Sosa:</div>
-                <div><%= instance.sosa %></div>
+            <div class="horizontal-group">
+                <div class='info'>
+                    <% if !instance.avatar.nil? %>
+                    <div><img class="avatar" src="../<%= instance.avatar.url %>" /></div>
+                    <% end %>
+                    <div class='row'>
+                        <div class='label'>Sosa:</div>
+                        <div class="value"><%= instance.sosa %></div>
+                    </div>
+                    <div class='row'>
+                        <div class='label'>Gender:</div>
+                        <div class="value"><%= instance.gender %></div>
+                        <%= self.build_list('references', instance.gender.references) %>
+                    </div>
+                    <%= self.build_list('notes', instance.notes) %>
+                    <% if !instance.parents.nil? %>
+                    <div class='row'>
+                        <% if !instance.father.nil? %>
+                        <div class='label'>Father:</div>
+                        <div class='value'><%= instance.father.first_name %></div>
+                        <div class='value'><%= instance.father.last_name %></div>
+                        <% end %>
+                    </div>
+                    <div class='row'>
+                        <% if !instance.mother.nil? %>
+                        <div class='label'>Mother:</div>
+                        <div class='value'><%= instance.mother.first_name %></div>
+                        <div class='value'><%= instance.mother.last_name %></div>
+                        <% end %>
+                        <%= self.build_list('references', instance.parents.references) %>
+                    </div>
+                    <% end %>
+                    <%= self.build_list('notes', instance.notes) %>
+                </div>
+                <div class='events'>
+                    <% instance.events.each do |event| %>
+                        <%= self.build_section('event', event) %>
+                    <% end %>
+                </div>
             </div>
-            <div class='row'>
-                <div class='label'>Gender:</div>
-                <div><%= instance.gender %></div>
-                <%= self.build_list('references', instance.gender.references) %>
-            </div>
-            <%= self.build_list('notes', instance.notes) %>
-            <% if !instance.parents.nil? %>
-            <div class='row'>
-                <% if !instance.father.nil? %>
-                <div class='label'>Father:</div>
-                <div class='first-name'><%= instance.father.first_name %></div>
-                <div class='last-name'><%= instance.father.last_name %></div>
-                <% end %>
-                <% if !instance.mother.nil? %>
-                <div class='label'>Mother:</div>
-                <div class='first-name'><%= instance.mother.first_name %></div>
-                <div class='last-name'><%= instance.mother.last_name %></div>
-                <% end %>
-                <%= self.build_list('references', instance.parents.references) %>
-            </div>
-            <% end %>
-            <%= self.build_list('notes', instance.notes) %>
+            <%= self.build_list('sources', instance.sources) %>
         </div>
-        <div class='events'>
-            <% instance.events.each do |event| %>
-                <%= self.build_section('event', event) %>
-            <% end %>
-        </div>
-        <%= self.build_list('sources', instance.sources) %>
     </body>
 </html>
