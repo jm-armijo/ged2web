@@ -1,5 +1,5 @@
 <% if (!record.date.nil? && !record.date.empty?) || (!record.place.nil? && !record.place.value.nil?)%>
-            <div class='event'>
+<div class='event'>
                 <div class="type"><%= record.tag %></div>
                 <div class="date"><%= "#{record.date.prefix} - " if !record.date.prefix.nil? %><%= record.date.natural %></div>
                 <div class="place"><%= record.place %></div>
