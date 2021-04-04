@@ -1,6 +1,8 @@
+require_relative '../ged_date'
+
 class Event < RecordDecorator
     def date
-        @date ||= find('DATE')
+        @date ||= GedDate.new(find('DATE'))
         return @date
     end
 

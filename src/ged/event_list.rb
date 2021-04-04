@@ -18,7 +18,7 @@ class EventList
     end
 
     def sort
-        @events.sort! { |a, b| a.date.to_s <=> b.date.to_s }
+        @events.sort! { |a, b| a.date <=> b.date }
         return self
     end
 end

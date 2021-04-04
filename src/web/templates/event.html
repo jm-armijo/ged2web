@@ -1,6 +1,6 @@
             <div class='event'>
                 <div><%= record.tag %></div>
-                <div><%= record.date %></div>
+                <div><%= "#{record.date.prefix} - " if !record.date.prefix.nil? %><%= record.date.natural %></div>
                 <div><%= record.place %></div>
                 <%= self.build_list('references', record.references) %>
                 <%= self.build_list('notes', record.notes) %>
