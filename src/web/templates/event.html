@@ -2,7 +2,7 @@
 <div class='event'>
                 <div class="type"><%= self.translate(record.tag) %>:</div>
                 <% prefix = record.date.prefix.nil? ? '' : '(' + self.translate(record.date.prefix) + ')'  %>
-                <div class="date"><%= record.date.natural %><%= prefix %></div>
+                <div class="date"><%= record.date.natural %><%= '&nbsp;' + prefix %></div>
                 <% if !record.place.nil? && !record.place.value.nil? %>
                 <div class="place">
                     <% url = "https://www.google.com/maps/search/?api=1&query=#{self.encode_url(record.place.value)}" %>

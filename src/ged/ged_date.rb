@@ -5,7 +5,7 @@ class GedDate
 
     def initialize(date)
         if date.nil? || date.value.nil?
-            @prefix = ''
+            @prefix = nil
             @date = nil
         else
             parse_date(date)
