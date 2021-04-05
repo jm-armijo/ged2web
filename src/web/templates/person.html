@@ -4,7 +4,7 @@
     <body>
         <%= self.build_common_section('banner') %>
         <div class="content">
-            <div class='name'>
+            <div class='name title'>
                 <div class='first-name'><%= instance.first_name %></div>
                 <div class='last-name'><%= instance.last_name %></div>
                 <%= self.build_list('references', instance.references) %>
@@ -23,22 +23,30 @@
                         <div class="value"><%= self.translate(instance.gender.value) %></div>
                         <%= self.build_list('references', instance.gender.references) %>
                     </div>
-                    <%= self.build_list('notes', instance.notes) %>
                     <% if !instance.parents.nil? %>
                     <div class='row'>
                         <% if !instance.father.nil? %>
                         <div class='label'><%= self.translate('Father') %>:</div>
-                        <div class='value'><%= instance.father.first_name %></div>
-                        <div class='value'><%= instance.father.last_name %></div>
+                        <div class='name value'>
+                            <a href="../ind/<%= instance.father.short_id %>.html">
+                                <div class='first-name'><%= instance.father.first_name %></div>
+                                <div class='last-name'><%= instance.father.last_name %></div>
+                            </a>
+                        </div>
+                        <%= self.build_list('references', instance.parents.references) %>
                         <% end %>
                     </div>
                     <div class='row'>
                         <% if !instance.mother.nil? %>
                         <div class='label'><%= self.translate('Mother') %>:</div>
-                        <div class='value'><%= instance.mother.first_name %></div>
-                        <div class='value'><%= instance.mother.last_name %></div>
-                        <% end %>
+                        <div class='name value'>
+                            <a href="../ind/<%= instance.mother.short_id %>.html">
+                                <div class='first-name'><%= instance.mother.first_name %></div>
+                                <div class='last-name'><%= instance.mother.last_name %></div>
+                            </a>
+                        </div>
                         <%= self.build_list('references', instance.parents.references) %>
+                        <% end %>
                     </div>
                     <% end %>
                     <%= self.build_list('notes', instance.notes) %>

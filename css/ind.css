@@ -31,7 +31,7 @@ body {
 
 /* NAME */
 
-.name {
+.title {
   padding: 10px 0px;
   font-size: 20px;
   text-align: left;
@@ -50,7 +50,7 @@ body {
 /* INFO */
 
 .info {
-  width: 381px;
+  width: 457px;
   display: inline-block;
   vertical-align: top;
 }
@@ -77,9 +77,10 @@ body {
 /* EVENTS */
 
 .events {
-  width: 619px;
+  width: 743px;
   display: inline-block;
   vertical-align: top;
+  padding: 0px 0px 0px 40px;
 }
 
 .event .type {
