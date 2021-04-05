@@ -21,19 +21,22 @@ private
         return english
     end
 
-	def english
+    def english
         return {
             ABBR:    'abbreviation',
+            ABT:     'about',
             ADDR:    'address',
             ADOP:    'adoption',
             ADR1:    'address1',
             ADR2:    'address2',
             AFN:     'afn',
+            AFT:     'after',
             AGE:     'age',
             AGNC:    'agency',
             ALIA:    'alias',
             ANCE:    'ancestors',
             ANCI:    'ances_interest',
+            AND:     'and',
             ANUL:    'annulment',
             ASSO:    'associates',
             AUTH:    'author',
@@ -41,9 +44,12 @@ private
             BAPM:    'baptism',
             BARM:    'bar_mitzvah',
             BASM:    'bas_mitzvah',
+            BEF:     'before',
+            BET:     'between',
             BIRT:    'birth',
             BLES:    'blessing',
             BURI:    'burial',
+            CAL:     'calculated',
             CALN:    'call_number',
             CAST:    'caste',
             CAUS:    'cause',
@@ -77,6 +83,7 @@ private
             ENDL:    'endowment',
             ENGA:    'engagement',
             EVEN:    'event',
+            EST:     'estimated',
             FACT:    'fact',
             FAMC:    'family_child',
             FAM:     'family',
@@ -164,5 +171,5 @@ private
             WIFE:    'wife',
             WILL:    'will'
         }
-	end
+    end
 end
