@@ -18,6 +18,13 @@ class Family < RecordDecorator
         ]
     end
 
+    def spouse?(person)
+        return true if husband&.id == person.id
+        return true if wife&.id == person.id
+
+        return false
+    end
+
     def husband
         @husband ||= find('HUSB')
         return @husband

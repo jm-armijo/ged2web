@@ -87,12 +87,12 @@ class Person < RecordDecorator
         return multimedia&.first || nil
     end
 
-private
-
     def families
         @families ||= find_all('FAMS')
         return @families
     end
+
+private
 
     def extract_events
         events = EventList.new

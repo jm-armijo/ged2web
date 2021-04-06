@@ -1,4 +1,5 @@
 require_relative 'ged/parser'
+require_relative 'tree/tree'
 require_relative 'web/builder'
 require_relative 'web/object_importer'
 
@@ -15,5 +16,8 @@ class Main
 
         importer = ObjectImporter.new(ged)
         importer.import
+
+        tree = Tree.new(ged)
+        tree.groups
     end
 end
