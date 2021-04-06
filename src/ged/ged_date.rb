@@ -14,10 +14,12 @@ class GedDate
 
     # 1 if self>other; 0 if self==other; -1 if self<other
     def <=>(other)
-        return 1 if other.date.nil?
+        return 1 if other.nil? || other.date.nil?
         return -1 if @date.nil?
 
-        date <=> other.date
+        date1 = @date.instance_of?(DateTime) ? @date.to_s : @date
+        date2 = other.date.instance_of?(DateTime) ? other.date.to_s : other.date
+        date1 <=> date2
     end
 
     def natural
@@ -31,7 +33,7 @@ class GedDate
     end
 
     def to_s
-        return value || ''
+        return "#{@date} #{@prefix}"
     end
 
     def to_str
