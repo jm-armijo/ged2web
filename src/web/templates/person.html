@@ -33,7 +33,6 @@
                                 <div class='last-name'><%= instance.father.last_name %></div>
                             </a>
                         </div>
-                        <%= self.build_list('references', instance.parents.references) %>
                         <% end %>
                     </div>
                     <div class='row'>
@@ -45,7 +44,6 @@
                                 <div class='last-name'><%= instance.mother.last_name %></div>
                             </a>
                         </div>
-                        <%= self.build_list('references', instance.parents.references) %>
                         <% end %>
                     </div>
                     <% end %>
