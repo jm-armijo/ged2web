@@ -1,5 +1,6 @@
 require_relative '../record_decorator'
 require_relative '../event_list'
+require_relative 'nil_event'
 
 class Person < RecordDecorator
     def initialize(line)
@@ -47,6 +48,11 @@ class Person < RecordDecorator
     def sosa
         @sosa ||= find('_SOSA')
         return @sosa
+    end
+
+    def birth
+        @birth ||= find('BIRT') || NilEvent.new
+        return @birth
     end
 
     def gender
