@@ -1,23 +1,20 @@
-require_relative 'ged/parser'
-require_relative 'tree/tree'
+require_relative 'ged/ged'
+require_relative 'tree/tree_builder'
 require_relative 'web/builder'
 require_relative 'web/object_importer'
 
 class Main
-    def self.execute(gedcom_path)
-        path = File.expand_path(gedcom_path)
-        ged = Ged.new(path)
-
+    def self.execute(path)
         parser = Parser.new
-        parser.parse(ged)
+        ged = parser.parse(path)
 
-        builder = Builder.new(ged)
+        tree_builder = TreeBuilder.new
+        tree = tree_builder.make(ged)
+
+        builder = Builder.new(ged, tree)
         builder.build
 
         importer = ObjectImporter.new(ged)
         importer.import
-
-        tree = Tree.new
-        tree.generate(ged)
     end
 end
