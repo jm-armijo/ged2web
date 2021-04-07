@@ -17,7 +17,7 @@ class Main
         importer = ObjectImporter.new(ged)
         importer.import
 
-        tree = Tree.new(ged)
-        tree.groups
+        tree = Tree.new
+        tree.generate(ged)
     end
 end

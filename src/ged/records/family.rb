@@ -25,6 +25,13 @@ class Family < RecordDecorator
         return false
     end
 
+    def spouses
+        spouses = []
+        spouses.push(husband) if !husband.nil?
+        spouses.push(wife) if !wife.nil?
+        return spouses
+    end
+
     def husband
         @husband ||= find('HUSB')
         return @husband
@@ -33,6 +40,11 @@ class Family < RecordDecorator
     def wife
         @wife ||= find('WIFE')
         return @wife
+    end
+
+    def children
+        @children ||= find_all('CHIL')
+        return @children
     end
 
     def events
