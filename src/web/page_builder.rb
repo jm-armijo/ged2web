@@ -45,13 +45,14 @@ class PageBuilder
         return @translator.translate(tag)
     end
 
-    def build_page(instance)
+    def build_page(instance, file_name = nil)
+        file_name ||= "#{instance.short_id}.html"
+
         template_name = instance.class.name.downcase
         template = @file_manager.open_template("#{template_name}.html")
         page = template.result(binding)
 
         directory = @page_dir[template_name.to_sym]
-        file_name = "#{instance.short_id}.html"
         @file_manager.save_page(page, directory, file_name)
     end
 end

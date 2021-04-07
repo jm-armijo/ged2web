@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%= self.build_common_section('header') %>
+    <body>
+        <%= self.build_common_section('banner') %>
+        <div class="content">
+            <% instance.generations.each_value do |generation| %>
+            <div class='generation'>
+                <% generation.each do |group| %>
+                <div class='group'>
+                <% group.persons.each do |person| %>
+                    <div>
+                    <%= person.id + ': ' + person.first_name + ' ' + person.last_name %>
+                    </div>
+                <% end %>
+                </div>
+                <% end %>
+            </div>
+            <% end %>
+        </div>
+    </body>
+</html>

@@ -33,7 +33,9 @@ class FamilyGroup
     end
 
     def add(person)
-        @families.concat(person.families)
+        person.families.each do |family|
+            @families.push(family) if !@families.find { |f| f.id == family.id }
+        end
     end
 
     def person?(person)
@@ -45,9 +47,9 @@ class FamilyGroup
     def persons
         persons = []
         @families.each do |family|
-            persons.concat(family.spouses) if !family.spouses.nil?
+            persons.concat(family.spouses)
         end
-        return persons
+        return persons.uniq(&:id)
     end
 
     def children

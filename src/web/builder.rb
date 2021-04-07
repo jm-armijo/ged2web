@@ -5,6 +5,7 @@ class Builder
     def initialize(ged, tree)
         @ged  = ged
         @tree = tree
+        @builder = PageBuilder.new
     end
 
     def build
@@ -17,13 +18,12 @@ class Builder
 private
 
     def build_tree
-        puts 'this is a tree'
+        @builder.build_page(@tree, 'index.html')
     end
 
     def build_pages(instances)
-        builder = PageBuilder.new
         instances.each_value do |instance|
-            builder.build_page(instance)
+            @builder.build_page(instance)
         end
     end
 
