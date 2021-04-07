@@ -16,9 +16,7 @@ private
         directory = './out/obj/'
         FileUtils.mkdir_p(directory)
 
-        instances = @ged.records.filter { |_k, v| v.tag == 'OBJE' }
-
-        instances.each_value do |instance|
+        @ged.objects.each_value do |instance|
             new_path = "#{directory}/#{instance.short_id}.#{instance.format}"
             FileUtils.cp(instance.file, new_path)
         end
