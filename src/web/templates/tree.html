@@ -4,7 +4,7 @@
     <body>
         <%= self.build_common_section('banner') %>
         <div class="content">
-            <% instance.generations.each_value do |generation| %>
+            <% instance.generations.each do |generation| %>
             <div class='generation'>
                 <% generation.each do |group| %>
                 <div class='group'>

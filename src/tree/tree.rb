@@ -9,4 +9,9 @@ class Tree
         @generations[generation] = [] if !@generations.key?(generation)
         @generations[generation].push(group)
     end
+
+    def generations
+        keys = @generations.keys.sort.reverse
+        return keys.map { |key| @generations[key] }
+    end
 end
