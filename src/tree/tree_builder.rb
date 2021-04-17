@@ -13,7 +13,6 @@ class TreeBuilder
         generate_groups(ged)
         process_group(@groups[0])
 
-        puts @tree.generations.length
         return @tree
     end
 

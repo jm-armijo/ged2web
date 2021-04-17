@@ -6,7 +6,7 @@
         <div class="content">
             <% instance.generations.each do |generation| %>
             <div class='generation'>
-                <% generation.each do |group| %>
+                <% generation.groups.each do |group| %>
                 <div class='group'>
                 <% group.persons.each do |person| %>
                     <div>
