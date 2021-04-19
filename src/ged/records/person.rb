@@ -92,6 +92,10 @@ class Person < RecordDecorator
         return @families
     end
 
+    def num_families
+        return families.length
+    end
+
 private
 
     def extract_events

@@ -1,10 +1,24 @@
-class PersonGroup
-    def initialize
-        @person = nil
+class NodesFactory
+    def self.make(person)
+        if person.num_families.positive?
+            nodes = person.families.map do |family|
+                FamilyNode.new(family)
+            end
+        else
+            nodes = [PersonNode.new(person)]
+        end
+
+        return nodes
+    end
+end
+
+class PersonNode
+    def initialize(person)
+        @person = person
     end
 
-    def add(person)
-        @person = person
+    def id
+        return @person.id
     end
 
     def person?(person)
@@ -27,36 +41,28 @@ class PersonGroup
     end
 end
 
-class FamilyGroup
-    def initialize
-        @families = []
+class FamilyNode
+    def initialize(family)
+        @family = family
     end
 
-    def add(person)
-        person.families.each do |family|
-            @families.push(family) if !@families.find { |f| f.id == family.id }
-        end
+    def id
+        return @family.id
     end
 
     def person?(person)
-        return @families.any? do |family|
-            family.spouse?(person)
-        end
+        @family.spouse?(person)
     end
 
     def persons
         persons = []
-        @families.each do |family|
-            persons.concat(family.spouses)
-        end
+        persons.concat(@family.spouses)
         return persons.uniq(&:id)
     end
 
     def children
         children = []
-        @families.each do |family|
-            children.concat(family.children)
-        end
+        children.concat(@family.children)
         return children
     end
 

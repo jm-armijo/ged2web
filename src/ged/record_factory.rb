@@ -58,6 +58,7 @@ class RecordFactory
         BLES: Event,
         BURI: Event,
         CENS: Event,
+        CHIL: Pointer,
         CHRA: Event,
         CHR:  Event,
         CREM: Event,
