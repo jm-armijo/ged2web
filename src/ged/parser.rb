@@ -10,8 +10,13 @@ class Parser
         path = File.expand_path(gedcom_path)
         dir = File.dirname(path)
 
+        # Load all records into an instance of the corresponding class
         ged = process_file(path)
+
+        # Records point to other records: resolving pointers so data can
+        # be accessed.
         resolve_pointers(ged)
+
         update_paths(ged, dir)
 
         return ged

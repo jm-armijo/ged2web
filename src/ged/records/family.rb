@@ -1,4 +1,5 @@
 require_relative '../record_decorator'
+require_relative '../null_person'
 
 class Family < RecordDecorator
     def initialize(record)
@@ -33,12 +34,12 @@ class Family < RecordDecorator
     end
 
     def husband
-        @husband ||= find('HUSB')
+        @husband ||= find('HUSB') || NullPerson.new(self)
         return @husband
     end
 
     def wife
-        @wife ||= find('WIFE')
+        @wife ||= find('WIFE') || NullPerson.new(self)
         return @wife
     end
 

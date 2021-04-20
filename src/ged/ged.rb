@@ -24,6 +24,10 @@ class Ged
         return filter('SOUR')
     end
 
+    def families
+        return filter('FAM')
+    end
+
 private
 
     def filter(tag)
