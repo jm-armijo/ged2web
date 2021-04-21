@@ -15,6 +15,9 @@ class TreeBuilder
         # Creates generations and add nodes to their corresponding generation.
         create_generations
 
+        # Add placeholder entities for unknown ancestors
+        add_placeholders
+
         tree = Tree.new(@generations)
         return tree
     end
@@ -70,7 +73,7 @@ private
     end
 
     def find_parent_nodes(parents)
-        ids = family_ids(parents)
+        ids = parents.map(&:id)
         return @nodes.select { |node| ids.include?(node.id) }
     end
 
@@ -82,5 +85,14 @@ private
             end
         end
         return ids
+    end
+
+    def add_placeholders
+        @generations.each_with_index do |current_generation, index|
+            break if index == @generations.length - 1
+
+            parent_generation = @generations[index + 1]
+            parent_generation.add_families(current_generation.parents)
+        end
     end
 end

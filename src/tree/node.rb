@@ -1,3 +1,5 @@
+require_relative '../ged/null_family'
+
 class NodesFactory
     def self.make(person)
         if person.num_families.positive?
@@ -13,8 +15,13 @@ class NodesFactory
 end
 
 class PersonNode
+    attr_reader :parents
+
     def initialize(person)
         @person = person
+
+        @parents = []
+        @parents.push(person.parents || NullFamily.new(self))
     end
 
     def id
@@ -32,18 +39,18 @@ class PersonNode
     def children
         return []
     end
-
-    def parents
-        parents = []
-        parents.push(@person.father) if !@person.father.nil?
-        parents.push(@person.mother) if !@person.mother.nil?
-        return parents
-    end
 end
 
 class FamilyNode
+    attr_reader :parents
+
     def initialize(family)
         @family = family
+
+        @parents = []
+        persons.each do |person|
+            @parents.push(person.parents || NullFamily.new(self))
+        end
     end
 
     def id
@@ -55,23 +62,12 @@ class FamilyNode
     end
 
     def persons
-        persons = []
-        persons.concat(@family.spouses)
-        return persons.uniq(&:id)
+        return @family.spouses
     end
 
     def children
         children = []
         children.concat(@family.children)
         return children
-    end
-
-    def parents
-        parents = []
-        persons.each do |person|
-            parents.push(person.father) if !person.father.nil?
-            parents.push(person.mother) if !person.mother.nil?
-        end
-        return parents
     end
 end

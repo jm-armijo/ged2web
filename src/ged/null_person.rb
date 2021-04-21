@@ -1,9 +1,12 @@
 class NullPerson
+    attr_reader :num_families
+
     @next_id = 100_000
 
     def initialize(family)
         @id = NullPerson.next_id
         @family = family
+        @num_families = 1
     end
 
     def self.next_id
@@ -44,7 +47,7 @@ class NullPerson
     end
 
     def parents
-        return [NullPerson.new, NullPerson.new]
+        return nil
     end
 
     def father
