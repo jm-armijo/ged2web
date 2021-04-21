@@ -1,11 +1,11 @@
 class Generation
-    attr_reader :groups
+    attr_reader :nodes
 
     def initialize
-        @groups = []
+        @nodes = []
     end
 
-    def add(group)
-        @groups.push(group)
+    def add(node)
+        @nodes.push(node)
     end
 end

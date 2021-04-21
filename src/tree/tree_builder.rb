@@ -8,7 +8,11 @@ class TreeBuilder
     end
 
     def make(ged)
+        # Creates the nodes of a family tree. Nodes can be couples or individual
+        # people if unmarried
         create_nodes(ged)
+
+        # Creates generations and add nodes to their corresponding generation.
         create_generations
 
         tree = Tree.new(@generations)
