@@ -14,14 +14,28 @@ class NodesFactory
     end
 end
 
-class PersonNode
+class Node
+private
+
+    def set_parents
+        @parents = []
+        persons.each do |person|
+            if !person.parents.nil?
+                @parents.push(person.parents)
+            elsif person.main?
+                @parents.push(NullFamily.new(self))
+            end
+        end
+    end
+end
+
+class PersonNode < Node
     attr_reader :parents
 
     def initialize(person)
+        super()
         @person = person
-
-        @parents = []
-        @parents.push(person.parents || NullFamily.new(self))
+        set_parents
     end
 
     def id
@@ -41,16 +55,13 @@ class PersonNode
     end
 end
 
-class FamilyNode
+class FamilyNode < Node
     attr_reader :parents
 
     def initialize(family)
+        super()
         @family = family
-
-        @parents = []
-        persons.each do |person|
-            @parents.push(person.parents || NullFamily.new(self))
-        end
+        set_parents
     end
 
     def id

@@ -26,6 +26,8 @@ private
 
     def create_nodes(ged)
         ged.persons.each_value do |person|
+            next if person.private?
+
             nodes = NodesFactory.make(person)
             nodes.each do |node|
                 @nodes.push(node) if @nodes.none? { |n| n.id == node.id }

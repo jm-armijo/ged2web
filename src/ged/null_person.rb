@@ -77,4 +77,8 @@ class NullPerson
     def ==(other)
         return id == other.id
     end
+
+    def main?
+        return true
+    end
 end

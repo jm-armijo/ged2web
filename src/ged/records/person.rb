@@ -96,6 +96,16 @@ class Person < RecordDecorator
         return families.length
     end
 
+    def private?
+        @private ||= !find('_PRIV').nil?
+        return @private
+    end
+
+    def main?
+        @main ||= find('_MAIN').nil? ? 'Y' : find('_MAIN')
+        return @main == 'Y'
+    end
+
 private
 
     def extract_events
