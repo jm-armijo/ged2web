@@ -47,7 +47,7 @@ class NullPerson
     end
 
     def parents
-        return nil
+        return []
     end
 
     def father

@@ -1,4 +1,3 @@
-require_relative 'node'
 require_relative 'tree'
 
 class TreeBuilder
@@ -25,14 +24,14 @@ class TreeBuilder
 private
 
     def create_nodes(ged)
+        nodes = []
         ged.persons.each_value do |person|
             next if person.private?
 
-            nodes = NodesFactory.make(person)
-            nodes.each do |node|
-                @nodes.push(node) if @nodes.none? { |n| n.id == node.id }
-            end
+            nodes += person.families? ? person.families : [person]
         end
+
+        @nodes = nodes.uniq(&:id)
     end
 
     def create_generations
@@ -47,10 +46,10 @@ private
 
         add_node_to_generation(node, visited, generation_number)
 
-        children = find_children_nodes(node.children)
+        children = find_children_of_node(node)
         add_nodes_to_generation(children, visited, generation_number + 1)
 
-        parents = find_parent_nodes(node.parents)
+        parents = find_parents_of_node(node)
         add_nodes_to_generation(parents, visited, generation_number - 1)
     end
 
@@ -67,15 +66,16 @@ private
         end
     end
 
-    def find_children_nodes(children)
+    def find_children_of_node(parent_node)
+        children = parent_node.respond_to?('children') ? parent_node.children : []
         ids = children.map(&:id)
         ids.concat(family_ids(children))
 
         return @nodes.select { |node| ids.include?(node.id) }
     end
 
-    def find_parent_nodes(parents)
-        ids = parents.map(&:id)
+    def find_parents_of_node(child_node)
+        ids = child_node.parents.map(&:id)
         return @nodes.select { |node| ids.include?(node.id) }
     end
 

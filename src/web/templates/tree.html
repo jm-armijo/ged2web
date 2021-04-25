@@ -8,9 +8,23 @@
             <div class='generation'>
                 <% generation.nodes.each do |node| %>
                 <div class='node'>
-                <% node.persons.each do |person| %>
-                    <div>
-                    <%= person.id + ': ' + person.first_name + ' ' + person.last_name %>
+                    <div class="id">
+                        <%= node.id %>
+                    </div>
+                <%
+                persons = node.respond_to?('persons') ? node.persons : [node]
+                persons.each do |person|
+                %>
+                    <div class="person">
+                        <div class="id">
+                            <%= person.id %>
+                        </div>
+                        <div class="first-name">
+                            <%= person.first_name %>
+                        </div>
+                        <div class="last-name">
+                            <%= person.last_name %>
+                        </div>
                     </div>
                 <% end %>
                 </div>

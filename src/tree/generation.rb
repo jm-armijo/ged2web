@@ -19,8 +19,10 @@ class Generation
 
     def add_families(families)
         families.each do |family|
-            parent_nodes = NodesFactory.make(family.husband)
-            @nodes.concat(parent_nodes)
+            next if family.nil?
+
+            nodes = family.spouses.map(&:families).flatten
+            @nodes.concat(nodes)
         end
 
         @nodes.uniq!(&:id)

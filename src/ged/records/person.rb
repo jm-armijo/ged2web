@@ -62,15 +62,15 @@ class Person < RecordDecorator
 
     def parents
         @parents ||= find_all('FAMC')&.first || nil
-        return @parents
+        return @parents.nil? ? [] : [@parents]
     end
 
     def father
-        return parents&.husband || nil
+        return @parents&.husband || nil
     end
 
     def mother
-        return parents&.wife || nil
+        return @parents&.wife || nil
     end
 
     def events
@@ -92,8 +92,8 @@ class Person < RecordDecorator
         return @families
     end
 
-    def num_families
-        return families.length
+    def families?
+        return families.length.positive?
     end
 
     def private?

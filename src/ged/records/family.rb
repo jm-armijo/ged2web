@@ -33,6 +33,10 @@ class Family < RecordDecorator
         return spouses
     end
 
+    def persons
+        return spouses
+    end
+
     def husband
         @husband ||= find('HUSB') || NullPerson.new(self)
         return @husband
@@ -46,6 +50,10 @@ class Family < RecordDecorator
     def children
         @children ||= find_all('CHIL')
         return @children
+    end
+
+    def parents
+        return spouses.map(&:parents).flatten
     end
 
     def events
