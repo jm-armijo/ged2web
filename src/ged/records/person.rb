@@ -60,14 +60,16 @@ class Person < RecordDecorator
         return @gender
     end
 
+    def person?(person)
+        return id == person.id
+    end
+
     def parents
         @parents ||= find_all('FAMC')&.first || nil
         return @parents.nil? ? [] : [@parents]
     end
 
-    def parents=(parents)
-        @parents = parents
-    end
+    attr_writer :parents
 
     def father
         return @parents&.husband || nil

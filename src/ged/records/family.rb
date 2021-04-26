@@ -37,6 +37,10 @@ class Family < RecordDecorator
         return spouses
     end
 
+    def person?(person)
+        return spouses.any? { |spouse| spouse.id == person.id }
+    end
+
     def husband
         @husband ||= find('HUSB') || NullPerson.new(self)
         return @husband

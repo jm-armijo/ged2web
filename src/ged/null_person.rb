@@ -51,9 +51,7 @@ class NullPerson
         return @parents.nil? ? [] : [@parents]
     end
 
-    def parents=(parents)
-        @parents = parents
-    end
+    attr_writer :parents
 
     def father
         return nil

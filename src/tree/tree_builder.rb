@@ -17,6 +17,8 @@ class TreeBuilder
         # Add placeholder entities for unknown ancestors
         add_placeholders
 
+        arrange_generations
+
         tree = Tree.new(@generations)
         return tree
     end
@@ -32,6 +34,26 @@ private
         end
 
         @nodes = nodes.uniq(&:id)
+    end
+
+    def add_placeholders
+        @generations.each_with_index do |current_generation, index|
+            break if index == @generations.length - 1
+
+            parent_generation = @generations[index + 1]
+            parent_generation.add_families(current_generation.parents)
+        end
+    end
+
+    def arrange_generations
+        parents = []
+        @generations.each_with_index do |generation, index|
+            puts "Processing generation #{index}"
+            generation.group_nodes
+
+            generation.sort(parents)
+            parents = generation.parents
+        end
     end
 
     def create_generations
@@ -87,14 +109,5 @@ private
             end
         end
         return ids
-    end
-
-    def add_placeholders
-        @generations.each_with_index do |current_generation, index|
-            break if index == @generations.length - 1
-
-            parent_generation = @generations[index + 1]
-            parent_generation.add_families(current_generation.parents)
-        end
     end
 end

@@ -31,6 +31,10 @@ class NullFamily
         return spouses
     end
 
+    def person?(person)
+        return spouses.any? { |spouse| spouse.id == person.id }
+    end
+
     def spouses
         return [@husband, @wife]
     end
