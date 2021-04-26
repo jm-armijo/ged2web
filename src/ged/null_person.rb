@@ -16,7 +16,7 @@ class NullPerson
     end
 
     def id
-        return "@NIND000#{@id}"
+        return "@NI00#{@id}"
     end
 
     def short_id

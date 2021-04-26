@@ -25,7 +25,7 @@
                     </div>
                     <% if !instance.parents.nil? %>
                     <div class='row'>
-                        <% if !instance.father.nil? %>
+                        <% if !instance.father.nil? && instance.father.class.name != 'NullPerson' %>
                         <div class='label'><%= self.translate('Father') %>:</div>
                         <div class='name value'>
                             <a href="../ind/<%= instance.father.short_id %>.html">
@@ -36,7 +36,7 @@
                         <% end %>
                     </div>
                     <div class='row'>
-                        <% if !instance.mother.nil? %>
+                        <% if !instance.mother.nil? && instance.mother.class.name != 'NullPerson' %>
                         <div class='label'><%= self.translate('Mother') %>:</div>
                         <div class='name value'>
                             <a href="../ind/<%= instance.mother.short_id %>.html">

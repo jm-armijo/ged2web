@@ -20,7 +20,7 @@ class NullFamily
     end
 
     def id
-        return "@NFAM000#{@id}"
+        return "@NF00#{@id}"
     end
 
     def short_id
