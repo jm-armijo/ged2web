@@ -17,7 +17,7 @@ class Generation
         parents = []
         @nodes.each do |node|
             persons(node).each do |person|
-                person.parents = NullFamily.new(person) if person.parents.length.zero?
+                person.parents = NullFamily.new(person) if person.parents.length.zero? && person.main?
             end
             parents.concat(node.parents)
         end

@@ -3,6 +3,8 @@ require_relative '../event_list'
 require_relative 'nil_event'
 
 class Person < RecordDecorator
+    attr_writer :parents
+
     def initialize(line)
         super
 
@@ -68,8 +70,6 @@ class Person < RecordDecorator
         @parents ||= find_all('FAMC')&.first || nil
         return @parents.nil? ? [] : [@parents]
     end
-
-    attr_writer :parents
 
     def father
         return @parents&.husband || nil
