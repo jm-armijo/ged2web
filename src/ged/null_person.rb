@@ -7,6 +7,7 @@ class NullPerson
         @id = NullPerson.next_id
         @family = family
         @num_families = 1
+        @parents = nil
     end
 
     def self.next_id
@@ -47,7 +48,11 @@ class NullPerson
     end
 
     def parents
-        return []
+        return @parents.nil? ? [] : [@parents]
+    end
+
+    def parents=(parents)
+        @parents = parents
     end
 
     def father

@@ -65,6 +65,10 @@ class Person < RecordDecorator
         return @parents.nil? ? [] : [@parents]
     end
 
+    def parents=(parents)
+        @parents = parents
+    end
+
     def father
         return @parents&.husband || nil
     end

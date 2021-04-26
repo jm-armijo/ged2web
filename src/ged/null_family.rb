@@ -27,7 +27,15 @@ class NullFamily
         return @id
     end
 
+    def persons
+        return spouses
+    end
+
     def spouses
         return [@husband, @wife]
+    end
+
+    def parents
+        return spouses.map(&:parents).flatten
     end
 end
