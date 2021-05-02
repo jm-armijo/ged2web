@@ -48,7 +48,7 @@ private
     def arrange_generations
         parents = []
         @generations.each_with_index do |generation, index|
-            puts "Processing generation #{index}"
+            puts "Processing generation #{index + 1}"
             generation.group_nodes
 
             generation.sort(parents)

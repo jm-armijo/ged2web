@@ -56,6 +56,14 @@ class Family < RecordDecorator
         return @children
     end
 
+    def siblings
+        siblings = []
+        persons.each do |person|
+            siblings.concat(person.siblings)
+        end
+        return siblings
+    end
+
     def parents
         return spouses.map(&:parents).flatten
     end

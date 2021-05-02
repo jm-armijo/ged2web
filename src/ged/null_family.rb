@@ -27,6 +27,10 @@ class NullFamily
         return @id
     end
 
+    def siblings
+        return []
+    end
+
     def persons
         return spouses
     end

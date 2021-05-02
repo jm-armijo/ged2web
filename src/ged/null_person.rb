@@ -1,5 +1,6 @@
 class NullPerson
     attr_reader :num_families
+    attr_writer :parents
 
     @next_id = 100_000
 
@@ -47,11 +48,13 @@ class NullPerson
         return ''
     end
 
+    def siblings
+        return []
+    end
+
     def parents
         return @parents.nil? ? [] : [@parents]
     end
-
-    attr_writer :parents
 
     def father
         return nil

@@ -112,6 +112,11 @@ class Person < RecordDecorator
         return @main == 'Y'
     end
 
+    def siblings
+        @siblings ||= find_siblings
+        return @siblings
+    end
+
 private
 
     def extract_events
@@ -144,5 +149,14 @@ private
     def post_mortem_events
         events = find_events(@post_mortem_event_types)
         return events.sort
+    end
+
+    def find_siblings
+        siblings = []
+        families = (father&.families || []) + (mother&.families || [])
+        families.each do |family|
+            siblings.concat(family.children)
+        end
+        return siblings.uniq.reject { |sibling| sibling.id == id }
     end
 end
