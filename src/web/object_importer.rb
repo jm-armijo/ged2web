@@ -26,6 +26,9 @@ private
         directory = './out/css/'
         FileUtils.mkdir_p(directory)
 
-        FileUtils.cp('css/ind.css', './out/css/')
+        FileUtils.cp('css/person.css', './out/css/')
+        FileUtils.cp('css/source.css', './out/css/')
+        FileUtils.cp('css/base.css',   './out/css/')
+        FileUtils.cp('css/tree.css',   './out/css/')
     end
 end

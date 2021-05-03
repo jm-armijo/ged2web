@@ -12,8 +12,13 @@ class PageBuilder
         }
     end
 
-    def build_common_section(section)
-        template = @file_manager.open_template("#{section}.html")
+    def build_header(style)
+        template = @file_manager.open_template("header.html")
+        return template.result(binding)
+    end
+
+    def build_banner
+        template = @file_manager.open_template("banner.html")
         return template.result(binding)
     end
 

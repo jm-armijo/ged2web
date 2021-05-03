@@ -1,0 +1,22 @@
+/* SOURCES */
+
+.sources {
+  padding: 20px 0px 0px 0px;
+}
+
+.sources .title {
+  font-size: 15px;
+  text-align: left;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.sources .source {
+  font-size: 15px;
+  text-align: left;
+}
+
+.sources .link {
+  display: inline
+}
+

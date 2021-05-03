@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%= self.build_common_section('header') %>
-    <body>
-        <%= self.build_common_section('banner') %>
+    <%= self.build_header('tree') %>
+    <body onload="document.getElementById('focus').focus();">
+        <%= self.build_banner %>
         <div class="content">
-            <% instance.generations.each do |generation| %>
+            <% instance.generations.each_with_index do |generation, generation_number| %>
             <div class='generation'>
-                <% generation.nodes.each do |node| %>
+                <% generation.nodes.each_with_index do |node, node_number| %>
+                <% if generation_number.zero? && node_number == generation.nodes.length / 2 %>
+                <div class='node' id='focus' tabindex='0'>
+                <% else %>
                 <div class='node'>
+                <% end %>
                     <div class="id">
                         <%= node.id %>
                     </div>
@@ -15,7 +19,7 @@
                 persons = node.respond_to?('persons') ? node.persons : [node]
                 persons.each do |person|
                 %>
-                    <div class="person">
+                    <div class="person" id="<%= person.id %>">
                         <div class="id">
                             <%= person.id %>
                         </div>
