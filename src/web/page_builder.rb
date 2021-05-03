@@ -13,12 +13,12 @@ class PageBuilder
     end
 
     def build_header(style)
-        template = @file_manager.open_template("header.html")
+        template = @file_manager.open_template('header.html')
         return template.result(binding)
     end
 
     def build_banner
-        template = @file_manager.open_template("banner.html")
+        template = @file_manager.open_template('banner.html')
         return template.result(binding)
     end
 

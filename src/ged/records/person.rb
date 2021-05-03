@@ -4,9 +4,11 @@ require_relative 'nil_event'
 
 class Person < RecordDecorator
     attr_writer :parents
+    attr_reader :type
 
     def initialize(line)
         super
+        @type = 'Person'
 
         @life_event_types = [
             'ADOP',

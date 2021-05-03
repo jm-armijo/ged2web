@@ -20,6 +20,11 @@ body {
   display: inline-block;
 }
 
+.node .family {
+  border: 3px solid green;
+  display: inline-block;
+}
+
 .node .first-name {
   display: block;
 }

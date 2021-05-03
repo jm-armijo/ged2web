@@ -1,6 +1,7 @@
 class NullPerson
     attr_reader :num_families
     attr_writer :parents
+    attr_reader :type
 
     @next_id = 100_000
 
@@ -9,6 +10,7 @@ class NullPerson
         @family = family
         @num_families = 1
         @parents = nil
+        @type = 'Person'
     end
 
     def self.next_id

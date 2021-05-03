@@ -1,6 +1,10 @@
 class Group
+    attr_reader :nodes
+    attr_reader :type
+
     def initialize(nodes)
         @nodes = nodes
+        @type = 'Group'
     end
 
     def include?(node)

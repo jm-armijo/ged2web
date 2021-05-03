@@ -2,8 +2,11 @@ require_relative '../record_decorator'
 require_relative '../null_person'
 
 class Family < RecordDecorator
+    attr_reader :type
+
     def initialize(record)
         super(record)
+        @type = 'Family'
         @family_event_tags = [
             'ANUL',
             'CENS',
@@ -49,6 +52,12 @@ class Family < RecordDecorator
     def wife
         @wife ||= find('WIFE') || NullPerson.new(self)
         return @wife
+    end
+
+    def other_spouse(spouse)
+        is_husband = husband.id == spouse.id
+        other = is_husband ? wife : husband
+        return other
     end
 
     def children

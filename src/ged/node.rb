@@ -56,4 +56,57 @@ class Node
         # Create a merged node
         return Group.new(merged)
     end
+
+    def self.unions(node)
+        case node.type
+        when 'Person'
+            return [node]
+        when 'Family'
+            return [node.husband, node, node.wife]
+        else
+            return group_unions(node)
+        end
+    end
+
+    def self.group_unions(group)
+        families = group.nodes.clone
+        first = families[0].husband
+        unions = [first]
+
+        while families.length.positive?
+            push_families_into_unions(unions, families)
+            unshift_families_into_unions(unions, families)
+        end
+
+        return unions
+    end
+
+    def self.push_families_into_unions(unions, families)
+        last_person = unions.last
+        family = find_and_pop_family(families, last_person)
+        if !family.nil?
+            unions.push(family)
+            other = family.other_spouse(last_person)
+            unions.push(other)
+        end
+    end
+
+    def self.unshift_families_into_unions(unions, families)
+        first_person = unions.first
+        family = find_and_pop_family(families, first_person)
+        if !family.nil?
+            unions.unshift(family)
+            other = family.other_spouse(first_person)
+            unions.unshift(other)
+        end
+    end
+
+    def self.find_and_pop_family(families, spouse)
+        index = families.find_index { |family| family.spouse?(spouse) }
+        return nil if index.nil?
+
+        family = families[index]
+        families.delete_at(index)
+        return family
+    end
 end

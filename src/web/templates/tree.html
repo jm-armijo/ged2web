@@ -7,30 +7,32 @@
             <% instance.generations.each_with_index do |generation, generation_number| %>
             <div class='generation'>
                 <% generation.nodes.each_with_index do |node, node_number| %>
-                <% if generation_number.zero? && node_number == generation.nodes.length / 2 %>
+                    <% if generation_number.zero? && node_number == generation.nodes.length / 2 %>
                 <div class='node' id='focus' tabindex='0'>
-                <% else %>
+                    <% else %>
                 <div class='node'>
-                <% end %>
-                    <div class="id">
-                        <%= node.id %>
-                    </div>
-                <%
-                persons = node.respond_to?('persons') ? node.persons : [node]
-                persons.each do |person|
-                %>
-                    <div class="person" id="<%= person.id %>">
-                        <div class="id">
-                            <%= person.id %>
+                    <% end %>
+                    <% Node.unions(node).each_with_index do |link, index| %>
+                        <% if index % 2 == 0; person = link %>
+                        <div class="person" id="<%= person.id %>">
+                            <div class="id">
+                                <%= person.id %>
+                            </div>
+                            <div class="first-name">
+                                <%= person.first_name %>
+                            </div>
+                            <div class="last-name">
+                                <%= person.last_name %>
+                            </div>
                         </div>
-                        <div class="first-name">
-                            <%= person.first_name %>
+                        <% else; family = link %>
+                        <div class="family" id="<%= family.id %>">
+                            <div class="id">
+                                <%= family.id %>
+                            </div>
                         </div>
-                        <div class="last-name">
-                            <%= person.last_name %>
-                        </div>
-                    </div>
-                <% end %>
+                        <% end %>
+                    <% end %>
                 </div>
                 <% end %>
             </div>

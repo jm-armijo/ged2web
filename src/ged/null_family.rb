@@ -3,6 +3,7 @@ class NullFamily
     attr_reader :wife
     attr_reader :children
     attr_reader :events
+    attr_reader :type
 
     @next_id = 100_000
 
@@ -12,6 +13,7 @@ class NullFamily
         @wife = NullPerson.new(self)
         @children = [child]
         @events = []
+        @type = 'Family'
     end
 
     def self.next_id
