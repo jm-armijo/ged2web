@@ -1,6 +1,7 @@
 require_relative '../ged/null_family'
 require_relative '../ged/group'
 require_relative '../ged/node'
+require_relative './placeholder'
 
 class Generation
     attr_reader :nodes
@@ -16,8 +17,7 @@ class Generation
 
     def add_families(families)
         families.each do |family|
-            nodes = family.spouses.map(&:families).flatten
-            @nodes.concat(nodes)
+            @nodes.concat(family.spouses.map(&:families).flatten)
         end
 
         @nodes.uniq!(&:id)
@@ -43,14 +43,8 @@ class Generation
     def group_nodes
         nodes = nodes_to_group
         remainder = @nodes - nodes
-
-        grouped_nodes = []
-        while nodes.length.positive?
-            group = Node.group_related_nodes(nodes)
-            grouped_nodes.push(group)
-            @num_groups += 1
-        end
-
+        grouped_nodes = Node.group_nodes(nodes)
+        @num_groups += grouped_nodes.length
         @nodes = remainder + grouped_nodes
     end
 
@@ -85,13 +79,28 @@ class Generation
         @nodes = nodes.uniq
     end
 
-private
+    def create_placehodlers
+        current_index = 0
 
-    def find_nodes_with_siblings(nodes_to_search, siblings)
-        return siblings.map do |sibling|
-            nodes_to_search.select { |node| node.person?(sibling) }
-        end.flatten.uniq
+        while current_index < @nodes.length
+            start_index = Node.find_first_null_family(@nodes, current_index)
+            break if start_index.nil?
+
+            end_index = Node.find_first_non_null_family(@nodes, start_index + 1) || @nodes.length
+
+            # Remove Null Families from the nodes
+            @nodes.slice!(start_index..end_index - 1)
+
+            # Insert a placeholder instead with the number of replaced nodes
+            placeholder = Placeholder.new(end_index - start_index)
+            @nodes.insert(start_index, placeholder)
+
+            # The length of @nodes has changed: continue were we left.
+            current_index = start_index + 1
+        end
     end
+
+private
 
     def sort_primary_and_secondary_nodes(primary_nodes, secondary_nodes)
         # The sorted nodes will be added to this variable: initializing empty.
@@ -101,12 +110,12 @@ private
         primary_nodes.each do |primary_node|
             # For all siblings of the current primary node, find all secondary
             # nodes that contain the sibling
-            secondary_siblings = find_nodes_with_siblings(secondary_nodes, primary_node.siblings)
+            secondary_siblings = Node.find_nodes_with_siblings(secondary_nodes, primary_node.siblings)
             secondary_nodes -= secondary_siblings
 
             # For all siblings of the current primary node, find all primary
             # nodes that contain the sibling
-            primary_siblings = find_nodes_with_siblings(primary_nodes, primary_node.siblings)
+            primary_siblings = Node.find_nodes_with_siblings(primary_nodes, primary_node.siblings)
             primary_nodes -= primary_siblings
 
             # Sort the nodes

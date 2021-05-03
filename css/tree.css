@@ -10,6 +10,12 @@ body {
   width: 100%;
 }
 
+.placeholder {
+  border-width: 0px;
+  display: inline-block;
+  vertical-align: top;
+}
+
 .node {
   border: 3px solid black;
   display: inline-block;

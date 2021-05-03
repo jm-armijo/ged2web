@@ -53,6 +53,9 @@ private
 
             generation.sort(parents)
             parents = generation.parents
+
+            # This step needs to be done last
+            generation.create_placehodlers
         end
     end
 

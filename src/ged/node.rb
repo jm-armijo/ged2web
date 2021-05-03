@@ -4,8 +4,7 @@ class Node
     end
 
     def self.ids(node)
-        id = node.id
-        return id.is_a?(Array) ? id : [id]
+        return node.id.is_a?(Array) ? node.id : [node.id]
     end
 
     def self.compare(node1, node2)
@@ -33,6 +32,16 @@ class Node
         persons(node).each do |person|
             person.parents = NullFamily.new(person) if person.parents.length.zero? && person.main?
         end
+    end
+
+    def self.group_nodes(nodes)
+        grouped_nodes = []
+        while nodes.length.positive?
+            group = Node.group_related_nodes(nodes)
+            grouped_nodes.push(group)
+        end
+
+        return grouped_nodes
     end
 
     # Group related nodes into one group.
@@ -63,15 +72,13 @@ class Node
             return [node]
         when 'Family'
             return [node.husband, node, node.wife]
-        else
-            return group_unions(node)
         end
+        return group_unions(node)
     end
 
     def self.group_unions(group)
         families = group.nodes.clone
-        first = families[0].husband
-        unions = [first]
+        unions = [families[0].husband]
 
         while families.length.positive?
             push_families_into_unions(unions, families)
@@ -84,21 +91,19 @@ class Node
     def self.push_families_into_unions(unions, families)
         last_person = unions.last
         family = find_and_pop_family(families, last_person)
-        if !family.nil?
-            unions.push(family)
-            other = family.other_spouse(last_person)
-            unions.push(other)
-        end
+        return if family.nil?
+
+        unions.push(family)
+        unions.push(family.other_spouse(last_person))
     end
 
     def self.unshift_families_into_unions(unions, families)
         first_person = unions.first
         family = find_and_pop_family(families, first_person)
-        if !family.nil?
-            unions.unshift(family)
-            other = family.other_spouse(first_person)
-            unions.unshift(other)
-        end
+        return if family.nil?
+
+        unions.unshift(family)
+        unions.unshift(family.other_spouse(first_person))
     end
 
     def self.find_and_pop_family(families, spouse)
@@ -108,5 +113,25 @@ class Node
         family = families[index]
         families.delete_at(index)
         return family
+    end
+
+    def self.find_first_null_family(nodes, start_index)
+        (start_index..nodes.length - 1).each do |index|
+            return index if nodes[index].instance_of?(NullFamily)
+        end
+        return nil
+    end
+
+    def self.find_first_non_null_family(nodes, start_index)
+        (start_index..nodes.length - 1).each do |index|
+            return index if !nodes[index].instance_of?(NullFamily)
+        end
+        return nil
+    end
+
+    def self.find_nodes_with_siblings(nodes_to_search, siblings)
+        return siblings.map do |sibling|
+            nodes_to_search.select { |node| node.person?(sibling) }
+        end.flatten.uniq
     end
 end

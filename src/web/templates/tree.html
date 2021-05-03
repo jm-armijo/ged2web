@@ -7,13 +7,17 @@
             <% instance.generations.each_with_index do |generation, generation_number| %>
             <div class='generation'>
                 <% generation.nodes.each_with_index do |node, node_number| %>
-                    <% if generation_number.zero? && node_number == generation.nodes.length / 2 %>
-                <div class='node' id='focus' tabindex='0'>
+                    <% if node.class.name == 'Placeholder' %>
+                <div class='placeholder' style="width: <%= (1 + Math.log(node.size) ) * 200 %>px; ">
+                </div>
                     <% else %>
+                        <% if generation_number.zero? && node_number == generation.nodes.length / 2 %>
+                <div class='node' id='focus' tabindex='0'>
+                        <% else %>
                 <div class='node'>
-                    <% end %>
-                    <% Node.unions(node).each_with_index do |link, index| %>
-                        <% if index % 2 == 0; person = link %>
+                        <% end %>
+                        <% Node.unions(node).each_with_index do |link, index| %>
+                            <% if index % 2 == 0; person = link %>
                         <div class="person" id="<%= person.id %>">
                             <div class="id">
                                 <%= person.id %>
@@ -25,15 +29,16 @@
                                 <%= person.last_name %>
                             </div>
                         </div>
-                        <% else; family = link %>
+                            <% else; family = link %>
                         <div class="family" id="<%= family.id %>">
                             <div class="id">
                                 <%= family.id %>
                             </div>
                         </div>
+                            <% end %>
                         <% end %>
-                    <% end %>
                 </div>
+                    <% end %>
                 <% end %>
             </div>
             <% end %>
