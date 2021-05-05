@@ -27,13 +27,55 @@ private
 
     def create_nodes(ged)
         nodes = []
-        ged.persons.each_value do |person|
-            next if person.private?
 
-            nodes += person.families? ? person.families : [person]
+        persons = ged.persons.clone
+        while !persons.empty?
+            person = persons.first[1]
+
+            if person.families.empty?
+                node = create_person_node(person)
+            else
+                node = create_families_node(person)
+            end
+
+            node.persons.each do |person|
+                persons.delete(person.id)
+            end
+
+            nodes.push(node)
         end
 
-        @nodes = nodes.uniq(&:id)
+        @nodes = nodes
+    end
+
+    def create_person_node(person)
+        node = TreeNode.new
+        node.add(person)
+        return node
+    end
+
+    def create_families_node(person)
+        node = TreeNode.new
+        families = person.families
+        num_nodes = 0
+
+        loop do
+            node.add_from_list(families)
+            break if num_nodes == node.length
+
+            spouses = families.map { |family| family.spouses }.flatten
+            families = spouses.map(&:families).flatten
+            num_nodes = node.length
+        end
+
+        return node
+    end
+
+    def create_generations
+        create_generations_from_node(@nodes[0])
+
+        keys = @generations.keys.sort.reverse
+        @generations = keys.map { |key| @generations[key] }
     end
 
     def add_placeholders
@@ -57,13 +99,6 @@ private
             # This step needs to be done last
             generation.create_placehodlers
         end
-    end
-
-    def create_generations
-        create_generations_from_node(@nodes[0])
-
-        keys = @generations.keys.sort.reverse
-        @generations = keys.map { |key| @generations[key] }
     end
 
     def create_generations_from_node(node, visited = [], generation_number = 0)
@@ -112,5 +147,37 @@ private
             end
         end
         return ids
+    end
+end
+
+class TreeNode
+    def initialize
+        @nodes = []
+    end
+
+    def add(node)
+        @nodes.push(node)
+    end
+
+    def add_from_list(list)
+        @nodes.concat(list)
+        @nodes.uniq!
+    end
+
+    def length
+        return @nodes.length
+    end
+
+    def persons
+        persons = []
+        @nodes.each do |node|
+            if node.respond_to?('persons')
+                persons.concat(node.persons)
+            else
+                persons.push(node)
+            end
+        end
+
+        return persons.uniq
     end
 end

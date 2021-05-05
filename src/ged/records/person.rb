@@ -96,7 +96,7 @@ class Person < RecordDecorator
     end
 
     def families
-        @families ||= find_all('FAMS')
+        @families ||= find_all('FAMS') || []
         return @families
     end
 
