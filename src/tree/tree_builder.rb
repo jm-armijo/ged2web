@@ -1,4 +1,5 @@
 require_relative 'tree'
+require_relative 'node_builder'
 
 class TreeBuilder
     def initialize
@@ -26,49 +27,16 @@ class TreeBuilder
 private
 
     def create_nodes(ged)
-        nodes = []
+        node_builder = NodeBuilder.new
 
         persons = ged.persons.clone
         while !persons.empty?
             person = persons.first[1]
+            node = node_builder.create_node(person)
+            persons.delete_if { |key, _v| node.persons.map(&:id).include?(key) }
 
-            if person.families.empty?
-                node = create_person_node(person)
-            else
-                node = create_families_node(person)
-            end
-
-            node.persons.each do |person|
-                persons.delete(person.id)
-            end
-
-            nodes.push(node)
+            @nodes.push(node)
         end
-
-        @nodes = nodes
-    end
-
-    def create_person_node(person)
-        node = TreeNode.new
-        node.add(person)
-        return node
-    end
-
-    def create_families_node(person)
-        node = TreeNode.new
-        families = person.families
-        num_nodes = 0
-
-        loop do
-            node.add_from_list(families)
-            break if num_nodes == node.length
-
-            spouses = families.map { |family| family.spouses }.flatten
-            families = spouses.map(&:families).flatten
-            num_nodes = node.length
-        end
-
-        return node
     end
 
     def create_generations
@@ -147,37 +115,5 @@ private
             end
         end
         return ids
-    end
-end
-
-class TreeNode
-    def initialize
-        @nodes = []
-    end
-
-    def add(node)
-        @nodes.push(node)
-    end
-
-    def add_from_list(list)
-        @nodes.concat(list)
-        @nodes.uniq!
-    end
-
-    def length
-        return @nodes.length
-    end
-
-    def persons
-        persons = []
-        @nodes.each do |node|
-            if node.respond_to?('persons')
-                persons.concat(node.persons)
-            else
-                persons.push(node)
-            end
-        end
-
-        return persons.uniq
     end
 end

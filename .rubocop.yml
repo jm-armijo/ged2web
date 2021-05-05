@@ -50,6 +50,9 @@ Style/MissingRespondToMissing:
 Style/NegatedIf:
   Enabled: false
 
+Style/NegatedWhile:
+  Enabled: false
+
 Style/OptionalBooleanParameter:
   AllowedMethods: ['respond_to?']
 
