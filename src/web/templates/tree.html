@@ -8,7 +8,7 @@
             <div class='generation'>
                 <% generation.nodes.each_with_index do |node, node_number| %>
                     <% if node.class.name == 'Placeholder' %>
-                <div class='placeholder' style="width: <%= (1 + Math.log(node.size) ) * 200 %>px; ">
+                <div class='placeholder' style="width: <%= ((1 + Math.log(node.size) ) ** 2 ) * 200 %>px; ">
                 </div>
                     <% else %>
                         <% if generation_number.zero? && node_number == generation.nodes.length / 2 %>
@@ -43,5 +43,42 @@
             </div>
             <% end %>
         </div>
+        <script>
+            window.addEventListener(
+                "load",
+                function() {
+                    "use strict";
+                    <%
+                    instance.generations.each do |generation|
+                        generation.nodes.each do |node|
+                            next if node.class.name == 'Placeholder'
+
+                            Node.persons(node).each do |person|
+                                person.parents.each do |parent|
+                                    next if parent.class.name == 'NullFamily'
+                    %>
+                    new LeaderLine (
+                        document.getElementById('<%= person.id %>'),
+                        document.getElementById('<%= parent.id %>'),
+                        {
+                            color: "Black",
+                            startSocket: "bottom",
+                            endSocket: "top",
+                            path: "magnet",
+                            size: 2,
+                            startPlug: "square",
+                            endPlug: "square"
+                        }
+                    );
+
+                    <%
+                                end
+                            end
+                        end
+                    end
+                    %>
+                }
+            );
+        </script>
     </body>
 </html>
