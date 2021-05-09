@@ -16,7 +16,7 @@
                         <% else %>
                 <div class='node'>
                         <% end %>
-                        <% Node.unions(node).each_with_index do |link, index| %>
+                        <% node.unions.each_with_index do |link, index| %>
                             <% if index % 2 == 0; person = link %>
                         <div class="person" id="<%= person.id %>">
                             <div class="id">

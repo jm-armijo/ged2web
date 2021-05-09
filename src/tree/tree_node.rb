@@ -1,3 +1,5 @@
+require_relative './union_builder'
+
 class TreeNode
     def initialize
         @nodes = []
@@ -9,11 +11,36 @@ class TreeNode
 
     def add_from_list(list)
         @nodes.concat(list)
-        @nodes.uniq!
+        @nodes.uniq!(&:id)
     end
 
     def length
         return @nodes.length
+    end
+
+    def parents
+        parents = []
+        persons.each do |person|
+            parents.concat(person.parents)
+        end
+        return parents
+    end
+
+    def children
+        children = []
+        families.each do |family|
+            children.concat(family.children)
+        end
+        return children
+    end
+
+    def families
+        families = []
+        persons.each do |person|
+            families.concat(person.families)
+        end
+
+        return families.uniq
     end
 
     def persons
@@ -27,5 +54,42 @@ class TreeNode
         end
 
         return persons.uniq
+    end
+
+    def unions
+        if person?
+            unions = @nodes
+        elsif family?
+            node = @nodes.first
+            unions = [node.husband, node, node.wife]
+        else
+            builder = UnionBuilder.new
+            unions = builder.build(@nodes)
+        end
+        return unions
+    end
+
+    def any_person?(person_ids)
+        persons.each do |person|
+            return true if person_ids.include?(person.id)
+        end
+
+        return false
+    end
+
+    def any_family?(family_ids)
+        families.each do |family|
+            return true if family_ids.include?(family.id)
+        end
+
+        return false
+    end
+
+    def person?
+        return @nodes.length == 1 && @nodes.first.type == 'Person'
+    end
+
+    def family?
+        return @nodes.length == 1 && @nodes.first.type == 'Family'
     end
 end

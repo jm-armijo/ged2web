@@ -95,25 +95,12 @@ private
     end
 
     def find_children_of_node(parent_node)
-        children = parent_node.respond_to?('children') ? parent_node.children : []
-        ids = children.map(&:id)
-        ids.concat(family_ids(children))
-
-        return @nodes.select { |node| ids.include?(node.id) }
+        ids = parent_node.children.map(&:id)
+        return @nodes.select { |node| node.any_person?(ids) }
     end
 
     def find_parents_of_node(child_node)
         ids = child_node.parents.map(&:id)
-        return @nodes.select { |node| ids.include?(node.id) }
-    end
-
-    def family_ids(persons)
-        ids = []
-        persons.each do |person|
-            person.families.each do |family|
-                ids.push(family.id)
-            end
-        end
-        return ids
+        return @nodes.select { |node| node.any_family?(ids) }
     end
 end
