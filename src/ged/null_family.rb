@@ -5,7 +5,7 @@ class NullFamily
     attr_reader :events
     attr_reader :type
 
-    @next_id = 100_000
+    @next_id = 1
 
     def initialize(child)
         @id = NullFamily.next_id
@@ -22,7 +22,7 @@ class NullFamily
     end
 
     def id
-        return "@NF00#{@id}"
+        return "@NF00#{@id}@"
     end
 
     def short_id

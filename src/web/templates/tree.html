@@ -53,7 +53,7 @@
                         generation.nodes.each do |node|
                             next if node.class.name == 'Placeholder'
 
-                            Node.persons(node).each do |person|
+                            node.persons.each do |person|
                                 person.parents.each do |parent|
                                     next if parent.class.name == 'NullFamily'
                     %>

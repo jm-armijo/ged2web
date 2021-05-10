@@ -3,8 +3,11 @@ require_relative 'node_builder'
 
 class TreeBuilder
     def initialize
+        @node_builder = NodeBuilder.new
+
         @nodes = []
         @generations = {}
+        @nodes_map = {}
     end
 
     def make(ged)
@@ -27,15 +30,24 @@ class TreeBuilder
 private
 
     def create_nodes(ged)
-        node_builder = NodeBuilder.new
-
         persons = ged.persons.clone
         while !persons.empty?
             person = persons.first[1]
-            node = node_builder.create_node(person)
+            node = @node_builder.create_node(person)
+            update_map(node)
             persons.delete_if { |key, _v| node.persons.map(&:id).include?(key) }
 
             @nodes.push(node)
+        end
+    end
+
+    def update_map(node)
+        node.persons.each do |person|
+            @nodes_map[person.id] = node
+        end
+
+        node.families.each do |family|
+            @nodes_map[family.id] = node
         end
     end
 
@@ -50,8 +62,25 @@ private
         @generations.each_with_index do |current_generation, index|
             break if index == @generations.length - 1
 
+            parents = []
+
+            current_generation.create_dummy_parents
+            current_generation.parents.each do |node_parents|
+                parents.push(get_or_create_node(node_parents))
+            end
+
             parent_generation = @generations[index + 1]
-            parent_generation.add_families(current_generation.parents)
+            parent_generation.add_missing_nodes(parents)
+        end
+    end
+
+    def get_or_create_node(node_parents)
+        if @nodes_map.key?(node_parents.id)
+            return @nodes_map[node_parents.id]
+        else
+            node = @node_builder.create_node(node_parents)
+            update_map(node)
+            return node
         end
     end
 

@@ -15,12 +15,20 @@ class Generation
         @nodes.push(node)
     end
 
-    def add_families(families)
-        families.each do |family|
-            @nodes.concat(family.spouses.map(&:families).flatten)
-        end
+    def add_missing_nodes(nodes)
+        @nodes += nodes
+        @nodes.uniq!
+    end
 
-        @nodes.uniq!(&:id)
+    # Some nodes have unknwon parents: creating dummies so we can leave
+    # the space when drawing the tree.
+    def create_dummy_parents
+        @nodes.each do |node|
+            node.persons.each do |person|
+                # Just create dummies for people in the main branch (marked as main)
+                person.parents = NullFamily.new(person) if person.parents.length.zero? && person.main?
+            end
+        end
     end
 
     # Get the list of parents (family nodes) of the nodes in the current genaration.
@@ -28,10 +36,6 @@ class Generation
     def parents
         parents = []
         @nodes.each do |node|
-            # Some nodes have unknwon parents: creating dummies so we can leave
-            # the space when drawing the tree.
-            Node.create_dummy_parents(node)
-
             parents.concat(node.parents)
         end
         return parents.uniq(&:id)

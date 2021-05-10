@@ -3,7 +3,7 @@ class NullPerson
     attr_writer :parents
     attr_reader :type
 
-    @next_id = 100_000
+    @next_id = 1
 
     def initialize(family)
         @id = NullPerson.next_id
@@ -19,7 +19,7 @@ class NullPerson
     end
 
     def id
-        return "@NI00#{@id}"
+        return "@NI00#{@id}@"
     end
 
     def short_id

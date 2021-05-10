@@ -1,11 +1,13 @@
 require_relative 'tree_node'
 
 class NodeBuilder
-    def create_node(person)
-        if person.families.empty?
-            return create_person_node(person)
+    def create_node(node)
+        if node.type == 'Family'
+            return create_family_node(node)
+        elsif node.families.empty?
+            return create_person_node(node)
         else
-            return create_families_node(person)
+            return create_families_node(node)
         end
     end
 
@@ -15,6 +17,12 @@ private
         node = TreeNode.new
         node.add(person)
         return node
+    end
+
+    def create_family_node(family)
+        tree_node = TreeNode.new
+        tree_node.add_from_list([family])
+        return tree_node
     end
 
     def create_families_node(person)
