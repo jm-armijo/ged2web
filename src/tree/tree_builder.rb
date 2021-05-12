@@ -85,7 +85,7 @@ private
         generation.parents.each do |node_parents|
             parents.push(get_or_create_node(node_parents))
         end
-        return parents
+        return parents.uniq
     end
 
     def arrange_generations

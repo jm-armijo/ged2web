@@ -39,7 +39,7 @@ class Generation
     def parents
         parents = []
         @nodes.each do |node|
-            parents.concat(node.parents)
+            parents.concat(node.parents) if !node.private?
         end
         return parents.uniq(&:id)
     end
@@ -152,10 +152,10 @@ private
     end
 
     # Post-condition: all primary nodes are removed from @nodes
-    def get_primary_nodes(parents)
+    def get_primary_nodes(parents_list)
         primary_nodes = []
-        parents.each do |parent|
-            node = get_primary_node(parent)
+        parents_list.each do |parents|
+            node = get_primary_node(parents)
             primary_nodes.push(node) if !node.nil?
         end
 

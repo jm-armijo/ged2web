@@ -23,7 +23,7 @@ class TreeNode
         persons.each do |person|
             parents.concat(person.parents)
         end
-        return parents
+        return parents.uniq(&:id)
     end
 
     def children
