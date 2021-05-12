@@ -4,8 +4,6 @@ require_relative '../ged/node'
 require_relative './placeholder'
 
 class Generation
-    attr_reader :nodes
-
     def initialize
         @nodes = []
         @num_groups = 0
@@ -15,9 +13,14 @@ class Generation
         @nodes.push(node)
     end
 
+    def nodes
+        return @nodes.select { |node| !node.private? }
+    end
+
     def add_missing_nodes(nodes)
-        @nodes += nodes
-        @nodes.uniq!
+        nodes.each do |node|
+            @nodes.push(node) if node.dummy?
+        end
     end
 
     # Some nodes have unknwon parents: creating dummies so we can leave
@@ -87,10 +90,13 @@ class Generation
         current_index = 0
 
         while current_index < @nodes.length
-            start_index = Node.find_first_null_family(@nodes, current_index)
+            sublist = @nodes.slice(current_index..@nodes.length-1)
+            start_index = sublist.find_index(&:dummy?)
             break if start_index.nil?
+            start_index += current_index
 
-            end_index = Node.find_first_non_null_family(@nodes, start_index + 1) || @nodes.length
+            sublist = @nodes.slice(start_index..@nodes.length-1)
+            end_index = start_index + (sublist.find_index { |node| !node.dummy? } || @nodes.length)
 
             # Remove Null Families from the nodes
             @nodes.slice!(start_index..end_index - 1)
@@ -114,12 +120,12 @@ private
         primary_nodes.each do |primary_node|
             # For all siblings of the current primary node, find all secondary
             # nodes that contain the sibling
-            secondary_siblings = Node.find_nodes_with_siblings(secondary_nodes, primary_node.siblings)
+            secondary_siblings = find_nodes_with_siblings(secondary_nodes, primary_node.siblings)
             secondary_nodes -= secondary_siblings
 
             # For all siblings of the current primary node, find all primary
             # nodes that contain the sibling
-            primary_siblings = Node.find_nodes_with_siblings(primary_nodes, primary_node.siblings)
+            primary_siblings = find_nodes_with_siblings(primary_nodes, primary_node.siblings)
             primary_nodes -= primary_siblings
 
             # Sort the nodes
@@ -132,8 +138,14 @@ private
         return nodes
     end
 
+    def find_nodes_with_siblings(nodes_to_search, siblings)
+        return siblings.map do |sibling|
+            nodes_to_search.select { |node| node.any_person?(sibling.id) }
+        end.flatten.uniq
+    end
+
     def join_nodes(primary_node, primary_siblings, secondary_siblings)
-        older_nodes   = secondary_siblings.select { |sibling| Node.compare(sibling, primary_node) }
+        older_nodes   = secondary_siblings.select { |sibling| sibling < primary_node }
         younger_nodes = secondary_siblings - older_nodes
 
         return older_nodes.concat([primary_node], primary_siblings, younger_nodes)
@@ -141,11 +153,6 @@ private
 
     # Post-condition: all primary nodes are removed from @nodes
     def get_primary_nodes(parents)
-        if @nodes.length == parents.length && @num_groups.zero?
-            @nodes = []
-            return parents
-        end
-
         primary_nodes = []
         parents.each do |parent|
             node = get_primary_node(parent)
@@ -156,7 +163,7 @@ private
     end
 
     def get_primary_node(parent)
-        index = @nodes.find_index { |node| Node.ids(node).include?(parent.id) }
+        index = @nodes.find_index(parent)
         if !index.nil?
             node = @nodes[index]
             @nodes.delete_at(index)
@@ -164,18 +171,5 @@ private
         end
 
         return nil
-    end
-
-    def nodes_to_group
-        nodes_to_group = []
-        @nodes.each do |node|
-            Node.persons(node).each do |person|
-                nodes_to_group.concat(person.families.map(&:id)) if person.families.length > 1
-            end
-        end
-
-        nodes_to_group.uniq!
-
-        return @nodes.select { |node| nodes_to_group.include?(node.id) }
     end
 end

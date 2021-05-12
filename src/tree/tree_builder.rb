@@ -62,12 +62,8 @@ private
         @generations.each_with_index do |current_generation, index|
             break if index == @generations.length - 1
 
-            parents = []
-
             current_generation.create_dummy_parents
-            current_generation.parents.each do |node_parents|
-                parents.push(get_or_create_node(node_parents))
-            end
+            parents = get_generation_parents(current_generation)
 
             parent_generation = @generations[index + 1]
             parent_generation.add_missing_nodes(parents)
@@ -84,16 +80,24 @@ private
         end
     end
 
+    def get_generation_parents(generation)
+        parents = []
+        generation.parents.each do |node_parents|
+            parents.push(get_or_create_node(node_parents))
+        end
+        return parents
+    end
+
     def arrange_generations
         parents = []
         @generations.each_with_index do |generation, index|
             puts "Processing generation #{index + 1}"
-            generation.group_nodes
 
             generation.sort(parents)
-            parents = generation.parents
+            parents = get_generation_parents(generation)
 
-            # This step needs to be done last
+            # This step needs to be done last, one all dummy families of the
+            # generation have been created and can be replaced by a placeholder.
             generation.create_placehodlers
         end
     end

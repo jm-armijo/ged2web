@@ -34,15 +34,6 @@ class TreeNode
         return children
     end
 
-    def families
-        families = []
-        persons.each do |person|
-            families.concat(person.families)
-        end
-
-        return families.uniq
-    end
-
     def persons
         persons = []
         @nodes.each do |node|
@@ -54,6 +45,24 @@ class TreeNode
         end
 
         return persons.uniq
+    end
+
+    def families
+        families = []
+        persons.each do |person|
+            families.concat(person.families)
+        end
+
+        return families.uniq
+    end
+
+    def siblings
+        siblings = []
+        persons.each do |person|
+            siblings.concat(person.siblings)
+        end
+
+        return siblings.uniq
     end
 
     def unions
@@ -86,10 +95,36 @@ class TreeNode
     end
 
     def person?
-        return @nodes.length == 1 && @nodes.first.type == 'Person'
+        return @nodes.length == 1 && first.type == 'Person'
     end
 
     def family?
-        return @nodes.length == 1 && @nodes.first.type == 'Family'
+        return @nodes.length == 1 && first.type == 'Family'
+    end
+
+    def dummy?
+        return @nodes.length == 1 && first.class.name == 'NullFamily'
+    end
+
+    def private?
+        return persons.any?(&:private?)
+    end
+
+    def <(other)
+        return true if other.nil?
+
+        birth1 = persons.first.birth
+        birth2 = other.persons.first.birth
+
+        date1 = birth1 == '' ? '' : birth1.date.to_s
+        date2 = birth2 == '' ? '' : birth2.date.to_s
+
+        return date1 < date2
+    end
+
+private
+
+    def first
+        return @nodes.first
     end
 end

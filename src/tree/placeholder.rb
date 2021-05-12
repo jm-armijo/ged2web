@@ -4,4 +4,8 @@ class Placeholder
     def initialize(size)
         @size = size
     end
+
+    def private?
+        return false
+    end
 end

@@ -22,6 +22,10 @@ class NullPerson
         return "@NI00#{@id}@"
     end
 
+    def private?
+        return false
+    end
+
     def short_id
         return @id
     end
