@@ -50,20 +50,18 @@ class Generation
 
         # Get the primary nodes, and removes them from the @nodes list
         # Primary nodes are direct ancestors of nodes in the next generation.
-        primary_nodes = get_primary_nodes(parents)
-
         # Any leftovers are secondary nodes
         # Secondary nodes are all other nodes that have no decendant in the next generation
-        secondary_nodes = @nodes
+        primary_nodes = get_primary_nodes(parents)
 
         # If there aren't any secondary nodes it means all nodes are primary, and
         # we will keep the order that we already have.
         # Else, we still keep the order if the primary nodes, but sot the secondary
         # nodes around them.
-        if secondary_nodes.length.zero?
+        if @nodes.length.zero?
             nodes = primary_nodes
         else
-            nodes = sort_primary_and_secondary_nodes(primary_nodes, secondary_nodes)
+            nodes = sort_primary_and_secondary_nodes(primary_nodes, @nodes)
         end
 
         # Removing any duplicated nodes. This can happen when iterating over
@@ -72,32 +70,36 @@ class Generation
     end
 
     def create_placehodlers
-        current_index = 0
+        start_index = 0
 
-        while current_index < @nodes.length
-            start_index = find_index_dummy_node(@nodes, current_index)
-            break if start_index.nil?
-
+        while start_index < @nodes.length
+            start_index = find_index_dummy_node(@nodes, start_index)
             end_index = find_index_non_dummy_node(@nodes, start_index)
 
-            # Remove Null Families from the nodes
-            @nodes.slice!(start_index..end_index - 1)
-
-            # Insert a placeholder instead with the number of replaced nodes
-            placeholder = Placeholder.new(end_index - start_index)
-            @nodes.insert(start_index, placeholder)
+            create_placeholder(start_index, end_index)
 
             # The length of @nodes has changed: continue were we left.
-            current_index = start_index + 1
+            start_index += 1
         end
     end
 
 private
 
+    def create_placeholder(start_index, end_index)
+        # Remove Null Families from the nodes
+        @nodes.slice!(start_index..end_index - 1)
+
+        # Insert a placeholder instead with the number of replaced nodes
+        size = start_index.zero? || end_index >= @nodes.length - 1 ? 0 : end_index - start_index
+
+        placeholder = Placeholder.new(size)
+        @nodes.insert(start_index, placeholder)
+    end
+
     def find_index_dummy_node(nodes, start_index)
         sublist = nodes.slice(start_index..nodes.length - 1)
         index = sublist.find_index(&:dummy?)
-        return index.nil? ? nil : index + start_index
+        return index.nil? ? nodes.length : index + start_index
     end
 
     def find_index_non_dummy_node(nodes, start_index)
