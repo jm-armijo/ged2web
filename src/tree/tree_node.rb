@@ -3,6 +3,7 @@ require_relative './union_builder'
 class TreeNode
     def initialize
         @nodes = []
+        @unions = nil
     end
 
     def add(node)
@@ -65,17 +66,20 @@ class TreeNode
         return siblings.uniq
     end
 
-    def unions
+    def create_sorted_unions(sorted_nodes)
         if person?
-            unions = @nodes
+            @unions = @nodes
         elsif family?
             node = @nodes.first
-            unions = [node.husband, node, node.wife]
+            @unions = [node.husband, node, node.wife]
         else
             builder = UnionBuilder.new
-            unions = builder.build(@nodes)
+            @unions = builder.build(@nodes, sorted_nodes)
         end
-        return unions
+    end
+
+    def unions
+        return @unions
     end
 
     def any_person?(person_ids)
@@ -95,15 +99,15 @@ class TreeNode
     end
 
     def person?
-        return @nodes.length == 1 && first.type == 'Person'
+        return @nodes.length == 1 && @nodes.first.type == 'Person'
     end
 
     def family?
-        return @nodes.length == 1 && first.type == 'Family'
+        return @nodes.length == 1 && @nodes.first.type == 'Family'
     end
 
     def dummy?
-        return @nodes.length == 1 && first.class.name == 'NullFamily'
+        return @nodes.length == 1 && @nodes.first.instance_of?(NullFamily)
     end
 
     def private?
@@ -120,11 +124,5 @@ class TreeNode
         date2 = birth2 == '' ? '' : birth2.date.to_s
 
         return date1 < date2
-    end
-
-private
-
-    def first
-        return @nodes.first
     end
 end

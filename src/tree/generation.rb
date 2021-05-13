@@ -1,12 +1,10 @@
 require_relative '../ged/null_family'
 require_relative '../ged/group'
-require_relative '../ged/node'
 require_relative './placeholder'
 
 class Generation
     def initialize
         @nodes = []
-        @num_groups = 0
     end
 
     def add(node)
@@ -14,13 +12,7 @@ class Generation
     end
 
     def nodes
-        return @nodes.select { |node| !node.private? }
-    end
-
-    def add_missing_nodes(nodes)
-        nodes.each do |node|
-            @nodes.push(node) if node.dummy?
-        end
+        return @nodes.reject(&:private?)
     end
 
     # Some nodes have unknwon parents: creating dummies so we can leave
@@ -39,20 +31,11 @@ class Generation
     def parents
         parents = []
         @nodes.each do |node|
-            parents.concat(node.parents) if !node.private?
+            node.persons.each do |person|
+                parents.concat(person.parents) if !person.private?
+            end
         end
         return parents.uniq(&:id)
-    end
-
-    # Creates group of families that have one common spouse.
-    # Ex: Given 3 families (1) AB (2) BC (3) CD, all three families will be grouped.
-    # Ex: Given 3 families (1) AB (2) BC (3) DE, only families 1, 2 will be grouped
-    def group_nodes
-        nodes = nodes_to_group
-        remainder = @nodes - nodes
-        grouped_nodes = Node.group_nodes(nodes)
-        @num_groups += grouped_nodes.length
-        @nodes = remainder + grouped_nodes
     end
 
     # Sort: implements the algorithm to sort a generation.
@@ -62,7 +45,9 @@ class Generation
     #
     # Nodes that have no decendents in the next generation are sorted by date of birth,
     # without chaging the order of the other nodes.
-    def sort(parents)
+    def sort(parents, sorting_order)
+        @nodes.each { |node| node.create_sorted_unions(sorting_order) }
+
         # Get the primary nodes, and removes them from the @nodes list
         # Primary nodes are direct ancestors of nodes in the next generation.
         primary_nodes = get_primary_nodes(parents)
@@ -90,13 +75,10 @@ class Generation
         current_index = 0
 
         while current_index < @nodes.length
-            sublist = @nodes.slice(current_index..@nodes.length-1)
-            start_index = sublist.find_index(&:dummy?)
+            start_index = find_index_dummy_node(@nodes, current_index)
             break if start_index.nil?
-            start_index += current_index
 
-            sublist = @nodes.slice(start_index..@nodes.length-1)
-            end_index = start_index + (sublist.find_index { |node| !node.dummy? } || @nodes.length)
+            end_index = find_index_non_dummy_node(@nodes, start_index)
 
             # Remove Null Families from the nodes
             @nodes.slice!(start_index..end_index - 1)
@@ -111,6 +93,18 @@ class Generation
     end
 
 private
+
+    def find_index_dummy_node(nodes, start_index)
+        sublist = nodes.slice(start_index..nodes.length - 1)
+        index = sublist.find_index(&:dummy?)
+        return index.nil? ? nil : index + start_index
+    end
+
+    def find_index_non_dummy_node(nodes, start_index)
+        sublist = nodes.slice(start_index..nodes.length - 1)
+        index = sublist.find_index { |node| !node.dummy? }
+        return index.nil? ? nodes.length : index + start_index
+    end
 
     def sort_primary_and_secondary_nodes(primary_nodes, secondary_nodes)
         # The sorted nodes will be added to this variable: initializing empty.

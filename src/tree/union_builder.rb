@@ -1,5 +1,5 @@
 class UnionBuilder
-    def build(nodes)
+    def build(nodes, sorted_nodes)
         families = nodes.clone
         unions = [families[0].husband]
 
@@ -8,10 +8,20 @@ class UnionBuilder
             unshift_families_into_unions(unions, families)
         end
 
-        return unions
+        return sorted?(unions, sorted_nodes) ? unions : unions.reverse
     end
 
 private
+
+    def sorted?(unions, sorted_nodes)
+        id_first_family = unions[1].id
+        id_last_family = unions[-2].id
+
+        index_first_family = sorted_nodes.find_index { |node| node.id == id_first_family } || 0
+        index_last_family  = sorted_nodes.find_index { |node| node.id == id_last_family } || sorted_nodes.length
+
+        return index_first_family < index_last_family
+    end
 
     def push_families_into_unions(unions, families)
         last_person = unions.last

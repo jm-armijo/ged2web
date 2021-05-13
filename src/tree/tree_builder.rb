@@ -66,18 +66,18 @@ private
             parents = get_generation_parents(current_generation)
 
             parent_generation = @generations[index + 1]
-            parent_generation.add_missing_nodes(parents)
+            parents.each do |node|
+                parent_generation.add(node) if node.dummy?
+            end
         end
     end
 
     def get_or_create_node(node_parents)
-        if @nodes_map.key?(node_parents.id)
-            return @nodes_map[node_parents.id]
-        else
-            node = @node_builder.create_node(node_parents)
-            update_map(node)
-            return node
-        end
+        return @nodes_map[node_parents.id] if @nodes_map.key?(node_parents.id)
+
+        node = @node_builder.create_node(node_parents)
+        update_map(node)
+        return node
     end
 
     def get_generation_parents(generation)
@@ -89,12 +89,15 @@ private
     end
 
     def arrange_generations
-        parents = []
+        sorted_parents = []
+        tree_node_parents = []
         @generations.each_with_index do |generation, index|
             puts "Processing generation #{index + 1}"
 
-            generation.sort(parents)
-            parents = get_generation_parents(generation)
+            generation.sort(tree_node_parents, sorted_parents)
+
+            sorted_parents = generation.parents
+            tree_node_parents = get_generation_parents(generation)
 
             # This step needs to be done last, one all dummy families of the
             # generation have been created and can be replaced by a placeholder.

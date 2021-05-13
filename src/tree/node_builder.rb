@@ -3,12 +3,14 @@ require_relative 'tree_node'
 class NodeBuilder
     def create_node(node)
         if node.type == 'Family'
-            return create_family_node(node)
+            tree_node = create_family_node(node)
         elsif node.families.empty?
-            return create_person_node(node)
+            tree_node = create_person_node(node)
         else
-            return create_families_node(node)
+            tree_node = create_families_node(node)
         end
+
+        return tree_node
     end
 
 private
