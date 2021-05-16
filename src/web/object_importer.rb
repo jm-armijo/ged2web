@@ -51,5 +51,7 @@ private
         FileUtils.mkdir_p(directory)
 
         FileUtils.cp('assets/js/leader-line.min.js', directory)
+        FileUtils.cp('assets/js/pagemap.min.js', directory)
+        FileUtils.cp('assets/js/minimap.js', directory)
     end
 end

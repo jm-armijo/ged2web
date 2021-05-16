@@ -12,7 +12,9 @@ body {
 /* BANNER */
 
 .banner {
-  padding: 0px 0px 30px 0px;
+  padding: 0px 0px 0px 0px;
+  height: 180px;
+  background-color: white;
 }
 
 .banner .title {

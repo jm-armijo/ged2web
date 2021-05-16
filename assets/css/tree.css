@@ -67,3 +67,13 @@ body {
 .node .last-name {
   display: block;
 }
+
+#map {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 180px;
+    width: 100%;
+    z-index: 100;
+    cursor: pointer;
+}
