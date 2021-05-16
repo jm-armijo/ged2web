@@ -41,12 +41,12 @@ class Person < RecordDecorator
 
     def first_name
         @first_name ||= find('NAME').first_name
-        return @first_name
+        return @first_name == '' ? nil : @first_name
     end
 
     def last_name
         @last_name ||= find('NAME').last_name
-        return @last_name
+        return @last_name == '' ? nil : @last_name
     end
 
     def sosa
@@ -54,9 +54,20 @@ class Person < RecordDecorator
         return @sosa
     end
 
+    def life_range
+        return [] if birth.date.empty? && death.date.empty?
+
+        return [birth.date, death.date]
+    end
+
     def birth
         @birth ||= find('BIRT') || NilEvent.new
         return @birth
+    end
+
+    def death
+        @death ||= find('DEAT') || NilEvent.new
+        return @death
     end
 
     def gender

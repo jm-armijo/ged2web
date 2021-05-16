@@ -31,11 +31,11 @@ class NullPerson
     end
 
     def first_name
-        return 'Null'
+        return nil
     end
 
     def last_name
-        return 'Person'
+        return nil
     end
 
     def value
@@ -43,11 +43,19 @@ class NullPerson
     end
 
     def sosa
-        return ''
+        return nil
     end
 
     def birth
-        return ''
+        return NilEvent.new
+    end
+
+    def death
+        return NilEvent.new
+    end
+
+    def life_range
+        return []
     end
 
     def gender

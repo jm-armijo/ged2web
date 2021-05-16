@@ -18,17 +18,22 @@
                         <% end %>
                         <% node.unions.each_with_index do |link, index| %>
                             <% if index % 2 == 0; person = link %>
-                        <div class="person" id="<%= person.id %>">
-                            <div class="id">
-                                <%= person.id %>
+                        <a class="person" id="<%= person.id %>">
+                            <% url = person.avatar.nil? ? "img/face.png" : person.avatar.url  %>
+                            <div><img class="avatar" src="./<%= url %>" /></div>
+                            <div class="info">
+                                <div class="sosa"><%= person.sosa || '&nbsp;' %></div>
+                                <div class="first-name"><%= person.first_name || '&nbsp;' %></div>
+                                <div class="last-name"><%= person.last_name || '&nbsp;' %></div>
+                                <div class="date-range">
+                                <% if person.life_range.length == 0 %>
+                                &nbsp;
+                                <% else %>
+                                <%= person.life_range.first.year || '' %> – <%= person.life_range.last.year || '' %>
+                                <% end %>
+                                </div>
                             </div>
-                            <div class="first-name">
-                                <%= person.first_name %>
-                            </div>
-                            <div class="last-name">
-                                <%= person.last_name %>
-                            </div>
-                        </div>
+                        </a>
                             <% else; family = link %>
                         <div class="family" id="<%= family.id %>">
                             <div class="id">

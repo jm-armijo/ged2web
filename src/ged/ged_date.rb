@@ -28,6 +28,12 @@ class GedDate
         return @date
     end
 
+    def year
+        return nil if @date.nil?
+
+        return @date.instance_of?(DateTime) ? @date.year : @date
+    end
+
     def empty?
         return @date.nil?
     end
