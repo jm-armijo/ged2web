@@ -7,7 +7,7 @@ class ObjectImporter
 
     def import
         import_objects
-        import_dependencies
+        import_assets
     end
 
 private
@@ -22,13 +22,34 @@ private
         end
     end
 
-    def import_dependencies
+    def import_assets
+        import_styles
+        import_images
+        import_scripts
+    end
+
+    def import_styles
         directory = './out/css/'
         FileUtils.mkdir_p(directory)
 
-        FileUtils.cp('css/person.css', './out/css/')
-        FileUtils.cp('css/source.css', './out/css/')
-        FileUtils.cp('css/base.css',   './out/css/')
-        FileUtils.cp('css/tree.css',   './out/css/')
+        FileUtils.cp('assets/css/person.css', directory)
+        FileUtils.cp('assets/css/source.css', directory)
+        FileUtils.cp('assets/css/base.css',   directory)
+        FileUtils.cp('assets/css/tree.css',   directory)
+    end
+
+    def import_images
+        directory = './out/img/'
+        FileUtils.mkdir_p(directory)
+
+        FileUtils.cp('assets/img/background.jpg', directory)
+        FileUtils.cp('assets/img/face.png',       directory)
+    end
+
+    def import_scripts
+        directory = './out/js/'
+        FileUtils.mkdir_p(directory)
+
+        FileUtils.cp('assets/js/leader-line.min.js', directory)
     end
 end

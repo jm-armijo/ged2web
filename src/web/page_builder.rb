@@ -12,7 +12,7 @@ class PageBuilder
         }
     end
 
-    def build_header(style)
+    def build_header(base_dir, style)
         template = @file_manager.open_template('header.html')
         return template.result(binding)
     end

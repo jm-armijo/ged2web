@@ -1,0 +1,69 @@
+body {
+  background-image: url(../img/background.jpg);
+  font-size: xx-small;
+  font-family: 'Helvetica';
+  text-align: center;
+  color: #42210b;
+  padding: 0px;
+  margin: 0px;
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.generation {
+  border-width: 0px;
+  padding: 15px;
+  white-space: nowrap;
+  text-align: center;
+  width: 100%;
+  padding: 150px 0px;
+}
+
+.placeholder {
+  border-width: 0px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.node {
+  border-width: 0px;
+  display: inline-block;
+  padding: 0px 50px;
+}
+
+.node .person {
+  border-width: 0px;
+  display: inline-block;
+}
+
+.person .avatar {
+  border-radius: 10px;
+  border: 1px solid #0f3202;
+  width: 110px;
+}
+
+.person .info {
+  text-align: left;
+  border-radius: 10px;
+  border: 1px solid #0f3202;
+  background-color: White;
+  padding: 5px;
+  position: relative;
+  margin-bottom: 3px;
+  height: 40px;
+}
+
+.node .family {
+  border-width: 0px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.node .first-name {
+  display: block;
+}
+
+.node .last-name {
+  display: block;
+}
