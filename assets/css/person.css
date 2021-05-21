@@ -26,6 +26,8 @@
 
 .avatar {
   height: 235px;
+  border-radius: 10px;
+  border: 1px solid black;
 }
 
 .info .row {
@@ -69,12 +71,6 @@
   display: inline;
   vertical-align: super;
   font-size: 15px;
-}
-
-a:link, a:visited, a:active, a:hover {
-  text-decoration: none;
-  font-weight: normal;
-  color: blue;
 }
 
 a.reference {
