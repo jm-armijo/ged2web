@@ -18,7 +18,7 @@
                         <% end %>
                         <% node.unions.each_with_index do |link, index| %>
                             <% if index % 2 == 0; person = link %>
-                        <a class="person" id="<%= person.id %>">
+                        <a class="person" id="<%= person.id %>" href="./ind/<%= person.short_id %>.html">
                             <% url = person.avatar.nil? ? "img/face.png" : person.avatar.url  %>
                             <div><img class="avatar" src="./<%= url %>" /></div>
                             <div class="info">
@@ -36,9 +36,7 @@
                         </a>
                             <% else; family = link %>
                         <div class="family" id="<%= family.id %>">
-                            <div class="id">
-                                <%= family.id %>
-                            </div>
+                            <img class="family" src="img/rings.png">
                         </div>
                             <% end %>
                         <% end %>

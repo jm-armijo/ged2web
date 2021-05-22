@@ -25,20 +25,25 @@ body {
   cursor: pointer;
   padding: 0px 0px 0px 0px;
   background-color: darkgoldenrod;
+  vertical-align: bottom;
 }
 
 .banner .title {
-  font-size: 30px;
+  font-size: 40px;
   text-transform: uppercase;
   text-align: center;
+  padding-top: 20px;
 }
 
 .banner .menu {
   text-align: center;
+  padding-top: 80px;
+  font-size: 20px;
 }
 
 .banner .link {
   display: inline;
+  padding: 0px 7px;
 }
 
 
