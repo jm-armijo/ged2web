@@ -42,9 +42,10 @@ private
         directory = './out/img/'
         FileUtils.mkdir_p(directory)
 
-        FileUtils.cp('assets/img/background.jpg', directory)
-        FileUtils.cp('assets/img/face.png',       directory)
-        FileUtils.cp('assets/img/rings.png',      directory)
+        FileUtils.cp('assets/img/background.jpg',  directory)
+        FileUtils.cp('assets/img/face.png',        directory)
+        FileUtils.cp('assets/img/rings-black.png', directory)
+        FileUtils.cp('assets/img/rings-gold.png',  directory)
     end
 
     def import_scripts

@@ -4,16 +4,15 @@
     <body>
         <%= self.build_banner %>
         <div class="content">
-            <div class='name title'>
+            <div class='full-name'>
                 <div class='first-name'><%= instance.first_name %></div>
                 <div class='last-name'><%= instance.last_name %></div>
                 <%= self.build_list('references', instance.references) %>
             </div>
             <div class="horizontal-group">
                 <div class='info'>
-                    <% if !instance.avatar.nil? %>
-                    <div><img class="avatar" src="../<%= instance.avatar.url %>" /></div>
-                    <% end %>
+                    <% url = instance.avatar.nil? ? "img/face.png" : instance.avatar.url  %>
+                    <div><img class="avatar" src="../<%= url %>" /></div>
                     <div class='row'>
                         <div class='label'>Sosa:</div>
                         <div class="value"><%= instance.sosa %></div>

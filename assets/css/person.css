@@ -1,17 +1,17 @@
 /* NAME */
 
-.name .title {
-  padding: 10px 0px;
-  font-size: 20px;
+.full-name {
+  padding: 10px 0px 20px 0px;
+  font-size: 25px;
   text-align: left;
   font-weight: bold;
 }
 
-.name .first-name {
+.first-name {
   display: inline;
 }
 
-.name .last-name {
+.last-name {
   display: inline;
 }
 
@@ -22,12 +22,16 @@
   width: 457px;
   display: inline-block;
   vertical-align: top;
+  color: ghostwhite;
 }
 
 .avatar {
+  width: 165px;
   height: 235px;
   border-radius: 10px;
+  background-color: black;
   border: 1px solid black;
+  margin-bottom: 15px;
 }
 
 .info .row {
@@ -65,6 +69,7 @@
 
 .event .place {
   display: inline;
+  color: black;
 }
 
 .references {
@@ -73,8 +78,29 @@
   font-size: 15px;
 }
 
+.sources {
+  padding-top: 10px;
+}
+
+.sources .title {
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 5px;
+  text-transform: capitalize;
+}
+
+.sources .link {
+  display: inline;
+}
+
+a.place, a.source {
+  color: black;
+  display: inline;
+}
+
 a.reference {
   display: inline;
   vertical-align: super;
   font-size: 13px;
+  color: black;
 }

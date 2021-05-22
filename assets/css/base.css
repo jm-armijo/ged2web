@@ -5,7 +5,9 @@ body {
 
   min-width: 100%;
   min-height: 100%;
-  background-color: #111111;
+  background-image: linear-gradient(to bottom right, white, #cccccc);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .content {
@@ -24,8 +26,9 @@ body {
   z-index: 90;
   cursor: pointer;
   padding: 0px 0px 0px 0px;
-  background-color: darkgoldenrod;
+  background-color: #1c2240;
   vertical-align: bottom;
+  color: ghostwhite;
 }
 
 .banner .title {
@@ -49,26 +52,26 @@ body {
 
 .info {
   border-radius: 10px;
-  border: 2px solid darkgoldenrod;
-  background-color: #dec890;
+  border: 1px solid black;
+  background-color: #1c2240;
   padding: 5px;
 }
 
 a:link {
-  color: #0b3cb8;
+  color: ghostwhite;
 }
 
 /* visited link */
 a:visited {
-  color: #0b3cb8;
+  color: ghostwhite;
 }
 
 /* mouse over link */
 a:hover {
-  color: #0b3cb8;
+  color: ghostwhite;
 }
 
 /* selected link */
 a:active {
-  color: #0b3cb8;
+  color: ghostwhite;
 }
