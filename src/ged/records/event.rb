@@ -10,4 +10,8 @@ class Event < RecordDecorator
         @place ||= find('PLAC')
         return @place
     end
+
+    def empty?
+        return date.empty? && (place.nil? || place.value.nil?) && notes.length == 0
+    end
 end

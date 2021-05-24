@@ -21,4 +21,8 @@ class EventList
         @events.sort! { |a, b| a.date <=> b.date }
         return self
     end
+
+    def reject(*args, &block)
+        @events.reject(*args, &block)
+    end
 end

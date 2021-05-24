@@ -144,6 +144,10 @@ private
         events.concat(find_events(['DEAT']))
 
         events.concat(post_mortem_events)
+
+        events = events.reject { |event| event.empty? }
+
+        return events
     end
 
     # Get all events while the person was/is alive,

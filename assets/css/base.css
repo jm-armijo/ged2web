@@ -57,21 +57,8 @@ body {
   padding: 5px;
 }
 
-a:link {
+a {
   color: ghostwhite;
-}
-
-/* visited link */
-a:visited {
-  color: ghostwhite;
-}
-
-/* mouse over link */
-a:hover {
-  color: ghostwhite;
-}
-
-/* selected link */
-a:active {
-  color: ghostwhite;
+  margin: 0px;
+  padding: 0px;
 }

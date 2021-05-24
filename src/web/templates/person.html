@@ -48,13 +48,39 @@
                     <% end %>
                     <%= self.build_list('notes', instance.notes) %>
                 </div>
-                <div class='events'>
-                    <% instance.events.each do |event| %>
-                        <%= self.build_section('event', event) %>
-                    <% end %>
-                </div>
+                <%= self.build_list('events', instance.events) %>
             </div>
             <%= self.build_list('sources', instance.sources) %>
         </div>
+        <script>
+            window.addEventListener(
+                "load",
+                function() {
+                    "use strict";
+                    <%
+                    num_events = instance.events.length
+                    if num_events.positive?
+                        first = 0
+                        last = num_events - 1
+                    %>
+
+                    new LeaderLine (
+                        document.getElementById('<%= first %>'),
+                        document.getElementById('<%= last %>'),
+                        {
+                            color: "#1c2240",
+                            startSocket: "bottom",
+                            endSocket: "top",
+                            path: "straight",
+                            size: 2,
+                            startPlug: "behind",
+                            endPlug: "behind"
+                        }
+                    );
+
+                    <% end %>
+                }
+            );
+        </script>
     </body>
 </html>

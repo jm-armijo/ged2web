@@ -1,0 +1,19 @@
+<div class='events'>
+                <% records.each_with_index do |record, index| %>
+                    <div class='event'>
+                        <div class="bullet" id="<%= index %>">&nbsp;</div>
+                        <div class="type"><%= self.translate(record.tag) %>:</div>
+                        <% prefix = record.date.prefix.nil? ? '' : '(' + self.translate(record.date.prefix) + ')'  %>
+                        <div class="date"><%= record.date.natural %><%= '&nbsp;' + prefix %></div>
+                        <% if !record.place.nil? && !record.place.value.nil? %>
+                        <div class="place">
+                            <% url = "https://www.google.com/maps/search/?api=1&query=#{self.encode_url(record.place.value)}" %>
+                            <a class="place" href="<%= url %>" target="blank"><%= self.encode_html(record.place.value) %></a>
+                        </div>
+                        <% end %>
+                        <%= self.build_list('references', record.references) %>
+                        <%= self.build_list('notes', record.notes) %>
+                    </div>
+                <% end %>
+
+                </div>
