@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%= self.build_header('.', 'tree') %>
-    <body onload="document.getElementById('focus').focus();">
+    <%= self.build_header('tree') %>
+    <body>
         <%= self.build_banner %>
         <div class="content">
             <% instance.generations.each_with_index do |generation, generation_number| %>
@@ -18,9 +18,9 @@
                         <% end %>
                         <% node.unions.each_with_index do |link, index| %>
                             <% if index % 2 == 0; person = link %>
-                        <a class="person" id="<%= person.id %>" href="./ind/<%= person.short_id %>.html">
+                        <a class="person" id="<%= person.id %>" href="../ind/<%= person.short_id %>.html">
                             <% url = person.avatar.nil? ? "img/face.png" : person.avatar.url  %>
-                            <div><img class="avatar" src="./<%= url %>" /></div>
+                            <div><img class="avatar" src="../<%= url %>" /></div>
                             <div class="info">
                                 <div class="sosa"><%= person.sosa || '&nbsp;' %></div>
                                 <div class="first-name"><%= person.first_name || '&nbsp;' %></div>
@@ -36,7 +36,7 @@
                         </a>
                             <% else; family = link %>
                         <div class="family" id="<%= family.id %>">
-                            <img class="family" src="img/rings-black.png">
+                            <img class="family" src="../img/rings-black.png">
                         </div>
                             <% end %>
                         <% end %>
@@ -47,7 +47,7 @@
             <% end %>
         </div>
         <div class="minimap">
-            <canvas id="map"><script src="./js/minimap.js"></script>
+            <canvas id="map"><script src="../js/minimap.js"></script>
         </div>
         <script>
             window.addEventListener(
@@ -83,6 +83,8 @@
                         end
                     end
                     %>
+
+                    document.getElementById('focus').scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
                 }
             );
         </script>
