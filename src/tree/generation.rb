@@ -76,7 +76,7 @@ class Generation
             start_index = find_index_dummy_node(@nodes, start_index)
             end_index = find_index_non_dummy_node(@nodes, start_index)
 
-            create_placeholder(start_index, end_index)
+            create_placeholder(start_index, end_index) if end_index > start_index
 
             # The length of @nodes has changed: continue were we left.
             start_index += 1
