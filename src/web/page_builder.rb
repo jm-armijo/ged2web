@@ -8,6 +8,7 @@ class PageBuilder
         @page_dir = {
             person: 'ind',
             source: 'src',
+            array:  'list',
             tree:   'tree'
         }
     end

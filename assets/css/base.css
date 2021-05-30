@@ -62,3 +62,13 @@ a {
   margin: 0px;
   padding: 0px;
 }
+
+.first-name {
+  display: inline;
+  text-transform: capitalize;
+}
+
+.last-name {
+  display: inline;
+  text-transform: uppercase;
+}

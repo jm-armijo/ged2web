@@ -1,0 +1,15 @@
+a.person {
+  color: black;
+  display: block;
+}
+
+.sosa {
+  display: inline-block;
+  width: 100px;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.list {
+  padding: 30px 0px 0px 50px;
+}

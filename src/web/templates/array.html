@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%= self.build_header('list') %>
+    <body>
+        <%= self.build_banner %>
+        <div class="content">
+            <div class="list">
+                <% instance.each do |person| %>
+                    <a href="../ind/<%= person.short_id %>.html" class="person">
+                        <div class="sosa"><%= person.sosa.nil? ? "&nbsp;" : "[#{person.sosa}]" %></div>
+                        <div class="last-name"><%= person.last_name %>,</div>
+                        <div class="first-name"><%= person.first_name %></div>
+                    </a>
+                <% end %>
+            </div>
+        </div>
+    </body>
+</html>

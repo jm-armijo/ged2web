@@ -36,6 +36,7 @@ private
         FileUtils.cp('assets/css/source.css', directory)
         FileUtils.cp('assets/css/base.css',   directory)
         FileUtils.cp('assets/css/tree.css',   directory)
+        FileUtils.cp('assets/css/list.css',   directory)
     end
 
     def import_images
