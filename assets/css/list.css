@@ -1,15 +1,33 @@
-a.person {
-  color: black;
-  display: block;
+.table {
+  padding: 30px 0px 0px 50px;
 }
 
-.sosa {
-  display: inline-block;
-  width: 100px;
-  text-align: right;
+.table-header {
+  display: table-header-group;
+}
+
+.header-cell {
+  display: table-cell;
+  padding-bottom: 5px;
+  padding-right: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.table-body {
+  display: table-row-group;
+}
+
+.table-row {
+  display: table-row;
+  color: black;
+}
+
+.body-cell {
+  display: table-cell;
   padding-right: 10px;
 }
 
-.list {
-  padding: 30px 0px 0px 50px;
+.sosa {
+  text-align: right;
 }
