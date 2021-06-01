@@ -1,56 +1,57 @@
+<% require_relative 'src/web/section/section_builder' %>
 <!DOCTYPE html>
 <html lang="en">
-    <%= self.build_header('person') %>
+    <%= HeaderBuilder.build(page.styles) %>
     <body>
-        <%= self.build_banner %>
+        <%= BannerBuilder.build %>
         <div class="content">
             <div class='full-name'>
-                <div class='first-name'><%= instance.first_name %></div>
-                <div class='last-name'><%= instance.last_name %></div>
-                <%= self.build_list('references', instance.references) %>
+                <div class='first-name'><%= page.data.first_name %></div>
+                <div class='last-name'><%= page.data.last_name %></div>
+                <%= ReferencesBuilder.build(page.data.references) %>
             </div>
             <div class="horizontal-group">
                 <div class='info'>
-                    <% url = instance.avatar.nil? ? "img/face.png" : instance.avatar.url  %>
+                    <% url = page.data.avatar.nil? ? "img/face.png" : page.data.avatar.url  %>
                     <div><img class="avatar" src="../<%= url %>" /></div>
                     <div class='row'>
                         <div class='label'>Sosa:</div>
-                        <div class="value"><%= instance.sosa %></div>
+                        <div class="value"><%= page.data.sosa %></div>
                     </div>
                     <div class='row'>
-                        <div class='label'><%= self.translate(instance.gender.tag) %>:</div>
-                        <div class="value"><%= self.translate(instance.gender.value) %></div>
-                        <%= self.build_list('references', instance.gender.references) %>
+                        <div class='label'><%= self.translate(page.data.gender.tag) %>:</div>
+                        <div class="value"><%= self.translate(page.data.gender.value) %></div>
+                        <%= self.build_list('references', page.data.gender.references) %>
                     </div>
-                    <% if !instance.parents.nil? %>
+                    <% if !page.data.parents.nil? %>
                     <div class='row'>
-                        <% if !instance.father.nil? && instance.father.class.name != 'NullPerson' %>
+                        <% if !page.data.father.nil? && page.data.father.class.name != 'NullPerson' %>
                         <div class='label'><%= self.translate('Father') %>:</div>
                         <div class='name value'>
-                            <a href="../ind/<%= instance.father.short_id %>.html">
-                                <div class='first-name'><%= instance.father.first_name %></div>
-                                <div class='last-name'><%= instance.father.last_name %></div>
+                            <a href="../ind/<%= page.data.father.short_id %>.html">
+                                <div class='first-name'><%= page.data.father.first_name %></div>
+                                <div class='last-name'><%= page.data.father.last_name %></div>
                             </a>
                         </div>
                         <% end %>
                     </div>
                     <div class='row'>
-                        <% if !instance.mother.nil? && instance.mother.class.name != 'NullPerson' %>
+                        <% if !page.data.mother.nil? && page.data.mother.class.name != 'NullPerson' %>
                         <div class='label'><%= self.translate('Mother') %>:</div>
                         <div class='name value'>
-                            <a href="../ind/<%= instance.mother.short_id %>.html">
-                                <div class='first-name'><%= instance.mother.first_name %></div>
-                                <div class='last-name'><%= instance.mother.last_name %></div>
+                            <a href="../ind/<%= page.data.mother.short_id %>.html">
+                                <div class='first-name'><%= page.data.mother.first_name %></div>
+                                <div class='last-name'><%= page.data.mother.last_name %></div>
                             </a>
                         </div>
                         <% end %>
                     </div>
                     <% end %>
-                    <%= self.build_list('notes', instance.notes) %>
+                    <%= self.build_list('notes', page.data.notes) %>
                 </div>
-                <%= self.build_list('events', instance.events) %>
+                <%= self.build_list('events', page.data.events) %>
             </div>
-            <%= self.build_list('sources', instance.sources) %>
+            <%= self.build_list('sources', page.data.sources) %>
         </div>
         <script>
             window.addEventListener(
@@ -58,7 +59,7 @@
                 function() {
                     "use strict";
                     <%
-                    num_events = instance.events.length
+                    num_events = page.data.events.length
                     if num_events.positive?
                         first = 0
                         last = num_events - 1

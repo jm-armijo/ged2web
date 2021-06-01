@@ -5,16 +5,14 @@ require_relative 'web/builder'
 
 class Main
     def self.execute(path)
-        parser = Parser.new
-        ged = parser.parse(path)
+        ged = Parser.new.parse(path)
+        tree = TreeBuilder.new.make(ged)
+        list = ListBuilder.new.make(ged)
 
-        tree_builder = TreeBuilder.new
-        tree = tree_builder.make(ged)
-
-        list_builder = ListBuilder.new
-        list = list_builder.make(ged)
-
-        builder = Builder.new(ged, tree, list)
-        builder.build
+        builder = WebBuilder.new
+        builder.build_pages(ged.persons)
+        builder.build_pages(ged.sources)
+        # builder.build_section(tree)
+        # builder.build_section(list)
     end
 end
