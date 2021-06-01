@@ -12,6 +12,6 @@ class Event < RecordDecorator
     end
 
     def empty?
-        return date.empty? && (place.nil? || place.value.nil?) && notes.length == 0
+        return date.empty? && (place.nil? || place.value.nil?) && notes.length.zero?
     end
 end

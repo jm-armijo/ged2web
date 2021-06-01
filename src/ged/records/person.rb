@@ -145,7 +145,7 @@ private
 
         events.concat(post_mortem_events)
 
-        events = events.reject { |event| event.empty? }
+        events = events.reject(&:empty?)
 
         return events
     end

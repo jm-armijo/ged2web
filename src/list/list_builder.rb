@@ -1,4 +1,3 @@
-
 class ListBuilder
     def initialize
         @nodes = []
@@ -8,7 +7,7 @@ class ListBuilder
 
     def make(ged)
         @nodes = ged.persons.values.clone
-        @nodes.sort_by! {|node| [(node.last_name || '~').upcase, (node.first_name || '~').upcase] }
+        @nodes.sort_by! { |node| [(node.last_name || '~').upcase, (node.first_name || '~').upcase] }
 
         return @nodes
     end
