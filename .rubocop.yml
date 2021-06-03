@@ -8,6 +8,7 @@ Layout/AccessModifierIndentation:
 
 Layout/HashAlignment:
   EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
 
 # Cop supports --auto-correct.
 # Configuration parameters: Width, IgnoredPatterns.

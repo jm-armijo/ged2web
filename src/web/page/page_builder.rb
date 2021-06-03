@@ -5,22 +5,29 @@ require_relative './list_page_builder'
 
 class PageBuilder
     def self.build(instance, language)
-        builder(instance).build(instance, language)
+        builder = get_builder(instance)
+        builder.build(instance, language)
     end
 
-    def self.builder(instance)
-        if instance.respond_to?('type') && instance.type == 'Person'
-            builder = PersonPageBuilder.new
-        elsif instance.class.name == 'Source'
-            builder = SourcePageBuilder.new
-        elsif instance.class.name == 'Tree'
-            builder = TreePageBuilder.new
-        elsif instance.class.name == 'Array'
-            builder = ListPageBuilder.new
-        else
-            raise "Can't get builder for variable of type '#{instance.class.name}'"
-        end
+    def self.get_builder(instance)
+        map = {
+            'Person' => PersonPageBuilder,
+            'Source' => SourcePageBuilder,
+            'Tree'   => TreePageBuilder,
+            'Array'  => ListPageBuilder
+        }
 
-        return builder
+        type = instance_type(instance)
+        return map[type].new if map.key?(type)
+
+        raise "Can't get builder for variable of type '#{type}'"
+    end
+
+    def self.instance_type(instance)
+        if instance.respond_to?('type')
+            return instance.type
+        else
+            return instance.class.name
+        end
     end
 end
