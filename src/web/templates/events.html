@@ -1,19 +1,23 @@
+<% if events.length.positive? %>
+<% require_relative 'src/web/section/section_builder' %>
+<% require_relative 'src/web/encoder' %>
 <div class='events'>
-                <% records.each_with_index do |record, index| %>
+                <% events.each_with_index do |event, index| %>
                     <div class='event'>
                         <div class="bullet" id="<%= index %>">&nbsp;</div>
-                        <div class="type"><%= self.translate(record.tag) %>:</div>
-                        <% prefix = record.date.prefix.nil? ? '' : '(' + self.translate(record.date.prefix) + ')'  %>
-                        <div class="date"><%= record.date.natural %><%= '&nbsp;' + prefix %></div>
-                        <% if !record.place.nil? && !record.place.value.nil? %>
+                        <div class="type"><%= Translator.translate(language, event.tag) %>:</div>
+                        <% prefix = event.date.prefix.nil? ? '' : '(' + Translator.translate(language, event.date.prefix) + ')'  %>
+                        <div class="date"><%= event.date.natural %><%= '&nbsp;' + prefix %></div>
+                        <% if !event.place.nil? && !event.place.value.nil? %>
                         <div class="place">
-                            <% url = "https://www.google.com/maps/search/?api=1&query=#{self.encode_url(record.place.value)}" %>
-                            <a class="place" href="<%= url %>" target="blank"><%= self.encode_html(record.place.value) %></a>
+                            <% url = "https://www.google.com/maps/search/?api=1&query=#{Encoder.encode_url(event.place.value)}" %>
+                            <a class="place" href="<%= url %>" target="blank"><%= Encoder.encode_html(event.place.value) %></a>
                         </div>
                         <% end %>
-                        <%= self.build_list('references', record.references) %>
-                        <%= self.build_list('notes', record.notes) %>
+                        <%= ReferencesBuilder.build(language, event.references) %>
+                        <%= NotesBuilder.build(language, event.notes) %>
                     </div>
                 <% end %>
 
                 </div>
+<% end %>

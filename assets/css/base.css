@@ -47,6 +47,7 @@ body {
 .banner .link {
   display: inline;
   padding: 0px 7px;
+  text-transform: capitalize;
 }
 
 

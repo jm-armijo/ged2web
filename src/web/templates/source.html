@@ -1,8 +1,11 @@
+<% require_relative 'src/web/section/section_builder' %>
+<% require_relative 'src/web/translator' %>
+<% language = page.language %>
 <!DOCTYPE html>
-<html lang="en">
-    <%= self.build_header('source') %>
+<html lang="<%= language %>">
+    <%= HeaderBuilder.build(language, page.styles) %>
     <body>
-        <%= self.build_banner %>
+        <%= BannerBuilder.build(language) %>
         <div class="title"><%= instance.title %></div>
         <div class="text">
         <% instance.text.value.each do |line| %>

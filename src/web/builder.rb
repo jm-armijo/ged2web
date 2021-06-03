@@ -3,24 +3,19 @@ require_relative 'object_importer'
 require_relative './page/page_builder'
 
 class WebBuilder
-    def build_pages(instances)
+    def build_pages(instances, language)
         instances.each_value do |instance|
-            PageBuilder.build(instance)
+            build_page(instance, language)
         end
     end
 
-    # private
-    #
-    #    def build_tree
-    #        @builder.build_page(@tree, 'index.html')
-    #    end
-    #
-    #    def build_list
-    #        @builder.build_page(@list, 'index.html')
-    #    end
-    #
-    #    def import_files
-    #        importer = ObjectImporter.new(@ged)
-    #        importer.import
-    #    end
+    def build_page(instance, language)
+        PageBuilder.build(instance, language)
+    end
+
+    def import_assets(objects)
+        importer = ObjectImporter.new
+        importer.import_ged_objects(objects)
+        importer.import_common_assets
+    end
 end

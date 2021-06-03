@@ -1,9 +1,11 @@
+<% if sources.length.positive? %>
 <div class='sources'>
-                <div class="title"><%= self.translate('Sources') %>:</div>
-                <% records.each do |source| %>
-                <div class='source'>
+                <div class="title"><%= Translator.translate(language, 'Sources') %>:</div>
+                <% sources.each do |source| %>
+                <div class="source">
                     [<%= source.short_id %>]: <%= source.title %>. <%= source.text.value.join(', ') %>
-                    <div class="link"><a href="../src/<%= source.short_id %>.html" class="source">[View]</a></div>
+                    <div class="link"><a href="../src/<%= source.short_id %>.html" class="source">[<%= Translator.translate(language, 'View') %>]</a></div>
                 </div>
                 <% end %>
             </div>
+<% end %>

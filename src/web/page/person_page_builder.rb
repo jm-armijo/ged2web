@@ -5,11 +5,11 @@ class PersonPageBuilder < BasePageBuilder
         super
         @template_name  = 'person'
         @directory_name = 'ind'
-        @styles = ['person.css']
+        @styles = ['person']
     end
 
-    def build(instance)
+    def build(instance, language)
         file_name = "#{instance.short_id}.html"
-        super(instance, file_name)
+        super(instance, language, file_name)
     end
 end

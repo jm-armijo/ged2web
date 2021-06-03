@@ -1,14 +1,17 @@
+<% require_relative 'src/web/section/section_builder' %>
+<% require_relative 'src/web/translator' %>
+<% language = page.language %>
 <!DOCTYPE html>
-<html lang="en">
-    <%= self.build_header('list') %>
+<html lang="<%= language %>">
+    <%= HeaderBuilder.build(language, page.styles) %>
     <body>
-        <%= self.build_banner %>
+        <%= BannerBuilder.build(language) %>
         <div class="content">
             <div class="table">
                 <div class="table-header">
                     <div class="header-cell">Sosa</div>
-                    <div class="header-cell">Last Name</div>
-                    <div class="header-cell">First Name</div>
+                    <div class="header-cell"><%= Translator.translate(language, 'Last Name') %></div>
+                    <div class="header-cell"><%= Translator.translate(language, 'First Name') %></div>
                 </div>
                 <div class="table-body">
                 <% instance.each do |person| %>

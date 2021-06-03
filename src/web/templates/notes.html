@@ -1,5 +1,6 @@
+<% if notes.length.positive? %>
 <div class='notes'>
-                <% records.each do |note| %>
+                <% notes.each do |note| %>
                 <div class='note'>
                     <% note.parts.each do |part| %>
                     <p class="part"><%= part %></p>
@@ -7,3 +8,4 @@
                 </div>
                 <% end %>
             </div>
+<% end %>

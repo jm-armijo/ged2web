@@ -1,32 +1,23 @@
 require_relative 'file_manager'
 
 class ObjectImporter
-    def initialize(ged)
-        @ged = ged
-    end
-
-    def import
-        import_objects
-        import_assets
-    end
-
-private
-
-    def import_objects
+    def import_ged_objects(objects)
         directory = './out/obj/'
         FileUtils.mkdir_p(directory)
 
-        @ged.objects.each_value do |instance|
+        objects.each_value do |instance|
             new_path = "#{directory}/#{instance.short_id}.#{instance.format}"
             FileUtils.cp(instance.file, new_path)
         end
     end
 
-    def import_assets
+    def import_common_assets
         import_styles
         import_images
         import_scripts
     end
+
+private
 
     def import_styles
         directory = './out/css/'

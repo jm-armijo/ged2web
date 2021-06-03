@@ -1,14 +1,16 @@
 <% require_relative 'src/web/section/section_builder' %>
+<% require_relative 'src/web/translator' %>
+<% language = page.language %>
 <!DOCTYPE html>
-<html lang="en">
-    <%= HeaderBuilder.build(page.styles) %>
+<html lang="<%= language %>">
+    <%= HeaderBuilder.build(language, page.styles) %>
     <body>
-        <%= BannerBuilder.build %>
+        <%= BannerBuilder.build(language) %>
         <div class="content">
             <div class='full-name'>
                 <div class='first-name'><%= page.data.first_name %></div>
                 <div class='last-name'><%= page.data.last_name %></div>
-                <%= ReferencesBuilder.build(page.data.references) %>
+                <%= ReferencesBuilder.build(language, page.data.references) %>
             </div>
             <div class="horizontal-group">
                 <div class='info'>
@@ -19,14 +21,14 @@
                         <div class="value"><%= page.data.sosa %></div>
                     </div>
                     <div class='row'>
-                        <div class='label'><%= self.translate(page.data.gender.tag) %>:</div>
-                        <div class="value"><%= self.translate(page.data.gender.value) %></div>
-                        <%= self.build_list('references', page.data.gender.references) %>
+                        <div class='label'><%= Translator.translate(language, page.data.gender.tag) %>:</div>
+                        <div class="value"><%= Translator.translate(language, page.data.gender.value) %></div>
+                        <%= ReferencesBuilder.build(language, page.data.gender.references) %>
                     </div>
                     <% if !page.data.parents.nil? %>
                     <div class='row'>
                         <% if !page.data.father.nil? && page.data.father.class.name != 'NullPerson' %>
-                        <div class='label'><%= self.translate('Father') %>:</div>
+                        <div class='label'><%= Translator.translate(language, 'Father') %>:</div>
                         <div class='name value'>
                             <a href="../ind/<%= page.data.father.short_id %>.html">
                                 <div class='first-name'><%= page.data.father.first_name %></div>
@@ -37,7 +39,7 @@
                     </div>
                     <div class='row'>
                         <% if !page.data.mother.nil? && page.data.mother.class.name != 'NullPerson' %>
-                        <div class='label'><%= self.translate('Mother') %>:</div>
+                        <div class='label'><%= Translator.translate(language, 'Mother') %>:</div>
                         <div class='name value'>
                             <a href="../ind/<%= page.data.mother.short_id %>.html">
                                 <div class='first-name'><%= page.data.mother.first_name %></div>
@@ -47,11 +49,11 @@
                         <% end %>
                     </div>
                     <% end %>
-                    <%= self.build_list('notes', page.data.notes) %>
+                    <%= NotesBuilder.build(language, page.data.notes) %>
                 </div>
-                <%= self.build_list('events', page.data.events) %>
+                <%= EventsBuilder.build(language, page.data.events) %>
             </div>
-            <%= self.build_list('sources', page.data.sources) %>
+            <%= SourcesBuilder.build(language, page.data.sources) %>
         </div>
         <script>
             window.addEventListener(
