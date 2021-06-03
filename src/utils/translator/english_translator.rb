@@ -156,6 +156,8 @@ class EnglishTranslator
             'will'        => 'will'
         }
 
-        return map[key]
+        return map[key] if map.key?(key)
+
+        raise "Can't translate '#{key}' into English"
     end
 end
