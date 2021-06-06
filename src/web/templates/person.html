@@ -49,11 +49,11 @@
                         <% end %>
                     </div>
                     <% end %>
-                    <%= NotesBuilder.build(language, page.data.notes) %>
+                    <%= NotesBuilder.build(language, page.data.notes) if !page.data.alive? %>
                 </div>
-                <%= EventsBuilder.build(language, page.data.events) %>
+                <%= EventsBuilder.build(language, page.data.events) if !page.data.alive? %>
             </div>
-            <%= SourcesBuilder.build(language, page.data.sources) %>
+            <%= SourcesBuilder.build(language, page.data.sources) if !page.data.alive? %>
         </div>
         <script>
             window.addEventListener(

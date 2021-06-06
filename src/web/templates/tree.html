@@ -29,7 +29,7 @@
                                 <div class="first-name"><%= person.first_name || '&nbsp;' %></div>
                                 <div class="last-name"><%= person.last_name || '&nbsp;' %></div>
                                 <div class="date-range">
-                                <% if person.life_range.length == 0 %>
+                                <% if person.life_range.length == 0 || person.alive? %>
                                 &nbsp;
                                 <% else %>
                                 <%= person.life_range.first.year || '' %> – <%= person.life_range.last.year || '' %>

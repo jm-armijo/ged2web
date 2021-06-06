@@ -6,4 +6,8 @@ class NilEvent < Event
         @date = GedDate.new(nil)
         @place = nil
     end
+
+    def nil?
+        return true
+    end
 end

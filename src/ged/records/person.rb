@@ -70,6 +70,10 @@ class Person < RecordDecorator
         return @death
     end
 
+    def alive?
+        return death.nil? && birth.date.year.to_i > Time.now.year - 100
+    end
+
     def gender
         @gender ||= find('SEX')
         return @gender

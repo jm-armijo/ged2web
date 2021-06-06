@@ -18,6 +18,6 @@ class Main
         list = ListBuilder.new.make(ged)
         builder.build_page(list, language)
 
-        builder.import_assets(ged.objects)
+        builder.import_assets(ged)
     end
 end

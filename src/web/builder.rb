@@ -13,9 +13,9 @@ class WebBuilder
         PageBuilder.build(instance, language)
     end
 
-    def import_assets(objects)
+    def import_assets(ged)
         importer = ObjectImporter.new
-        importer.import_ged_objects(objects)
+        importer.import_ged_objects(ged)
         importer.import_common_assets
     end
 end
