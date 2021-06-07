@@ -53,7 +53,7 @@
                 </div>
                 <%= EventsBuilder.build(language, page.data.events) if !page.data.alive? %>
             </div>
-            <%= SourcesBuilder.build(language, page.data.sources) if !page.data.alive? %>
+            <%= SourcesBuilder.build(language, page.data.sources.reject(&:referenced_alive?)) %>
         </div>
         <script>
             window.addEventListener(

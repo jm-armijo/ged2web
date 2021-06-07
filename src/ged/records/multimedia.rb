@@ -1,8 +1,6 @@
 require_relative '../record_decorator'
 
 class Multimedia < RecordDecorator
-    attr_reader :sources
-
     def initialize(line)
         super(line)
         @sources = []
@@ -27,5 +25,9 @@ class Multimedia < RecordDecorator
     def link_source(source)
         @sources.push(source)
         @sources.uniq!(&:id)
+    end
+
+    def referenced_alive?
+        return @sources.any?(&:referenced_alive?)
     end
 end

@@ -1,8 +1,6 @@
 require_relative '../record_decorator'
 
 class Source < RecordDecorator
-    attr_reader :persons
-
     def initialize(line)
         super(line)
         @persons = []
@@ -26,5 +24,9 @@ class Source < RecordDecorator
     def link_person(person)
         @persons.push(person)
         @persons.uniq!(&:id)
+    end
+
+    def referenced_alive?
+        return @persons.any?(&:alive?)
     end
 end

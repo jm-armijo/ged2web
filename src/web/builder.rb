@@ -42,11 +42,11 @@ private
     end
 
     def filter_sources(sources)
-        return sources.select { |_k, s| s.persons.none?(&:alive?) }
+        return sources.reject { |_k, s| s.referenced_alive? }
     end
 
     def filter_objects(objects)
-        return objects.select { |_k, o| o.sources.all? { |s| s.persons.none?(&:alive?) } }
+        return objects.reject { |_k, o| o.referenced_alive? }
     end
 
     def build_pages(instances, languages)
