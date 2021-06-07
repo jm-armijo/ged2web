@@ -8,8 +8,8 @@ class TreePageBuilder < BasePageBuilder
         @styles = ['tree']
     end
 
-    def build(instance, language)
+    def build(instance, languages)
         file_name = 'index.html'
-        super(instance, language, file_name)
+        super(instance, languages, file_name)
     end
 end

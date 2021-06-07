@@ -19,6 +19,9 @@ class Parser
 
         update_paths(ged, dir)
 
+        # Add a pointer from a source to the persons that use it
+        link_records(ged)
+
         return ged
     end
 
@@ -53,6 +56,35 @@ private
     def update_paths(ged, dir)
         ged.records.each_value do |record|
             record.update_paths(dir)
+        end
+    end
+
+    def link_records(ged)
+        link_persons_to_sources(ged)
+        link_sources_to_objects(ged)
+    end
+
+    def link_persons_to_sources(ged)
+        ged.persons.each_value do |person|
+            link_person_to_sources(person)
+        end
+    end
+
+    def link_sources_to_objects(ged)
+        ged.sources.each_value do |source|
+            link_source_to_objects(source)
+        end
+    end
+
+    def link_person_to_sources(person)
+        person.sources.each do |source|
+            source.link_person(person)
+        end
+    end
+
+    def link_source_to_objects(source)
+        source.multimedia.each do |object|
+            object.link_source(source)
         end
     end
 end

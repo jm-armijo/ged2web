@@ -1,6 +1,13 @@
 require_relative '../record_decorator'
 
 class Multimedia < RecordDecorator
+    attr_reader :sources
+
+    def initialize(line)
+        super(line)
+        @sources = []
+    end
+
     def url
         return "obj/#{short_id}.#{format}"
     end
@@ -15,5 +22,10 @@ class Multimedia < RecordDecorator
 
     def title
         return find('FILE')&.find('TITL') || ''
+    end
+
+    def link_source(source)
+        @sources.push(source)
+        @sources.uniq!(&:id)
     end
 end

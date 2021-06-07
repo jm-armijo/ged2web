@@ -1,11 +1,11 @@
 require_relative 'file_manager'
 
 class ObjectImporter
-    def import_ged_objects(ged)
+    def import_ged_objects(objects)
         directory = './out/obj/'
         FileUtils.mkdir_p(directory)
 
-        ged.objects.each_value do |instance|
+        objects.each_value do |instance|
             new_path = "#{directory}/#{instance.short_id}.#{instance.format}"
             FileUtils.cp(instance.file, new_path)
         end

@@ -8,8 +8,8 @@ class PersonPageBuilder < BasePageBuilder
         @styles = ['person']
     end
 
-    def build(instance, language)
+    def build(instance, languages)
         file_name = "#{instance.short_id}.html"
-        super(instance, language, file_name)
+        super(instance, languages, file_name)
     end
 end
