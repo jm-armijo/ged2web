@@ -4,7 +4,7 @@ class PersonPageBuilder < BasePageBuilder
     def initialize
         super
         @template_name  = 'person'
-        @directory_name = 'ind'
+        @directory_name = 'person'
         @styles = ['person']
     end
 

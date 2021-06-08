@@ -15,7 +15,7 @@
                 </div>
                 <div class="table-body">
                 <% instance.each do |person| %>
-                    <a href="../ind/<%= person.short_id %>.html" class="table-row">
+                    <a href="../person/<%= person.short_id %>.html" class="table-row">
                         <div class="body-cell sosa"><%= "[#{person.sosa}]" if !person.sosa.nil? %></div>
                         <div class="body-cell last-name"><%= person.last_name %></div>
                         <div class="body-cell first-name"><%= person.first_name %></div>

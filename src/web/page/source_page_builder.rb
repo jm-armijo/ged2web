@@ -4,7 +4,7 @@ class SourcePageBuilder < BasePageBuilder
     def initialize
         super
         @template_name  = 'source'
-        @directory_name = 'src'
+        @directory_name = 'source'
         @styles = []
     end
 

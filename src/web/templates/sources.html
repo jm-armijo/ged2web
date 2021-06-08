@@ -4,7 +4,7 @@
                 <% sources.each do |source| %>
                 <div class="source">
                     [<%= source.short_id %>]: <%= source.title %>. <%= source.text.value.join(', ') %>
-                    <div class="link"><a href="../src/<%= source.short_id %>.html" class="source">[<%= Translator.translate(language, 'View') %>]</a></div>
+                    <div class="link"><a href="../source/<%= source.short_id %>.html" class="source">[<%= Translator.translate(language, 'View') %>]</a></div>
                 </div>
                 <% end %>
             </div>
