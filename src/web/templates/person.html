@@ -5,7 +5,7 @@
 <html lang="<%= language %>">
     <%= HeaderBuilder.build(language, page.styles) %>
     <body>
-        <%= BannerBuilder.build(language) %>
+        <%= BannerBuilder.build(language, page.languages) %>
         <div class="content">
             <div class='full-name'>
                 <div class='first-name'><%= page.data.first_name %></div>

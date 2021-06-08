@@ -9,7 +9,7 @@ class BasePageBuilder
         template = @file_manager.open_template("#{@template_name}.html")
 
         languages.each do |language|
-            page = Page.new(instance, language, @styles)
+            page = Page.new(instance, language, @styles, languages)
             bound_template = template.result(binding)
             directory = "#{language}/#{@directory_name}"
             @file_manager.save_page(bound_template, directory, file_name)

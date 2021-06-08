@@ -24,7 +24,6 @@ body {
   height: 180px;
   width: 100%;
   z-index: 90;
-  cursor: pointer;
   padding: 0px 0px 0px 0px;
   background-color: #1c2240;
   vertical-align: bottom;
@@ -35,21 +34,33 @@ body {
   font-size: 40px;
   text-transform: uppercase;
   text-align: center;
-  padding-top: 20px;
 }
 
 .banner .menu {
-  text-align: center;
   padding-top: 80px;
+  white-space: nowrap;
+  text-align: center;
   font-size: 20px;
 }
 
-.banner .link {
+.menu .link {
   display: inline;
   padding: 0px 7px;
   text-transform: capitalize;
 }
 
+.banner .languages {
+  text-align: right;
+  font-size: 16px;
+  padding-right: 10px;
+}
+
+.languages .language {
+  display: inline;
+  padding: 0px 7px;
+  text-transform: capitalize;
+  width: 100%;
+}
 
 .info {
   border-radius: 10px;

@@ -18,7 +18,7 @@ end
 class BannerBuilder < SectionBuilder
     @file_name = 'banner.html'
 
-    def self.build(language)
+    def self.build(language, languages)
         return template.result(binding)
     end
 end

@@ -1,6 +1,7 @@
 class EnglishTranslator
     def self.translate(key)
         map = {
+            'en'          => 'english',
             'family_tree' => 'family tree',
             'view'        => 'view',
             'tree'        => 'tree',

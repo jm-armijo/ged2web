@@ -5,7 +5,7 @@
 <html lang="<%= language %>">
     <%= HeaderBuilder.build(language, page.styles) %>
     <body>
-        <%= BannerBuilder.build(language) %>
+        <%= BannerBuilder.build(language, page.languages) %>
         <div class="title"><%= instance.title %></div>
         <div class="text">
         <% instance.text.value.each do |line| %>
