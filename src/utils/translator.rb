@@ -1,4 +1,5 @@
 require_relative './translator/english_translator'
+require_relative './translator/spanish_translator'
 
 class Translator
     def self.translate(language, raw_text)
@@ -8,7 +9,8 @@ class Translator
 
     def self.translator(language)
         map = {
-            'en' => EnglishTranslator
+            'en' => EnglishTranslator,
+            'es' => SpanishTranslator
         }
 
         if map.key?(language)
