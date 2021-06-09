@@ -2,8 +2,16 @@ require 'date'
 
 class GedDate
     attr_reader :prefix
+    attr_reader :day
+    attr_reader :month
+    attr_reader :year
 
     def initialize(date)
+        @weekday = ''
+        @day = ''
+        @month = ''
+        @year = ''
+
         if date.nil? || date.value.nil?
             @prefix = nil
             @date = nil
@@ -22,16 +30,19 @@ class GedDate
         date1 <=> date2
     end
 
-    def natural
-        @date.strftime('%-d %B %Y')
-    rescue StandardError
-        return @date
-    end
+    def weekday
+        map = {
+            0  => 'Sunday',
+            1  => 'Monday',
+            2  => 'Tuesday',
+            3  => 'Wednesday',
+            4  => 'Thursday',
+            5  => 'Friday',
+            6  => 'Saturday',
+            '' => ''
+        }
 
-    def year
-        return nil if @date.nil?
-
-        return @date.instance_of?(DateTime) ? @date.year : @date
+        return map[@weekday]
     end
 
     def empty?
@@ -58,8 +69,13 @@ protected
 
             begin
                 @date = DateTime.parse(match[2])
+                @weekday = @date.wday
+                @day = @date.day
+                @month = @date.strftime("%B")
+                @year = @date.year
             rescue StandardError
                 @date = match[2]
+                @year = @date
             end
         end
     end

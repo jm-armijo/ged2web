@@ -6,8 +6,12 @@
                     <div class='event'>
                         <div class="bullet" id="<%= index %>">&nbsp;</div>
                         <div class="type"><%= Translator.translate(language, event.tag) %>:</div>
-                        <% prefix = event.date.prefix.nil? ? '' : '(' + Translator.translate(language, event.date.prefix) + ')'  %>
-                        <div class="date"><%= event.date.natural %><%= '&nbsp;' + prefix %></div>
+                        <%
+                            prefix = event.date.prefix.nil? ? '' : '(' + Translator.translate(language, event.date.prefix) + ')'
+                            weekday =  Translator.translate(language, event.date.weekday).capitalize
+                            month = Translator.translate(language, event.date.month)
+                        %>
+                        <div class="date"><%= "#{weekday}, #{event.date.day} #{month} #{event.date.year}" %><%= '&nbsp;' + prefix %></div>
                         <% if !event.place.nil? && !event.place.value.nil? %>
                         <div class="place">
                             <% url = "https://www.google.com/maps/search/?api=1&query=#{Encoder.encode_url(event.place.value)}" %>
