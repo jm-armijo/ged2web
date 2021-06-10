@@ -7,7 +7,7 @@
     <body>
         <%= BannerBuilder.build(language, page.languages) %>
         <div class="content">
-            <% instance.generations.each_with_index do |generation, generation_number| %>
+            <% page.data.generations.each_with_index do |generation, generation_number| %>
             <div class='generation'>
                 <% generation.nodes.each_with_index do |node, node_number| %>
                     <% if node.class.name == 'Placeholder' %>
@@ -58,7 +58,7 @@
                 function() {
                     "use strict";
                     <%
-                    instance.generations.each do |generation|
+                    page.data.generations.each do |generation|
                         generation.nodes.each do |node|
                             next if node.class.name == 'Placeholder'
 

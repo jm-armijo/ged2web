@@ -13,7 +13,10 @@ class FileManager
         return template
     end
 
-    def save_page(content, directory, file_name)
+    def save_page(content, path)
+        directory = File.dirname(path)
+        file_name = File.basename(path)
+
         directory = "./out/#{directory}/"
         FileUtils.mkdir_p(directory) if !File.directory?(directory)
 

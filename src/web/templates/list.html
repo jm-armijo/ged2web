@@ -14,7 +14,7 @@
                     <div class="header-cell"><%= Translator.translate(language, 'First Name') %></div>
                 </div>
                 <div class="table-body">
-                <% instance.each do |person| %>
+                <% page.data.each do |person| %>
                     <a href="../person/<%= person.short_id %>.html" class="table-row">
                         <div class="body-cell sosa"><%= "[#{person.sosa}]" if !person.sosa.nil? %></div>
                         <div class="body-cell last-name"><%= person.last_name %></div>

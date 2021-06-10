@@ -6,14 +6,14 @@
     <%= HeaderBuilder.build(language, page.styles) %>
     <body>
         <%= BannerBuilder.build(language, page.languages) %>
-        <div class="title"><%= instance.title %></div>
+        <div class="title"><%= page.data.title %></div>
         <div class="text">
-        <% instance.text.value.each do |line| %>
+        <% page.data.text.value.each do |line| %>
             <p><%= line %></p>
         <% end %>
         </div>
         <div class="multimedia">
-        <% instance.multimedia.each do |object| %>
+        <% page.data.multimedia.each do |object| %>
             <div class="row">
                 <div class="title"><%= object.title %></div>
                 <div class="image"><img src="../../<%= object.url %>" alt="<%= object.title %>" /></div>

@@ -1,13 +1,7 @@
 class Page
-    attr_reader :data
-    attr_reader :language
-    attr_reader :styles
-    attr_reader :languages
-
-    def initialize(data, language, styles, languages)
-        @data      = data
-        @language  = language
-        @styles    = styles
-        @languages = languages
-    end
+    attr_accessor :url
+    attr_accessor :data
+    attr_accessor :language
+    attr_accessor :languages
+    attr_accessor :styles
 end
