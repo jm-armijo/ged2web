@@ -69,14 +69,24 @@ protected
 
             begin
                 @date = DateTime.parse(match[2])
-                @weekday = @date.wday
-                @day = @date.day
-                @month = @date.strftime("%B")
-                @year = @date.year
+                @weekday, @day, @month, @year = parse_datetime_object(@date)
             rescue StandardError
                 @date = match[2]
-                @year = @date
+                @weekday, @day, @month, @year = parse_date_string(@date)
             end
         end
+    end
+
+    def parse_datetime_object(date)
+        weekday = date.wday
+        day = date.day
+        month = date.strftime('%B')
+        year = date.year
+
+        return [weekday, day, month, year]
+    end
+
+    def parse_date_string(date)
+        return ['', '', '', date]
     end
 end
