@@ -5,7 +5,7 @@
 <html lang="<%= language %>">
     <%= HeaderBuilder.build(language, page.styles) %>
     <body>
-        <%= BannerBuilder.build(language, page.languages) %>
+        <%= BannerBuilder.build(language, page) %>
         <div class="content">
             <% page.data.generations.each_with_index do |generation, generation_number| %>
             <div class='generation'>

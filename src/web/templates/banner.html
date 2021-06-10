@@ -1,17 +1,17 @@
 <div class="banner">
             <div class="languages">
-            <% languages.each do |language_option| %>
+            <% page.languages.each do |language_option| %>
                 <div class="language">
                 <% language_text = Translator.translate(language_option, language_option) %>
                 <% if language_option == language %>
                     <%=language_text%>
                 <% else %>
-                    <a href="../../<%= language_option %>/tree"><%= language_text %></a>
+                    <a href="../../<%= "#{language_option}/#{page.url}" %>"><%= language_text %></a>
                 <% end %>
                 </div>
             <% end %>
             </div>
-            <div class="title"><%= Translator.translate(language, 'Family Tree') %></div>
+            <div class="title"><%= Translator.translate(page.language, 'Family Tree') %></div>
             <div class="menu">
                 <div class="link"><a href="../tree"><%= Translator.translate(language, 'Tree') %></a></div>
                 <div class="link"><a href="../list"><%= Translator.translate(language, 'List') %></a></div>
