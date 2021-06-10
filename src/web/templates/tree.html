@@ -23,8 +23,8 @@
                             <% if index % 2 == 0; person = link %>
                         <a class="person" id="<%= person.id %>" href="../person/<%= person.short_id %>.html">
                             <% url = person.avatar.nil? ? "img/face.png" : person.avatar.url  %>
-                            <div><img class="avatar" src="../../<%= url %>" /></div>
-                            <div class="info">
+                            <div class="avatar"><img class="avatar" src="../../<%= url %>" /></div>
+                            <div class="info" style="<%= "transform: rotate(#{rand(-6..6)}deg);" %>">
                                 <div class="sosa"><%= person.sosa || '&nbsp;' %></div>
                                 <div class="first-name"><%= person.first_name || '&nbsp;' %></div>
                                 <div class="last-name"><%= person.last_name || '&nbsp;' %></div>
