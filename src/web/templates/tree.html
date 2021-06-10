@@ -58,27 +58,39 @@
                 function() {
                     "use strict";
                     <%
-                    page.data.generations.each do |generation|
+                    page.data.generations.reverse_each do |generation|
+                        gravity = 0
                         generation.nodes.each do |node|
                             next if node.class.name == 'Placeholder'
+                            gravity += 20
+                            gravity = 0 if gravity > 200
 
-                            node.persons.each do |person|
-                                person.parents.each do |parent|
-                                    next if parent.class.name == 'NullFamily'
+                            node.families.uniq(&:id).each do |family|
+                                next if family.class.name == 'NullFamily'
+                                gravity += 20
+                                gravity = 0 if gravity > 200
+
+                                family.children.each do |child|
+                                    next if child.private?
                     %>
+                    try {
                     new LeaderLine (
-                        document.getElementById('<%= person.id %>'),
-                        document.getElementById('<%= parent.id %>'),
+                        document.getElementById('<%= family.id %>'),
+                        document.getElementById('<%= child.id %>'),
                         {
                             color: "#1c2240",
-                            startSocket: "bottom",
-                            endSocket: "top",
-                            path: "magnet",
-                            size: 2,
+                            startSocket: "top",
+                            endSocket: "bottom",
+                            path: "grid",
+                            size: 1,
+                            endSocketGravity: <%= gravity %>,
                             startPlug: "square",
                             endPlug: "square"
                         }
                     );
+                    } catch(err) {
+                        console.log('<%= "Could not connect family #{family.id} to child #{child.id}" %>');
+                    }
 
                     <%
                                 end
