@@ -7,6 +7,7 @@
     <body>
         <%= BannerBuilder.build(language, page) %>
         <div class="content">
+            <% colours = ['#191970', '#871674', '#CC3766', '#F67255', '#650000', '#004E35' ] %>
             <% page.data.generations.each_with_index do |generation, generation_number| %>
             <div class='generation'>
                 <% generation.nodes.each_with_index do |node, node_number| %>
@@ -24,7 +25,7 @@
                         <a class="person" id="<%= person.id %>" href="../person/<%= person.short_id %>.html">
                             <% url = person.avatar.nil? ? "img/face.png" : person.avatar.url  %>
                             <div class="avatar"><img class="avatar" src="../../<%= url %>" /></div>
-                            <div class="info" style="<%= "transform: rotate(#{rand(-6..6)}deg);" %>">
+                            <div class="info">
                                 <div class="sosa"><%= person.sosa || '&nbsp;' %></div>
                                 <div class="first-name"><%= person.first_name || '&nbsp;' %></div>
                                 <div class="last-name"><%= person.last_name || '&nbsp;' %></div>
@@ -69,6 +70,8 @@
                                 next if family.class.name == 'NullFamily'
                                 gravity += 20
                                 gravity = 0 if gravity > 200
+                                colour = colours.shift
+                                colours.push(colour)
 
                                 family.children.each do |child|
                                     next if child.private?
@@ -78,11 +81,11 @@
                         document.getElementById('<%= family.id %>'),
                         document.getElementById('<%= child.id %>'),
                         {
-                            color: "#1c2240",
+                            color: "<%= colour %>",
                             startSocket: "top",
                             endSocket: "bottom",
                             path: "grid",
-                            size: 1,
+                            size: 2,
                             endSocketGravity: <%= gravity %>,
                             startPlug: "square",
                             endPlug: "square"

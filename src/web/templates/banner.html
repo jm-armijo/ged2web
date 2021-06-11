@@ -11,9 +11,10 @@
                 </div>
             <% end %>
             </div>
-            <div class="title"><%= Translator.translate(page.language, 'Family Tree') %></div>
+            <div class="title">Armijo Llanos</div>
+            <div class="subtitle"><%= Translator.translate(page.language, 'Family Tree') %></div>
             <div class="menu">
-                <div class="link"><a href="../tree"><%= Translator.translate(language, 'Tree') %></a></div>
-                <div class="link"><a href="../list"><%= Translator.translate(language, 'List') %></a></div>
+                <a class="button" href="../tree"><div class="link"><%= Translator.translate(language, 'Tree') %></div></a>
+                <a class="button" href="../list"><div class="link"><%= Translator.translate(language, 'List') %></div></a>
             </div>
         </div>
