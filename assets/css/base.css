@@ -6,6 +6,7 @@ body {
   min-width: 100%;
   min-height: 100%;
   background-color: white;
+  color: black;
 }
 
 .content {
@@ -69,7 +70,6 @@ body {
 
 .menu .link {
   display: inline-block;
-  color: black;
   font-size: 16px;
   font-weight: bold;
   text-transform: capitalize;
@@ -93,15 +93,19 @@ body {
 }
 
 .info {
-  border-radius: 10px;
   background-color: #d7e9ff;
-  padding: 5px;
+
+  text-align: left;
 }
 
 a {
-  color: ghostwhite;
+  color: black;
   margin: 0px;
   padding: 0px;
+}
+
+a.language {
+  color: ghostwhite;
 }
 
 .first-name {
@@ -112,4 +116,8 @@ a {
 .last-name {
   display: inline;
   text-transform: uppercase;
+}
+
+div.avatar {
+  background-color: gainsboro;
 }

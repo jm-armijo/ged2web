@@ -41,20 +41,19 @@ body {
 img.avatar {
   border-radius: 20px;
   width: 60px;
+  height: 86px;
 }
 
 div.avatar {
   border-radius: 20px;
-  background-color: gainsboro;
   width: 60px;
-  height: 85.77px;
+  height: 86px;
 }
 
 .person .info {
+  border-radius: 10px;
   vertical-align: middle;
-  text-align: left;
   position: relative;
-  color: black;
   display: inline-block;
   padding: 5px;
 
