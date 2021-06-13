@@ -1,5 +1,9 @@
 /* NAME */
 
+.content {
+  padding-left: 100px;
+}
+
 .full-name {
   padding: 10px 0px 20px 0px;
   font-size: 25px;
