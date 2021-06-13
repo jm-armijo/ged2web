@@ -15,16 +15,22 @@
                 <div class='placeholder' style="width: <%= ((1 + Math.log(node.size) ) ** 2 ) * 200 %>px; ">
                 </div>
                     <% else %>
+                        <% multi_class = node.unions.length > 1 ? 'multi' : '' %>
                         <% if generation_number.zero? && node_number == generation.nodes.length / 2 %>
-                <div class='node' id='focus' tabindex='0'>
+                <div class='node <%= multi_class %>' id='focus' tabindex='0'>
                         <% else %>
-                <div class='node'>
+                <div class='node <%= multi_class %>'>
                         <% end %>
                         <% node.unions.each_with_index do |link, index| %>
                             <% if index % 2 == 0; person = link %>
                         <a class="person" id="<%= person.id %>" href="../person/<%= person.short_id %>.html">
-                            <% url = person.avatar.nil? ? "img/face.png" : person.avatar.url  %>
-                            <div class="avatar"><img class="avatar" src="../../<%= url %>" /></div>
+                            <div class="frame">
+                                <% if person.avatar.nil? %>
+                                <div class="avatar">&nbsp;</div>
+                                <% else %>
+                                <img class="avatar" src="../../<%= person.avatar.url %>" />
+                                <% end %>
+                            </div>
                             <div class="info">
                                 <div class="sosa"><%= person.sosa || '&nbsp;' %></div>
                                 <div class="first-name"><%= person.first_name || '&nbsp;' %></div>
@@ -87,8 +93,8 @@
                             path: "grid",
                             size: 2,
                             endSocketGravity: <%= gravity %>,
-                            startPlug: "square",
-                            endPlug: "square"
+                            startPlug: "behind",
+                            endPlug: "behind"
                         }
                     );
                     } catch(err) {
