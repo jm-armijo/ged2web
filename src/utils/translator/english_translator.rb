@@ -25,7 +25,7 @@ class EnglishTranslator
             'family_tree' => 'family tree',
             'view'        => 'view',
             'tree'        => 'tree',
-            'list'        => 'list',
+            'index'       => 'index',
             'first_name'  => 'first name',
             'last_name'   => 'last name',
             'abbr'        => 'abbreviation',

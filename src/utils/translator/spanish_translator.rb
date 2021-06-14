@@ -25,7 +25,7 @@ class SpanishTranslator
             'family_tree' => 'árbol genealógico',
             'view'        => 'ver',
             'tree'        => 'árbol',
-            'list'        => 'lista',
+            'index'       => 'índice',
             'first_name'  => 'nombre',
             'last_name'   => 'apellido',
             'abbr'        => 'abreviación',

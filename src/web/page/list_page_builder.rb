@@ -4,7 +4,7 @@ class ListPageBuilder < BasePageBuilder
     def initialize
         super
         @template_name  = 'list'
-        @directory_name = 'list'
+        @directory_name = 'index'
         @styles = ['list']
     end
 
