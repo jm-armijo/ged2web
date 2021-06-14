@@ -6,19 +6,24 @@
     <%= HeaderBuilder.build(language, page.styles) %>
     <body>
         <%= BannerBuilder.build(language, page) %>
-        <div class="title"><%= page.data.title %></div>
-        <div class="text">
-        <% page.data.text.value.each do |line| %>
-            <p><%= line %></p>
-        <% end %>
-        </div>
-        <div class="multimedia">
-        <% page.data.multimedia.each do |object| %>
-            <div class="row">
-                <div class="title"><%= object.title %></div>
-                <div class="image"><img src="../../<%= object.url %>" alt="<%= object.title %>" /></div>
+        <div class="content">
+            <div class='content-titles'>
+                <div class='content-title'><%= page.data.title %></div>
             </div>
-        <% end %>
+            <div class="text-bubble">
+            <% page.data.text.value.each do |line| %>
+                <p><%= line %></p>
+            <% end %>
+            </div>
+            <div class="multimedia">
+            <% page.data.multimedia.each do |object| %>
+                <div class="element">
+                    <a href="../../<%= object.url %>"><img class="image" src="../../<%= object.url %>" alt="<%= object.title %>" /></a>
+                    <div class="file-title"><%= object.title %></div>
+                </div>
+            <% end %>
+            </div>
         </div>
+        <%= FooterBuilder.build(language, page) %>
     </body>
 </html>

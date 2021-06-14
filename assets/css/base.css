@@ -10,7 +10,8 @@ body {
 
 .content {
   margin: 0px;
-  padding: 20px;
+  padding: 20px 20px 0px 100px;
+  margin-bottom: 50px;
 }
 
 /* BANNER */
@@ -91,9 +92,13 @@ body {
   width: auto;
 }
 
-.info {
+.text-bubble {
+  border-radius: 20px;
   background-color: #d7e9ff;
   text-align: left;
+
+  vertical-align: top;
+  padding: 20px;
 }
 
 a {
@@ -107,12 +112,10 @@ a.language {
 }
 
 .first-name {
-  display: inline;
   text-transform: capitalize;
 }
 
 .last-name {
-  display: inline;
   text-transform: uppercase;
 }
 
@@ -134,4 +137,20 @@ div.avatar {
 
 .copyright {
   padding: 20px 20px 10px 0px;
+}
+
+.content-titles {
+  padding: 10px 0px 20px 0px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-title {
+  display: inline;
+  font-size: 25px;
+}
+
+.content-subtitle {
+  display: inline;
+  font-size: 20px;
 }

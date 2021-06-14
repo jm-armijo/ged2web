@@ -7,9 +7,9 @@
     <body>
         <%= BannerBuilder.build(language, page) %>
         <div class="content">
-            <div class='full-name'>
-                <div class='first-name'><%= page.data.first_name %></div>
-                <div class='last-name'><%= page.data.last_name %></div>
+            <div class='content-titles'>
+                <div class='content-subtitle first-name'><%= page.data.first_name %></div>
+                <div class='content-title last-name'><%= page.data.last_name %></div>
                 <%= ReferencesBuilder.build(language, page.data.references) %>
             </div>
             <div class="biography">
@@ -20,7 +20,7 @@
                     <img class="avatar" src="../../<%= page.data.avatar.url %>" />
                     <% end %>
                 </div>
-                <div class='info'>
+                <div class='text-bubble'>
                     <div class='row'>
                         <div class='label'>Sosa:</div>
                         <div class="value"><%= page.data.sosa %></div>

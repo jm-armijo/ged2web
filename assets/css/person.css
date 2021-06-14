@@ -1,14 +1,11 @@
 /* NAME */
 
-.content {
-  padding-left: 100px;
+.row .first-name {
+  display: inline;
 }
 
-.full-name {
-  padding: 10px 0px 20px 0px;
-  font-size: 25px;
-  text-align: left;
-  font-weight: bold;
+.row .last-name {
+  display: inline;
 }
 
 /* INFO */
@@ -24,16 +21,10 @@
   display: inline-block;
 }
 
-.info {
-  border-radius: 30px;
+.text-bubble {
   flex: 0 1 auto;
-  display: inline-block;
-
-  width: 700px;
-  display: inline-block;
-  vertical-align: top;
+  width: 1000px;
   margin-left: 15px;
-  padding: 20px;
 }
 
 img.avatar {
@@ -48,16 +39,16 @@ div.avatar {
   height: 236px;
 }
 
-.info .row {
+.row {
   display: table-row;
 }
 
-.info .row .label {
+.row .label {
   display: table-cell;
   text-transform: capitalize;
 }
 
-.info .row .value {
+.row .value {
   display: table-cell;
   padding: 0px 0px 0px 5px;
   text-transform: capitalize;
@@ -69,6 +60,7 @@ div.avatar {
   display: inline-block;
   vertical-align: top;
   padding: 20px 0px 0px 10px;
+  width: 1200px;
 }
 
 .event {

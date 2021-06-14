@@ -5,7 +5,7 @@ class SourcePageBuilder < BasePageBuilder
         super
         @template_name  = 'source'
         @directory_name = 'source'
-        @styles = []
+        @styles = ['source']
     end
 
     def build(instance, languages)
