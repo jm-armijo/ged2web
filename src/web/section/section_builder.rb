@@ -23,6 +23,14 @@ class BannerBuilder < SectionBuilder
     end
 end
 
+class FooterBuilder < SectionBuilder
+    @file_name = 'footer.html'
+
+    def self.build(language, page)
+        return template.result(binding)
+    end
+end
+
 class ReferencesBuilder < SectionBuilder
     @file_name = 'references.html'
 

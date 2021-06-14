@@ -23,6 +23,7 @@ class SpanishTranslator
             'november'    => 'noviembre',
             'december'    => 'diciembre',
             'family_tree' => 'árbol genealógico',
+            'built_with'  => 'construido con',
             'view'        => 'ver',
             'tree'        => 'árbol',
             'index'       => 'índice',

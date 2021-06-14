@@ -23,6 +23,7 @@ class EnglishTranslator
             'november'    => 'November',
             'december'    => 'December',
             'family_tree' => 'family tree',
+            'built_with'  => 'built with',
             'view'        => 'view',
             'tree'        => 'tree',
             'index'       => 'index',
