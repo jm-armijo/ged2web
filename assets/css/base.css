@@ -10,7 +10,7 @@ body {
 
 .content {
   margin: 0px;
-  padding: 20px 20px 0px 100px;
+  padding: 50px 20px 0px 60px;
   margin-bottom: 50px;
 }
 
@@ -99,6 +99,16 @@ body {
 
   vertical-align: top;
   padding: 20px;
+}
+
+.white-bubble {
+  border-radius: 20px;
+  text-align: left;
+
+  vertical-align: middle;
+  padding: 15px;
+  border: 1px solid black;
+  width: 883px;
 }
 
 a {

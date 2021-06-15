@@ -14,8 +14,11 @@
                     <div class="header-cell"><%= Translator.translate(language, 'First Name') %></div>
                 </div>
                 <div class="table-body">
-                <% page.data.each do |person| %>
-                    <a href="../person/<%= person.short_id %>.html" class="table-row">
+                <% page.data.each_with_index do |person, index|
+                    url = "../person/#{person.short_id}.html"
+                    style = index % 2 == 0 ? 'odd' : 'even'
+                %>
+                    <a href="<%= url %>" class="table-row <%= style %>">
                         <div class="body-cell sosa"><%= "[#{person.sosa}]" if !person.sosa.nil? %></div>
                         <div class="body-cell last-name"><%= person.last_name %></div>
                         <div class="body-cell first-name"><%= person.first_name %></div>

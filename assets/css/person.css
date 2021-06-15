@@ -23,8 +23,13 @@
 
 .text-bubble {
   flex: 0 1 auto;
-  width: 1000px;
+  width: 381px;
+  min-height: 196px;
   margin-left: 15px;
+}
+
+.white-bubble {
+  margin-top: 30px;
 }
 
 img.avatar {

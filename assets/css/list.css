@@ -1,17 +1,18 @@
 .table {
-  padding: 30px 0px 0px 50px;
 }
 
 .table-header {
   display: table-header-group;
+  background-color: #283049;
+  color: ghostwhite;
 }
 
 .header-cell {
   display: table-cell;
-  padding-bottom: 5px;
-  padding-right: 10px;
+  padding: 5px 10px 5px 5px;
   font-weight: bold;
   text-transform: uppercase;
+  vertical-align: middle;
 }
 
 .table-body {
@@ -25,9 +26,13 @@
 
 .body-cell {
   display: table-cell;
-  padding-right: 10px;
+  padding: 0px 10px 0px 5px;
 }
 
 .sosa {
   text-align: right;
+}
+
+.even {
+  background-color: #d7e9ff;
 }

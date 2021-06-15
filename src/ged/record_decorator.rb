@@ -25,6 +25,16 @@ class RecordDecorator < Record
         return find_all('NOTE')
     end
 
+    def notes?
+        notes.each do |note|
+            note.parts.each do |part|
+                return true if part.strip! != ''
+            end
+        end
+
+        return false
+    end
+
     def multimedia
         return find_all('OBJE')
     end
