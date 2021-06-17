@@ -30,28 +30,31 @@ body {
 
 .generation .multi {
   border: 1px solid black;
+  padding: 0px 20px;
 }
 
 .node .person {
   display: inline-block;
+  margin: 20px 0px;
 }
 
 .person div.frame {
-  display: inline-block;
+  display: block;
   vertical-align: middle;
   margin: 5px 0px;
 }
 
 img.avatar {
   border-radius: 20px;
-  width: 60px;
-  height: 86px;
+  width: 120px;
+  height: 171px;
 }
 
 div.avatar {
+  display: inline-block;
   border-radius: 20px;
-  width: 60px;
-  height: 86px;
+  width: 120px;
+  height: 171px;
 }
 
 .person .text-bubble {
@@ -69,8 +72,8 @@ div.avatar {
   border-width: 0px;
   display: inline-block;
   vertical-align: top;
-  padding-top: 23px;
-  width: 15px;
+  padding-top: 43px;
+  width: 20px;
 }
 
 .node .first-name {
