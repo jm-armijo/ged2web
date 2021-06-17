@@ -6,7 +6,7 @@ require_relative 'src/main'
 option_parser = GedOptionParser.new
 options = option_parser.parse ARGV
 
-languages = ['en', 'es']
+languages = ['en', 'es', 'fr']
 
 main = Main.instance
 main.execute(options.gedcom, languages)
