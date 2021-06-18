@@ -3,7 +3,7 @@
 <% language = page.language %>
 <!DOCTYPE html>
 <html lang="<%= language %>">
-    <%= HeaderBuilder.build(language, page.styles) %>
+    <%= HeaderBuilder.build(language, page) %>
     <body>
         <%= BannerBuilder.build(language, page) %>
         <div class="content">
@@ -23,7 +23,7 @@
                         <% end %>
                         <% node.unions.each_with_index do |link, index| %>
                             <% if index % 2 == 0; person = link %>
-                        <a class="person" id="<%= person.id %>" href="../person/<%= person.short_id %>.html">
+                        <a class="person" id="<%= person.id %>" href="../person/<%= person.short_id %>/index.html">
                             <div class="frame">
                                 <% if person.avatar.nil? %>
                                 <div class="avatar">&nbsp;</div>

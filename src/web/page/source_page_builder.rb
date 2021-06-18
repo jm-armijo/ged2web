@@ -4,12 +4,12 @@ class SourcePageBuilder < BasePageBuilder
     def initialize
         super
         @template_name  = 'source'
-        @directory_name = 'source'
         @styles = ['source']
     end
 
     def build(instance, languages)
-        file_name = "#{instance.short_id}.html"
+        @directory_name = "source/#{instance.short_id}"
+        file_name = 'index.html'
         super(instance, languages, file_name)
     end
 end

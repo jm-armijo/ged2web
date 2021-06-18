@@ -1,12 +1,13 @@
 <div class="banner">
             <div class="languages">
+            <% base_dir = '../' * page.url.split(File::SEPARATOR).length %>
             <% page.languages.each do |language_option| %>
                 <div class="language">
                 <% language_text = Translator.translate(language_option, language_option) %>
                 <% if language_option == language %>
                     <%=language_text%>
                 <% else %>
-                    <a class="language" href="../../<%= "#{language_option}/#{page.url}" %>"><%= language_text %></a>
+                <a class="language" href="<%= "#{base_dir}#{language_option}/#{page.url}" %>"><%= language_text %></a>
                 <% end %>
                 </div>
             <% end %>
@@ -17,8 +18,8 @@
                     <div class="subtitle"><%= Translator.translate(page.language, 'Family Tree') %></div>
                 </div>
                 <div class="menu">
-                    <a class="link" href="../tree"><%= Translator.translate(language, 'Tree') %></a>
-                    <a class="link" href="../index"><%= Translator.translate(language, 'Index') %></a>
+                    <a class="link" href="<%= "#{base_dir}#{language}/" %>tree"><%= Translator.translate(language, 'Tree') %></a>
+                    <a class="link" href="<%= "#{base_dir}#{language}/" %>index"><%= Translator.translate(language, 'Index') %></a>
                 </div>
             </div>
         </div>

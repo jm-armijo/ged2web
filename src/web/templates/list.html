@@ -3,7 +3,7 @@
 <% language = page.language %>
 <!DOCTYPE html>
 <html lang="<%= language %>">
-    <%= HeaderBuilder.build(language, page.styles) %>
+    <%= HeaderBuilder.build(language, page) %>
     <body>
         <%= BannerBuilder.build(language, page) %>
         <div class="content">
@@ -15,7 +15,7 @@
                 </div>
                 <div class="table-body">
                 <% page.data.each_with_index do |person, index|
-                    url = "../person/#{person.short_id}.html"
+                    url = "../person/#{person.short_id}/index.html"
                     style = index % 2 == 0 ? 'odd' : 'even'
                 %>
                     <a href="<%= url %>" class="table-row <%= style %>">

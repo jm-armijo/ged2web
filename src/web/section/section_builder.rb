@@ -10,7 +10,7 @@ end
 class HeaderBuilder < SectionBuilder
     @file_name = 'header.html'
 
-    def self.build(language, styles)
+    def self.build(language, page)
         return template.result(binding)
     end
 end

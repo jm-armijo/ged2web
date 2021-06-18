@@ -3,7 +3,7 @@
 <% language = page.language %>
 <!DOCTYPE html>
 <html lang="<%= language %>">
-    <%= HeaderBuilder.build(language, page.styles) %>
+    <%= HeaderBuilder.build(language, page) %>
     <body>
         <%= BannerBuilder.build(language, page) %>
         <div class="content">
@@ -18,7 +18,7 @@
             <div class="white-bubble">
             <% page.data.multimedia.each do |object| %>
                 <div class="element">
-                    <a href="../../<%= object.url %>"><img class="image" src="../../<%= object.url %>" alt="<%= object.title %>" /></a>
+                    <a href="../../../<%= object.url %>"><img class="image" src="../../../<%= object.url %>" alt="<%= object.title %>" /></a>
                     <div class="file-title"><%= object.title %></div>
                 </div>
             <% end %>
