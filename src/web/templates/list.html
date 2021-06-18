@@ -15,7 +15,7 @@
                 </div>
                 <div class="table-body">
                 <% page.data.each_with_index do |person, index|
-                    url = "../person/#{person.short_id}/index.html"
+                    url = "../person/#{person.short_id}/"
                     style = index % 2 == 0 ? 'odd' : 'even'
                 %>
                     <a href="<%= url %>" class="table-row <%= style %>">

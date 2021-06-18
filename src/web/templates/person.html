@@ -35,7 +35,7 @@
                         <% if !page.data.father.nil? && page.data.father.class.name != 'NullPerson' %>
                         <div class='label'><%= Translator.translate(language, 'Father') %>:</div>
                         <div class='name value'>
-                            <a href="../../person/<%= page.data.father.short_id %>/index.html">
+                            <a href="../../person/<%= page.data.father.short_id %>/">
                                 <div class='first-name'><%= page.data.father.first_name %></div>
                                 <div class='last-name'><%= page.data.father.last_name %></div>
                             </a>
@@ -46,7 +46,7 @@
                         <% if !page.data.mother.nil? && page.data.mother.class.name != 'NullPerson' %>
                         <div class='label'><%= Translator.translate(language, 'Mother') %>:</div>
                         <div class='name value'>
-                            <a href="../../person/<%= page.data.mother.short_id %>/index.html">
+                            <a href="../../person/<%= page.data.mother.short_id %>/">
                                 <div class='first-name'><%= page.data.mother.first_name %></div>
                                 <div class='last-name'><%= page.data.mother.last_name %></div>
                             </a>
