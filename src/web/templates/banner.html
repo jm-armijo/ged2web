@@ -7,7 +7,7 @@
                 <% if language_option == language %>
                     <%=language_text%>
                 <% else %>
-                <a class="language" href="<%= "#{base_dir}#{language_option}/#{page.url}" %>"><%= language_text %></a>
+                <a class="language" href="<%= "#{base_dir}#{language_option}/#{page.url.sub('index.html', '')}" %>"><%= language_text %></a>
                 <% end %>
                 </div>
             <% end %>
