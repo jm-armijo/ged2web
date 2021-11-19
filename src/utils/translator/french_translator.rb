@@ -173,6 +173,7 @@ class FrenchTranslator
             'titl'        => 'titre',
             'trlr'        => 'fin du fichier',
             'type'        => 'type',
+            'u'           => 'indéfini',
             'vers'        => 'version',
             'wife'        => 'épouse',
             'will'        => 'testament'

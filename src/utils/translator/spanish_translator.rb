@@ -173,6 +173,7 @@ class SpanishTranslator
             'titl'        => 'título',
             'trlr'        => 'fin del archivo',
             'type'        => 'tipo',
+            'u'           => 'indefinido',
             'vers'        => 'versión',
             'wife'        => 'esposa',
             'will'        => 'testamento'

@@ -173,6 +173,7 @@ class EnglishTranslator
             'titl'        => 'title',
             'trlr'        => 'trailer',
             'type'        => 'type',
+            'u'           => 'undefined',
             'vers'        => 'version',
             'wife'        => 'wife',
             'will'        => 'will'
